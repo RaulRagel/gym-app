@@ -1,0 +1,14 @@
+{
+  "dias": 4,
+  "ejercicios": {
+    "1": {
+      "nombre": "Ejercicio 1",
+      "descripcion": "Descripción del ejercicio 1",
+      "series": 3,
+      "repeticiones": 10,
+      "peso": 0,
+      "orden": 1,
+      "musculo": "Pecho"
+    }
+  }
+}
