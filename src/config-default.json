@@ -1,14 +1,368 @@
 {
-  "dias": 4,
-  "ejercicios": {
-    "1": {
-      "nombre": "Ejercicio 1",
-      "descripcion": "Descripción del ejercicio 1",
-      "series": 3,
-      "repeticiones": 10,
-      "peso": 0,
-      "orden": 1,
-      "musculo": "Pecho"
-    }
+  "dia1": {
+    "nombre": "Día 1",
+    "descripcion": "Tren superior con énfasis en espalda y triceps",
+    "ejercicios": [
+      {
+        "nombre": "Calentamiento",
+        "descripcion": "Cinta 5 min",
+        "alternativa": {},
+        "series": 1,
+        "repeticiones": 1,
+        "pesos": [],
+        "orden": 0,
+        "musculo": "general"
+      },
+      {
+        "nombre": "Dominadas",
+        "descripcion": "Dominadas asistidas",
+        "alternativa": {},
+        "series": 3,
+        "repeticiones": 3,
+        "pesos": [],
+        "orden": 1,
+        "musculo": "espalda"
+      },
+      {
+        "nombre": "Lat Pulley",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [42, 50],
+        "orden": 2,
+        "musculo": "espalda"
+      },
+      {
+        "nombre": "Seated Row",
+        "descripcion": "",
+        "alternativa": {
+          "nombre": "45",
+          "descripcion": "",
+          "pesos": []
+        },
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [30, 35],
+        "orden": 3,
+        "musculo": "espalda"
+      },
+      {
+        "nombre": "Seated Dip",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 1,
+        "repeticiones": 3,
+        "pesos": [],
+        "orden": 4,
+        "musculo": "triceps"
+      },
+      {
+        "nombre": "Tríceps en polea",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [20, 25],
+        "orden": 5,
+        "musculo": "triceps"
+      },
+      {
+        "nombre": "Shoulder Press",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [25, 30],
+        "orden": 6,
+        "musculo": "hombros"
+      },
+      {
+        "nombre": "Elevacion de piernas",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 1,
+        "repeticiones": 10,
+        "pesos": [],
+        "orden": 7,
+        "musculo": "abdominales"
+      }
+    ]
+  },
+  "dia2": {
+    "nombre": "Día 2",
+    "descripcion": "Tren inferior con integración de tren superior",
+    "ejercicios": [
+      {
+        "nombre": "Calentamiento",
+        "descripcion": "Cinta 5 min",
+        "alternativa": {},
+        "series": 1,
+        "repeticiones": 1,
+        "pesos": [],
+        "orden": 0,
+        "musculo": "general"
+      },
+      {
+        "nombre": "Incline Bench Press",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [25, 30],
+        "orden": 1,
+        "musculo": "pecho"
+      },
+      {
+        "nombre": "Butterfly",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [25, 30],
+        "orden": 2,
+        "musculo": "pecho"
+      },
+      {
+        "nombre": "Bicep Curl",
+        "descripcion": "",
+        "alternativa": {
+          "nombre": "Mancuerna",
+          "descripcion": "",
+          "pesos": [7.5, 10]
+        },
+        "series": 1,
+        "repeticiones": 3,
+        "pesos": [25],
+        "orden": 3,
+        "musculo": "biceps"
+      },
+      {
+        "nombre": "Deltoid Raise",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [20, 25],
+        "orden": 4,
+        "musculo": "hombros"
+      },
+      {
+        "nombre": "Prensa de piernas",
+        "descripcion": "",
+        "alternativa": {
+          "nombre": "Prensa en máquina",
+          "descripcion": "",
+          "pesos": [95, 102.5]
+        },
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [20, 25],
+        "orden": 5,
+        "musculo": "piernas"
+      },
+      {
+        "nombre": "Piernas al culo",
+        "descripcion": "",
+        "alternativa": {
+          "nombre": "nivel 6",
+          "descripcion": "",
+          "pesos": []
+        },
+        "series": 1,
+        "repeticiones": 3,
+        "pesos": [30, 35],
+        "orden": 6,
+        "musculo": "piernas"
+      }
+    ]
+  },
+  "dia3": {
+    "nombre": "Día 3",
+    "descripcion": "Tren superior con énfasis en pecho, bíceps y hombros",
+    "ejercicios": [
+      {
+        "nombre": "Calentamiento",
+        "descripcion": "Cinta 5 min",
+        "alternativa": {},
+        "series": 1,
+        "repeticiones": 1,
+        "pesos": [],
+        "orden": 0,
+        "musculo": "general"
+      },
+      {
+        "nombre": "Seated Chest Press",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [45, 50],
+        "orden": 1,
+        "musculo": "pecho"
+      },
+      {
+        "nombre": "Butterfly",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [25, 30],
+        "orden": 2,
+        "musculo": "pecho"
+      },
+      {
+        "nombre": "Bicep Curl",
+        "descripcion": "",
+        "alternativa": {
+          "nombre": "Mancuerna",
+          "descripcion": "",
+          "pesos": [10]
+        },
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [35, 40],
+        "orden": 3,
+        "musculo": "biceps"
+      },
+      {
+        "nombre": "Deltoid raise",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [20, 25],
+        "orden": 4,
+        "musculo": "hombros"
+      },
+      {
+        "nombre": "Shoulder Press (maq)",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [20, 25],
+        "orden": 5,
+        "musculo": "hombros"
+      },
+      {
+        "nombre": "Dominadas",
+        "descripcion": "Dominadas asistidas",
+        "alternativa": {},
+        "series": 3,
+        "repeticiones": 3,
+        "pesos": [],
+        "orden": 6,
+        "musculo": "espalda"
+      },
+      {
+        "nombre": "Long Pull",
+        "descripcion": "",
+        "alternativa": {
+          "nombre": "50",
+          "descripcion": "",
+          "pesos": []
+        },
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [35, 42.5],
+        "orden": 7,
+        "musculo": "espalda"
+      }
+    ]
+  },
+  "dia4": {
+    "nombre": "Día 4",
+    "descripcion": "Todo el cuerpo con énfasis en espalda y brazos",
+    "ejercicios": [
+      {
+        "nombre": "Calentamiento",
+        "descripcion": "Cinta 5 min",
+        "alternativa": {},
+        "series": 1,
+        "repeticiones": 1,
+        "pesos": [],
+        "orden": 0,
+        "musculo": "general"
+      },
+      {
+        "nombre": "Jalón de espalda con barra",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [40, 50],
+        "orden": 1,
+        "musculo": "espalda"
+      },
+      {
+        "nombre": "Seated Row",
+        "descripcion": "",
+        "alternativa": {
+          "nombre": "42.5",
+          "descripcion": "",
+          "pesos": []
+        },
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [30, 35],
+        "orden": 2,
+        "musculo": "espalda"
+      },
+      {
+        "nombre": "Fondos de tríceps asistidos",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 1,
+        "repeticiones": 3,
+        "pesos": [-30],
+        "orden": 3,
+        "musculo": "triceps"
+      },
+      {
+        "nombre": "Seated dip",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [50, 57],
+        "orden": 4,
+        "musculo": "triceps"
+      },
+      {
+        "nombre": "Deltoid Raise",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [25, 30],
+        "orden": 5,
+        "musculo": "hombros"
+      },
+      {
+        "nombre": "Leg extension",
+        "descripcion": "",
+        "alternativa": {},
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [50, 55],
+        "orden": 6,
+        "musculo": "piernas"
+      },
+      {
+        "nombre": "Prensa de piernas",
+        "descripcion": "",
+        "alternativa": {
+          "nombre": "Prensa en máquina",
+          "descripcion": "En la última, 20-20-30 arriba",
+          "pesos": [95, 102.5]
+        },
+        "series": 2,
+        "repeticiones": 3,
+        "pesos": [60, 70],
+        "orden": 7,
+        "musculo": "piernas"
+      }
+    ]
   }
 }
