@@ -1,0 +1,26 @@
+App gimnasio: puedes crear grupos musculares y luego seleccionarlos para que ponga "grupos musculares en este ejercicio: tríceps 3, bíceps 2.." y si modificas tu peso en press banca se aplica a todos los press banca de la app
+
+Tienes una plantilla que generas poniendo los días que quieres
+
+En cada día puedes ir eligiendo los grupos musculares a los que previamente has tenido que asignar un peso
+
+Hacer un botón para editar los pesos
+
+Cada ejercicio tiene su propio botón de editar al lado para editar solo ese
+
+Los días se pueden plegar y desplegar
+
+Puedes mover los ejercicios para cambiar el orden
+
+Puedes marcarlos como completado
+Hay un botón de apuntes al lado para poner lo que pondrías en los asteriscos
+
+Estaría bien marcar un historial para cuando quieras guardar saber cuánto peso hacías
+
+En los ajustes del día puedes restablecer los valores de completado, o completar todo
+
+Incluso según el día se puede marcar el día en el que estás
+
+En casa ejercicio estableces, series, peso por serie, repeticiones por serie
+
+Hacer "usuarios" para que según el usuario haya unos pesos u otros

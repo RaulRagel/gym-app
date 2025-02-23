@@ -1,0 +1,133 @@
+{
+    "ejercicios": [
+        {
+            "nombre": "Calentamiento",
+            "descripcion": "Cinta 5 min",
+            "series": 1,
+            "repeticiones": 1,
+            "pesos": [],
+            "musculo": "general"
+        },
+        {
+            "nombre": "Dominadas",
+            "descripcion": "Dominadas asistidas",
+            "series": 3,
+            "repeticiones": 3,
+            "pesos": [],
+            "musculo": "espalda"
+        },
+        {
+            "nombre": "Lat Pulley",
+            "descripcion": "Polea al pecho",
+            "series": 2,
+            "repeticiones": 3,
+            "pesos": [42, 50],
+            "musculo": "espalda"
+        },
+        {
+            "nombre": "Seated Row",
+            "descripcion": "Remo sentado",
+            "series": 2,
+            "repeticiones": 3,
+            "pesos": [30, 35, 45, 42.5],
+            "musculo": "espalda"
+        },
+        {
+            "nombre": "Fondos de tríceps asistidos",
+            "descripcion": "",
+            "series": 1,
+            "repeticiones": 3,
+            "pesos": [-30],
+            "musculo": "triceps"
+        },
+        {
+            "nombre": "Tríceps en polea",
+            "descripcion": "",
+            "series": 2,
+            "repeticiones": 3,
+            "pesos": [20, 25],
+            "musculo": "triceps"
+        },
+        {
+            "nombre": "Shoulder Press",
+            "descripcion": "Press de hombros",
+            "series": 2,
+            "repeticiones": 3,
+            "pesos": [25, 30],
+            "musculo": "hombros"
+        },
+        {
+            "nombre": "Elevación de piernas",
+            "descripcion": "",
+            "series": 1,
+            "repeticiones": 10,
+            "pesos": [],
+            "musculo": "abdominales"
+        },
+        {
+            "nombre": "Incline Bench Press",
+            "descripcion": "Press inclinado",
+            "series": 2,
+            "repeticiones": 3,
+            "pesos": [25, 30],
+            "musculo": "pecho"
+        },
+        {
+            "nombre": "Butterfly",
+            "descripcion": "Mariposa",
+            "series": 2,
+            "repeticiones": 3,
+            "pesos": [25, 30],
+            "musculo": "pecho"
+        },
+        {
+            "nombre": "Bicep Curl",
+            "descripcion": "Curl de bíceps",
+            "series": 2,
+            "repeticiones": 3,
+            "pesos": [25, 35, 40, 7.5, 10],
+            "musculo": "biceps"
+        },
+        {
+            "nombre": "Deltoid Raise",
+            "descripcion": "Elevación de deltoides",
+            "series": 2,
+            "repeticiones": 3,
+            "pesos": [20, 25, 30],
+            "musculo": "hombros"
+        },
+        {
+            "nombre": "Leg extension",
+            "descripcion": "Extensión de piernas",
+            "series": 2,
+            "repeticiones": 3,
+            "pesos": [50, 55],
+            "musculo": "piernas"
+        },
+        {
+            "nombre": "Prensa de piernas",
+            "descripcion": "",
+            "series": 2,
+            "repeticiones": 3,
+            "pesos": [20, 25, 60, 70, 95, 102.5],
+            "musculo": "piernas"
+        },
+        {
+            "nombre": "Prensa en máquina",
+            "descripcion": "En la última, 20-20-30 arriba",
+            "series": 2,
+            "repeticiones": 3,
+            "pesos": [95, 102.5],
+            "musculo": "piernas"
+        },
+        {
+            "nombre": "Piernas al culo",
+            "descripcion": "",
+            "series": 1,
+            "repeticiones": 3,
+            "pesos": [30, 35],
+            "musculo": "piernas"
+        }
+    ]
+}
+  

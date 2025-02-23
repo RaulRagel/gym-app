@@ -14,7 +14,7 @@ async function writeConfig() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(config, null, 2)
+        body: JSON.stringify(config, null, 4)
     });
     if (response.ok) {
         console.log('Configuración guardada en config.json');
