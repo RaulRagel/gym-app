@@ -29,7 +29,15 @@
             "descripcion": "Remo sentado",
             "series": 3,
             "repeticiones": 10,
-            "pesos": [30, 35, 45, 42.5],
+            "pesos": [30, 35],
+            "musculo": "Espalda"
+        },
+        {
+            "nombre": "Long pull",
+            "descripcion": "Remo largo",
+            "series": 3,
+            "repeticiones": 10,
+            "pesos": [35, 42.5],
             "musculo": "Espalda"
         },
         {

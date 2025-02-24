@@ -79,6 +79,7 @@ body {
     padding: 0.5rem 0;
     border-bottom: 1px solid #ababab;
     text-align: center;
+    cursor: pointer;
 }
 
 .ex > div {

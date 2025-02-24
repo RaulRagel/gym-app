@@ -1,56 +1,61 @@
-var config, exs;
+var days, exs;
 
 const PATHS = {
     config: './src/config.json',
-    defaultConfig: './src/config-default.json',
+    days: './src/days.json',
     exs: './src/ejercicios.json',
 };
 
 document.addEventListener('DOMContentLoaded', async function () {
-    config = await readJSON(PATHS.defaultConfig);
+    days = await readJSON(PATHS.days);
     exs = await readJSON(PATHS.exs);
-    console.log('Config', config);
-    console.log('Exs', exs);
+    console.log('Dias', days);
+    console.log('Ejercicios', exs);
+
+    renderExs();
 });
 
-/** Leer información del archivo JSON */
-async function readJSON(path) {
-    const response = await fetch(path);
-    if (response.ok) {
-        return await response.json();
-    } else {
-        console.error('Error al leer la configuración');
-    }
-}
-
-/** Guardar información en el archivo JSON */
-async function writeJSON() {
-    const response = await fetch(configPath, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(config, null, 4)
+function renderExs() {
+    const container = document.querySelector('.container');
+    container.innerHTML = '';
+    days.dias.forEach(day => {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'day';
+        dayElement.innerHTML = `
+            <div class="dropdown" onclick="toggleExs(this)">
+                <div class="title">${day.nombre}</div>
+                <div class="icon">⬇️</div>
+            </div>
+            <div class="exs">
+            </div>
+        `;
+        const exsElement = dayElement.querySelector('.exs');
+        day.ejercicios.forEach(exName => {
+            const ex = exs.ejercicios.find(e => e.nombre === exName);
+            if (ex) {
+                const exElement = document.createElement('div');
+                exElement.className = 'ex';
+                exElement.innerHTML = `
+                    <div class="ex-muscle">${ex.musculo}</div>
+                    <div class="ex-title">${ex.nombre}</div>
+                    <div class="ex-wg">${ex.pesos.join(', ')}</div>
+                    <div class="ex-sets">${ex.series} x ${ex.repeticiones}</div>
+                `;
+                exsElement.appendChild(exElement);
+            }
+        });
+        container.appendChild(dayElement);
     });
-    if (response.ok) {
-        console.log('Configuración guardada en config.json');
-    } else {
-        console.error('Error al guardar la configuración');
-    }
 }
-
-// function updateJSON() {
-//     writeJSON();
-// }
 
 function toggleExs(element) {
     const exs = element.nextElementSibling;
     const icon = element.querySelector('.icon');
     if (exs.classList.contains('show')) {
         exs.classList.remove('show');
-        icon.innerHTML = '⬇️'; // Cambiar icono a flecha hacia abajo
+        icon.innerHTML = '⬇️';
     } else {
         exs.classList.add('show');
-        icon.innerHTML = '⬆️'; // Cambiar icono a flecha hacia arriba
+        icon.innerHTML = '⬆️';
     }
 }
