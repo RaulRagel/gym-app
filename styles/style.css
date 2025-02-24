@@ -8,6 +8,7 @@ body {
 .header {
     background-color: #333;
     color: #fff;
+    font-size: 4vw;
     font-weight: 600;
     padding: 1rem;
     display: flex;
@@ -26,25 +27,74 @@ body {
 }
 
 .day {
-    display: flex;
+    background-color: #fff;
+    border: 1px solid #ababab;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    background-color: #fff;
     margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.icon {
+.dropdown {
+    background-color: #e7e7e7;
+    border: 2px solid #ababab;
+    font-size: 3vw;
+    font-weight: 600;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    box-sizing: border-box;
     cursor: pointer;
+    border-radius: 10px;
+    user-select: none;
+}
+
+.dropdown .title {
+    line-height: 3vh;
+    height: 3vh;
+}
+
+.dropdown .icon {
     font-size: 1.5rem;
 }
 
 .exs {
-    display: none;
-    margin-top: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease, padding 0.2s ease;
+    padding: 0 1rem; /* Ajusta el padding horizontal */
 }
+
+.exs.show {
+    max-height: 1000px; /* Ajusta este valor según sea necesario */
+    padding: 1rem; /* Ajusta el padding completo cuando está visible */
+}
+
+.ex {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #ababab;
+    text-align: center;
+}
+
+.ex > div {
+    flex: 1;
+}
+
+.ex:hover {
+    background-color: #f7f7f7;
+}
+
+.ex-muscle, .ex-sets {
+    font-size: 2vw;
+    color: #9f1212;
+    font-weight: 600;
+}
+
 
 /* Estilos para dispositivos móviles */
 @media (max-width: 600px) {
@@ -60,23 +110,6 @@ body {
         width: 100%;
         padding: 1rem;
         font-size: 1rem;
-    }
-}
-
-/* Estilos para dispositivos más grandes */
-@media (min-width: 601px) {
-    header {
-        font-size: 2rem;
-    }
-
-    .container {
-        padding: 2rem;
-    }
-
-    .button {
-        width: auto;
-        padding: 1rem 2rem;
-        font-size: 1.2rem;
     }
 }
 

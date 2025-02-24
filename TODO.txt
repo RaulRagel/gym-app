@@ -24,3 +24,11 @@ Incluso según el día se puede marcar el día en el que estás
 En casa ejercicio estableces, series, peso por serie, repeticiones por serie
 
 Hacer "usuarios" para que según el usuario haya unos pesos u otros
+
+Formulario para agregar ejercicios
+
+En el día se puede editar:
+- mostrar peso
+- mostar series y repeticiones
+- ordenar por musculo
+- mostrar completado

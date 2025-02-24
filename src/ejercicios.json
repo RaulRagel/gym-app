@@ -6,127 +6,183 @@
             "series": 1,
             "repeticiones": 1,
             "pesos": [],
-            "musculo": "general"
+            "musculo": ""
         },
         {
             "nombre": "Dominadas",
-            "descripcion": "Dominadas asistidas",
+            "descripcion": "Dominadas asistidas con goma",
             "series": 3,
             "repeticiones": 3,
             "pesos": [],
-            "musculo": "espalda"
+            "musculo": "Espalda"
         },
         {
             "nombre": "Lat Pulley",
             "descripcion": "Polea al pecho",
-            "series": 2,
-            "repeticiones": 3,
+            "series": 3,
+            "repeticiones": 10,
             "pesos": [42, 50],
-            "musculo": "espalda"
+            "musculo": "Espalda"
         },
         {
             "nombre": "Seated Row",
             "descripcion": "Remo sentado",
-            "series": 2,
-            "repeticiones": 3,
+            "series": 3,
+            "repeticiones": 10,
             "pesos": [30, 35, 45, 42.5],
-            "musculo": "espalda"
+            "musculo": "Espalda"
         },
         {
             "nombre": "Fondos de tríceps asistidos",
             "descripcion": "",
-            "series": 1,
-            "repeticiones": 3,
+            "series": 3,
+            "repeticiones": 6,
             "pesos": [-30],
-            "musculo": "triceps"
+            "musculo": "Tríceps"
+        },
+        {
+            "nombre": "Seated dip (Maq)",
+            "descripcion": "Fondos de triceps en máquina",
+            "series": 3,
+            "repeticiones": 10,
+            "pesos": [50, 57],
+            "musculo": "Tríceps"
         },
         {
             "nombre": "Tríceps en polea",
-            "descripcion": "",
-            "series": 2,
-            "repeticiones": 3,
+            "descripcion": "Con triángulo o con cuerda",
+            "series": 3,
+            "repeticiones": 10,
             "pesos": [20, 25],
-            "musculo": "triceps"
+            "musculo": "Tríceps"
+        },
+        {
+            "nombre": "Shoulder Press (Maq)",
+            "descripcion": "Press de hombros en máquina",
+            "series": 3,
+            "repeticiones": 10,
+            "pesos": [25, 30],
+            "musculo": "Hombros"
         },
         {
             "nombre": "Shoulder Press",
-            "descripcion": "Press de hombros",
-            "series": 2,
-            "repeticiones": 3,
-            "pesos": [25, 30],
-            "musculo": "hombros"
+            "descripcion": "Press de hombros con mancuernas",
+            "series": 3,
+            "repeticiones": 10,
+            "pesos": [7.5],
+            "musculo": "Hombros"
+        },
+        {
+            "nombre": "Deltoid Raise",
+            "descripcion": "Elevación de deltoides (pajaritos)",
+            "series": 3,
+            "repeticiones": 10,
+            "pesos": [20, 25, 30],
+            "musculo": "Hombros"
         },
         {
             "nombre": "Elevación de piernas",
             "descripcion": "",
-            "series": 1,
+            "series": 3,
             "repeticiones": 10,
             "pesos": [],
-            "musculo": "abdominales"
+            "musculo": "Abdominales"
+        },
+        {
+            "nombre": "Series de abominales",
+            "descripcion": "",
+            "series": 3,
+            "repeticiones": 30,
+            "pesos": [],
+            "musculo": "Abdominales"
+        },
+        {
+            "nombre": "Abdomen lateral con peso",
+            "descripcion": "",
+            "series": 3,
+            "repeticiones": 10,
+            "pesos": [12],
+            "musculo": "Abdominales"
         },
         {
             "nombre": "Incline Bench Press",
-            "descripcion": "Press inclinado",
-            "series": 2,
-            "repeticiones": 3,
+            "descripcion": "Press de pecho inclinado",
+            "series": 3,
+            "repeticiones": 10,
             "pesos": [25, 30],
-            "musculo": "pecho"
+            "musculo": "Pecho"
         },
         {
             "nombre": "Butterfly",
-            "descripcion": "Mariposa",
-            "series": 2,
-            "repeticiones": 3,
+            "descripcion": "Mariposa, brazos en 90º",
+            "series": 3,
+            "repeticiones": 10,
             "pesos": [25, 30],
-            "musculo": "pecho"
+            "musculo": "Pecho"
+        },
+        {
+            "nombre": "Bicep Curl (Maq)",
+            "descripcion": "Curl de bíceps",
+            "series": 3,
+            "repeticiones": 10,
+            "pesos": [25, 35, 40],
+            "musculo": "Biceps"
         },
         {
             "nombre": "Bicep Curl",
-            "descripcion": "Curl de bíceps",
-            "series": 2,
-            "repeticiones": 3,
-            "pesos": [25, 35, 40, 7.5, 10],
-            "musculo": "biceps"
-        },
-        {
-            "nombre": "Deltoid Raise",
-            "descripcion": "Elevación de deltoides",
-            "series": 2,
-            "repeticiones": 3,
-            "pesos": [20, 25, 30],
-            "musculo": "hombros"
+            "descripcion": "Curl de bíceps con mancuernas",
+            "series": 3,
+            "repeticiones": 10,
+            "pesos": [7.5, 10],
+            "musculo": "Biceps"
         },
         {
             "nombre": "Leg extension",
             "descripcion": "Extensión de piernas",
-            "series": 2,
-            "repeticiones": 3,
+            "series": 3,
+            "repeticiones": 10,
             "pesos": [50, 55],
-            "musculo": "piernas"
+            "musculo": "Piernas"
         },
         {
-            "nombre": "Prensa de piernas",
-            "descripcion": "",
-            "series": 2,
-            "repeticiones": 3,
-            "pesos": [20, 25, 60, 70, 95, 102.5],
-            "musculo": "piernas"
-        },
-        {
-            "nombre": "Prensa en máquina",
+            "nombre": "Prensa",
             "descripcion": "En la última, 20-20-30 arriba",
-            "series": 2,
-            "repeticiones": 3,
+            "series": 3,
+            "repeticiones": 10,
+            "pesos": [20, 25, 60, 70],
+            "musculo": "Piernas"
+        },
+        {
+            "nombre": "Prensa (Maq)",
+            "descripcion": "Nivel 8, asiento a la mitad",
+            "series": 3,
+            "repeticiones": 10,
             "pesos": [95, 102.5],
-            "musculo": "piernas"
+            "musculo": "Piernas"
         },
         {
             "nombre": "Piernas al culo",
-            "descripcion": "",
-            "series": 1,
-            "repeticiones": 3,
+            "descripcion": "Piernas al culo",
+            "series": 3,
+            "repeticiones": 10,
             "pesos": [30, 35],
-            "musculo": "piernas"
+            "musculo": "Piernas"
+        },
+        {
+            "nombre": "Gemelo de pie",
+            "descripcion": "Peso en los hombros, hacerlo con un pie",
+            "series": 3,
+            "repeticiones": 10,
+            "pesos": [30, 35],
+            "musculo": "Piernas"
+        },
+        {
+            "nombre": "Gemelo sentado (Maq)",
+            "descripcion": "Gemelo en máquina",
+            "series": 3,
+            "repeticiones": 10,
+            "pesos": [],
+            "musculo": "Piernas"
         }
     ]
 }

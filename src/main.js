@@ -1,14 +1,30 @@
+var config, exs;
 
-var config = {
-    dias: 4
+const PATHS = {
+    config: './src/config.json',
+    defaultConfig: './src/config-default.json',
+    exs: './src/ejercicios.json',
 };
 
-// Ruta del archivo JSON
-const configPath = './config.json';
-const defaultConfigPath = './config-default.json';
+document.addEventListener('DOMContentLoaded', async function () {
+    config = await readJSON(PATHS.defaultConfig);
+    exs = await readJSON(PATHS.exs);
+    console.log('Config', config);
+    console.log('Exs', exs);
+});
+
+/** Leer información del archivo JSON */
+async function readJSON(path) {
+    const response = await fetch(path);
+    if (response.ok) {
+        return await response.json();
+    } else {
+        console.error('Error al leer la configuración');
+    }
+}
 
 /** Guardar información en el archivo JSON */
-async function writeConfig() {
+async function writeJSON() {
     const response = await fetch(configPath, {
         method: 'PUT',
         headers: {
@@ -23,29 +39,18 @@ async function writeConfig() {
     }
 }
 
-/** Leer información del archivo JSON */
-async function readConfig() {
-    const response = await fetch(configPath);
-    if (response.ok) {
-        config = await response.json();
-    } else {
-        console.error('Error al leer la configuración');
-    }
-}
+// function updateJSON() {
+//     writeJSON();
+// }
 
-function updateConfig() {
-    config.dias = 5;
-    writeConfig();
-}
-
-// Función para desplegar el contenedor .exs
 function toggleExs(element) {
     const exs = element.nextElementSibling;
-    if (exs.style.display === 'none' || exs.style.display === '') {
-        exs.style.display = 'block';
-        element.innerHTML = '&#9650;'; // Cambiar icono a flecha hacia arriba
+    const icon = element.querySelector('.icon');
+    if (exs.classList.contains('show')) {
+        exs.classList.remove('show');
+        icon.innerHTML = '⬇️'; // Cambiar icono a flecha hacia abajo
     } else {
-        exs.style.display = 'none';
-        element.innerHTML = '&#9660;'; // Cambiar icono a flecha hacia abajo
+        exs.classList.add('show');
+        icon.innerHTML = '⬆️'; // Cambiar icono a flecha hacia arriba
     }
 }
