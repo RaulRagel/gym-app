@@ -26,7 +26,7 @@
         <div class="modal-content">
             <div class="modal-header header">
                 <span id="m-title"></span>
-                <input type="button" class="btn" onclick="closeModal()" value="❌">
+                <input type="button" class="btn" id="close-edit" value="❌">
             </div>
             <div class="modal-body">
                 <div>
@@ -42,17 +42,17 @@
                 </div>
                 <div class="flex">
                     <label for="m-ser">Series</label>
-                    <input type="number" id="m-ser">
+                    <input type="number" id="m-ser" min="0">
                 </div>
                 <div class="flex">
                     <label for="m-rep">Repeticiones</label>
-                    <input type="number" id="m-rep">
+                    <input type="number" id="m-rep" min="0">
                 </div>
                 <hr>
             </div>
             <div class="btn-container">
-                <button class="btn" onclick="reset()">Reestablecer 🔄</button>
-                <button class="btn" onclick="save()">Guardar ✅</button>
+                <button class="btn" id="reset-edit">Reestablecer 🔄</button>
+                <button class="btn" id="save-edit">Guardar ✅</button>
             </div>
         </div>
     </div>

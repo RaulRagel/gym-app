@@ -9,15 +9,20 @@ const PATHS = {
 };
 
 document.addEventListener('DOMContentLoaded', async function () {
-    days = await readJSON(PATHS.days);
-    exs = await readJSON(PATHS.exs);
-    console.log('Dias', days);
-    console.log('Ejercicios', exs);
+    
+    await updateInfo();
 
     editModal = document.querySelector('#edit-ex');
 
     renderExs();
 });
+
+async function updateInfo() {
+    days = await readJSON(PATHS.days);
+    exs = await readJSON(PATHS.exs);
+    console.log('Dias', days);
+    console.log('Ejercicios', exs);
+}
 
 /* RENDER EJERCICIOS */
 
@@ -91,30 +96,57 @@ function showDetails(event, ex) {
 
 function renderEditModal(ex) {
     closeModal();
+    console.log('renderEditModal', ex);
 
     // cerrar modal al hacer click fuera
     // editModal.addEventListener('click', function (event) {
     //     if (event.target === editModal) closeModal();
     // });
 
+    setExInfo(ex);
+
+    document.getElementById('reset-edit').onclick = () => reset(ex);
+    document.getElementById('close-edit').onclick = closeModal;
+    document.getElementById('save-edit').onclick = () => save(ex);
+
+    editModal.classList.add('show');
+}
+
+function setExInfo(ex) {
     document.getElementById('m-title').innerHTML = ex.nombre;
     document.getElementById('m-muscle').value = ex.musculo;
-    document.getElementById('m-desc').innerHTML = ex.descripcion;
+    document.getElementById('m-desc').value = ex.descripcion;
     document.getElementById('m-wg').value = ex.pesos;
     document.getElementById('m-ser').value = ex.series;
     document.getElementById('m-rep').value = ex.repeticiones;
-
-    editModal.classList.add('show');
 }
 
 function closeModal() {
     editModal.classList.remove('show');
 }
 
-function reset() {
-    // TO DO Obtener la info que hay ahora mismo en el ejercico
+function reset(ex) {
+    // TO DO Obtener la info que hay ahora mismo en el ejercicio
+    console.log('reset', ex);
+
+    setExInfo(ex);
 }
 
-function save() {
+async function save(ex) {
     // TO DO Sobreescribir la info del ejercicio y actualizar el json
+    console.log('save', ex);
+
+    var target = exs[ex.nombre];
+    target.descripcion = document.getElementById('m-desc').value;
+    target.musculo = document.getElementById('m-muscle').value;
+    target.pesos = document.getElementById('m-wg').value;
+    target.series = document.getElementById('m-ser').value;
+    target.repeticiones = document.getElementById('m-rep').value;
+
+    try {
+        await writeJSON(PATHS.exs, exs);
+        await updateInfo();
+    } catch (error) {
+        console.error('Error al guardar la configuración:', error);
+    }
 }
