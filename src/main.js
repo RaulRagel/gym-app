@@ -1,4 +1,6 @@
+
 var days, exs;
+var editModal;
 
 const PATHS = {
     config: './config.json',
@@ -12,8 +14,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     console.log('Dias', days);
     console.log('Ejercicios', exs);
 
+    editModal = document.querySelector('#edit-ex');
+
     renderExs();
 });
+
+/* RENDER EJERCICIOS */
 
 function renderExs() {
     const container = document.querySelector('.container');
@@ -22,6 +28,9 @@ function renderExs() {
         const dayElement = document.createElement('div');
         dayElement.className = 'day';
         dayElement.innerHTML = `
+            <div class="edit-btn btn">
+                <div class="icon">✏️</div>
+            </div>
             <div class="dropdown" onclick="toggleExs(this)">
                 <div class="title">${day.nombre}</div>
                 <div class="icon">⬇️</div>
@@ -29,6 +38,7 @@ function renderExs() {
             <div class="exs">
             </div>
         `;
+        dayElement.onclick = () => editDay(day);
         const exsElement = dayElement.querySelector('.exs');
         day.ejercicios.forEach(exName => {
             const ex = exs[exName];
@@ -61,11 +71,49 @@ function toggleExs(element) {
     }
 }
 
+function editDay(day) {
+    console.log(day);
+
+    // TO DO modificar el dia de days y actualizar el json
+}
+
+/* RENDER MODAL */
+
+document.addEventListener('onclick', function () {
+    console.log('hello')
+});
+
 function showDetails(event, ex) {
     event.stopPropagation();
     console.log('Detalle del ejercicio', ex);
+    renderEditModal(ex);
 }
 
-function updatesExcercises() {
-    writeJSON(path, data);
+function renderEditModal(ex) {
+    closeModal();
+
+    editModal.addEventListener('click', function (event) {
+        if (event.target === editModal) closeModal();
+    });
+
+    document.getElementById('m-title').innerHTML = ex.nombre;
+    document.getElementById('m-muscle').value = ex.musculo;
+    document.getElementById('m-desc').innerHTML = ex.descripcion;
+    document.getElementById('m-wg').value = ex.pesos;
+    document.getElementById('m-ser').value = ex.series;
+    document.getElementById('m-rep').value = ex.repeticiones;
+
+    editModal.classList.add('show');
+}
+
+function closeModal() {
+    editModal.classList.remove('show');
+}
+
+function reset() {
+    // TO DO Obtener la info que hay ahora mismo en el ejercico
+}
+
+function save() {
+    // TO DO Sobreescribir la info del ejercicio y actualizar el json
 }

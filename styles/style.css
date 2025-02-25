@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -15,17 +19,17 @@ body {
     justify-content: space-between;
 }
 
-#config {
+.btn {
     all: unset;
     cursor: pointer;
     color: #fff;
-
 }
 
 .container {
     padding: 1rem;
 }
 
+/* EJERCICIOS */
 .day {
     background-color: #fff;
     border: 1px solid #ababab;
@@ -34,6 +38,22 @@ body {
     margin-bottom: 1rem;
     border-radius: 10px;
     overflow: hidden;
+    position: relative;
+}
+
+.edit-btn {
+    position: absolute;
+    width: 10%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    height: 4rem;
+    place-content: center;
+}
+
+.edit-btn .icon {
+    text-align: center;
+    font-size: 1.5rem;
 }
 
 .dropdown {
@@ -46,7 +66,6 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 1rem;
-    box-sizing: border-box;
     cursor: pointer;
     border-radius: 10px;
     user-select: none;
@@ -62,15 +81,15 @@ body {
 }
 
 .exs {
-    max-height: 0;
+    height: 0;
     overflow: hidden;
-    transition: max-height 0.2s ease, padding 0.2s ease;
-    padding: 0 1rem; /* Ajusta el padding horizontal */
+    transition: height 0.2s ease, padding 0.3s ease;
+    padding: 0 1rem;
 }
 
 .exs.show {
-    max-height: 1000px; /* Ajusta este valor según sea necesario */
-    padding: 1rem; /* Ajusta el padding completo cuando está visible */
+    height: 100%;
+    padding: 1rem;
 }
 
 .ex {
@@ -96,6 +115,87 @@ body {
     font-weight: 600;
 }
 
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal-content {
+    background-color: #e7e7e7;
+    border: 2px solid #ababab;
+    border-radius: 8px;
+    width: 75vw;
+    height: 65vh;
+    margin: 5vw auto;
+    overflow: hidden;
+}
+
+.modal-header {
+    font-size: 1.5rem;
+}
+
+.modal-body {
+    padding: 1rem;
+}
+
+.modal-body label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #b2304f;
+    margin-bottom: 0.5rem;
+}
+
+.modal-body input, .modal-body textarea {
+    all: unset;
+    margin-bottom: 1rem;
+    display: block;
+    width: 97%;
+    padding: 0.5rem;
+}
+
+.modal-body textarea {
+    height: 6vh;
+}
+
+.modal-body input:focus, .modal-body textarea:focus {
+    background: white;
+}
+
+.modal-body .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+}
+
+.modal-body .flex input {
+    text-align: center;
+    width: fit-content;
+}
+
+.modal .btn-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+}
+
+.modal .btn-container .btn {
+    background-color: #333;
+    padding: .8rem;
+    border-radius: 10px;
+    border: 1px solid #ababab;
+}
 
 /* Estilos para dispositivos móviles */
 @media (max-width: 600px) {

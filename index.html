@@ -4,18 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./styles/fonts.css">
     <link rel="stylesheet" href="./styles/style.css">
     <script src="./src/file-controller.js"></script>
     <script src="./src/main.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="roboto-regular">
     <div class="header">
         <div class="title">Rutina fullbody</div>
         <div class="config">
-            <input type="button" id="config" value="⚙️">
+            <input type="button" id="config" class="btn" value="⚙️">
         </div>
     </div>
     <div class="container">
+    </div>
+    <div id="edit-ex" class="modal">
+        <div class="modal-content">
+            <div class="modal-header header">
+                <span id="m-title"></span>
+                <input type="button" class="btn" onclick="closeModal()" value="❌">
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label for="m-muscle">Musculo</label>
+                    <input type="text" id="m-muscle">
+                    <label for="m-desc">Descripción</label>
+                    <textarea type="text" id="m-desc"></textarea>
+                </div>
+                <hr>
+                <div class="flex" >
+                    <label for="m-wg">Pesos</label>
+                    <input type="text" id="m-wg">
+                </div>
+                <div class="flex">
+                    <label for="m-ser">Series</label>
+                    <input type="text" id="m-ser">
+                </div>
+                <div class="flex">
+                    <label for="m-rep">Repeticiones</label>
+                    <input type="text" id="m-rep">
+                </div>
+                <hr>
+            </div>
+            <div class="btn-container">
+                <button class="btn" onclick="reset()">Reestablecer 🔄</button>
+                <button class="btn" onclick="save()">Guardar ✅</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>

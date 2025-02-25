@@ -32,3 +32,8 @@ En el día se puede editar:
 - mostar series y repeticiones
 - ordenar por musculo
 - mostrar completado
+- sobre todo, agregar ejercicios
+
+En el engranaje podemos ver todos los ejercicios desplegados, se pueden editar
+
+Poner una imagen?
