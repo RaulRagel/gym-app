@@ -6,12 +6,12 @@
       "ejercicios": [
         "Calentamiento",
         "Dominadas",
-        "Lat Pulley",
-        "Seated Row",
-        "Seated Dip",
+        "Lat pulley",
+        "Seated row",
+        "Seated dip (maq)",
         "Tríceps en polea",
-        "Shoulder Press",
-        "Elevacion de piernas"
+        "Shoulder press",
+        "Elevación de piernas"
       ]
     },
     {
@@ -19,11 +19,11 @@
       "descripcion": "Tren inferior con integración de tren superior",
       "ejercicios": [
         "Calentamiento",
-        "Incline Bench Press",
+        "Incline bench press",
         "Butterfly",
-        "Bicep Curl",
-        "Deltoid Raise",
-        "Prensa de piernas",
+        "Bicep curl",
+        "Deltoid raise",
+        "Leg press",
         "Piernas al culo"
       ]
     },
@@ -32,13 +32,13 @@
       "descripcion": "Tren superior con énfasis en pecho, bíceps y hombros",
       "ejercicios": [
         "Calentamiento",
-        "Seated Chest Press",
+        "Seated chest press",
         "Butterfly",
-        "Bicep Curl",
+        "Bicep curl",
         "Deltoid raise",
-        "Shoulder Press (maq)",
+        "Shoulder press (maq)",
         "Dominadas",
-        "Long Pull"
+        "Long pull"
       ]
     },
     {
@@ -47,12 +47,12 @@
       "ejercicios": [
         "Calentamiento",
         "Jalón de espalda con barra",
-        "Seated Row",
+        "Seated row",
         "Fondos de tríceps asistidos",
-        "Seated dip",
-        "Deltoid Raise",
+        "Seated dip (maq)",
+        "Deltoid raise",
         "Leg extension",
-        "Prensa de piernas"
+        "Leg press"
       ]
     }
   ]

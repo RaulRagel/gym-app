@@ -1,9 +1,9 @@
 var days, exs;
 
 const PATHS = {
-    config: './src/config.json',
-    days: './src/days.json',
-    exs: './src/ejercicios.json',
+    config: './config.json',
+    days: './days.json',
+    exs: './ejercicios.json',
 };
 
 document.addEventListener('DOMContentLoaded', async function () {
@@ -31,10 +31,11 @@ function renderExs() {
         `;
         const exsElement = dayElement.querySelector('.exs');
         day.ejercicios.forEach(exName => {
-            const ex = exs.ejercicios.find(e => e.nombre === exName);
+            const ex = exs[exName];
             if (ex) {
                 const exElement = document.createElement('div');
                 exElement.className = 'ex';
+                exElement.onclick = (event) => showDetails(event, ex);
                 exElement.innerHTML = `
                     <div class="ex-muscle">${ex.musculo}</div>
                     <div class="ex-title">${ex.nombre}</div>
@@ -58,4 +59,13 @@ function toggleExs(element) {
         exs.classList.add('show');
         icon.innerHTML = '⬆️';
     }
+}
+
+function showDetails(event, ex) {
+    event.stopPropagation();
+    console.log('Detalle del ejercicio', ex);
+}
+
+function updatesExcercises() {
+    writeJSON(path, data);
 }
