@@ -176,7 +176,7 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    gap: 5rem;
+    gap: 3rem;
 }
 
 .modal-body .flex input {
@@ -184,7 +184,7 @@ body {
 }
 
 .modal-body input[type="number"] {
-    max-width: 7rem;
+    width: 7rem;
 }
 
 .modal .btn-container {
