@@ -92,9 +92,10 @@ function showDetails(event, ex) {
 function renderEditModal(ex) {
     closeModal();
 
-    editModal.addEventListener('click', function (event) {
-        if (event.target === editModal) closeModal();
-    });
+    // cerrar modal al hacer click fuera
+    // editModal.addEventListener('click', function (event) {
+    //     if (event.target === editModal) closeModal();
+    // });
 
     document.getElementById('m-title').innerHTML = ex.nombre;
     document.getElementById('m-muscle').value = ex.musculo;

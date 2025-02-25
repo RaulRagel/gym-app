@@ -83,7 +83,7 @@ body {
 .exs {
     height: 0;
     overflow: hidden;
-    transition: height 0.2s ease, padding 0.3s ease;
+    transition: height 0.1s ease, padding 0.1s ease;
     padding: 0 1rem;
 }
 
@@ -136,7 +136,7 @@ body {
     border: 2px solid #ababab;
     border-radius: 8px;
     width: 75vw;
-    height: 65vh;
+    min-height: 65vh;
     margin: 5vw auto;
     overflow: hidden;
 }
@@ -153,15 +153,14 @@ body {
     font-size: 1.2rem;
     font-weight: 600;
     color: #b2304f;
-    margin-bottom: 0.5rem;
 }
 
 .modal-body input, .modal-body textarea {
     all: unset;
-    margin-bottom: 1rem;
     display: block;
-    width: 97%;
+    width: 100%;
     padding: 0.5rem;
+    box-sizing: border-box;
 }
 
 .modal-body textarea {
@@ -176,12 +175,16 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width: 100%;
+    gap: 5rem;
 }
 
 .modal-body .flex input {
     text-align: center;
-    width: fit-content;
+}
+
+.modal-body input[type="number"] {
+    max-width: 7rem;
 }
 
 .modal .btn-container {
