@@ -49,3 +49,6 @@ readme:
 la etiqueta info es para ocultar o mostrar la info
 
 al final de la lista de ejercicios al editar el dia, el ultimo elemento será siempre un dropdown con un boton de agregar
+
+
+en settings: botón de borrar datos locales
