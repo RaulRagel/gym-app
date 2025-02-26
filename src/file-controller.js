@@ -8,18 +8,6 @@ async function readJSON(path) {
     }
 }
 
-/** Guardar información en el archivo JSON */
-async function writeJSON(path, data) {
-    const response = await fetch(path, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data, null, 4)
-    });
-    if (response.ok) {
-        console.log('Configuración guardada en', path);
-    } else {
-        console.error('Error al guardar la configuración');
-    }
+function saveData(type, data) {
+  localStorage.setItem(type, JSON.stringify(data));
 }

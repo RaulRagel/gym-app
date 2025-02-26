@@ -10,16 +10,20 @@ const PATHS = {
 
 document.addEventListener('DOMContentLoaded', async function () {
     
-    await updateInfo();
+    getLocalData();
 
     editModal = document.querySelector('#edit-ex');
 
     renderExs();
 });
 
-async function updateInfo() {
-    days = await readJSON(PATHS.days);
-    exs = await readJSON(PATHS.exs);
+function getLocalData() {
+    days = localStorage.getItem('days');
+    exs = localStorage.getItem('exs');
+    
+    if(!days) days = await readJSON(PATHS.days);
+    if(!exs) exs = await readJSON(PATHS.exs);
+    
     console.log('Dias', days);
     console.log('Ejercicios', exs);
 }
@@ -111,9 +115,9 @@ function renderEditModal(ex, mode) {
     if(mode === 'ex') {
       setExInfo(ex);
   
-      reset.onclick = () => reset(ex);
+      reset.onclick = () => resetEx(ex);
       close.onclick = closeModal;
-      save.onclick = () => save(ex);
+      save.onclick = () => saveEx(ex);
   
     } else {
         
@@ -150,7 +154,7 @@ function reset(ex) {
     setExInfo(ex);
 }
 
-async function save(ex) {
+function saveEx(ex) {
     // TO DO Sobreescribir la info del ejercicio y actualizar el json
     console.log('save', ex);
 
@@ -161,10 +165,6 @@ async function save(ex) {
     target.series = document.getElementById('m-ser').value;
     target.repeticiones = document.getElementById('m-rep').value;
 
-    try {
-        await writeJSON(PATHS.exs, exs);
-        await updateInfo();
-    } catch (error) {
-        console.error('Error al guardar la configuración:', error);
-    }
+    saveData('exs', exs);
+    renderExs();
 }

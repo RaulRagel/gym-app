@@ -37,3 +37,9 @@ En el día se puede editar:
 En el engranaje podemos ver todos los ejercicios desplegados, se pueden editar
 
 Poner una imagen?
+
+al iniciar obtenemos los datos del local
+si no hay, usamos los por defecto
+aplastamos las variables exs y days
+al editar, modificamos exs y days
+al guardar, guardamos exs y days en el local
