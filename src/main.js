@@ -108,18 +108,21 @@ function renderEditModal(ex, mode) {
     //     if (event.target === editModal) closeModal();
     // });
   
-    if(ex === 'ex') {
+    if(mode === 'ex') {
       setExInfo(ex);
   
       reset.onclick = () => reset(ex);
       close.onclick = closeModal;
       save.onclick = () => save(ex);
   
-      editModal.classList.add('show');
+    } else {
+        
     }
+    editModal.classList.add('show');
 }
 
 function setExInfo(ex) {
+    toggleModalInfo('info-ex');
     document.getElementById('m-title').innerHTML = ex.nombre;
     document.getElementById('m-muscle').value = ex.musculo;
     document.getElementById('m-desc').value = ex.descripcion;
@@ -128,8 +131,12 @@ function setExInfo(ex) {
     document.getElementById('m-rep').value = ex.repeticiones;
 }
 
-function dayInfo() {
-  
+function dayInfo(day) {
+    toggleModalInfo('info-day');
+}
+
+function toggleModalInfo(mode) {
+    
 }
 
 function closeModal() {

@@ -145,17 +145,17 @@ body {
     font-size: 1.5rem;
 }
 
-.modal-body {
+.modal-ex {
     padding: 1rem;
 }
 
-.modal-body label {
+.modal-ex label {
     font-size: 1.2rem;
     font-weight: 600;
     color: #b2304f;
 }
 
-.modal-body input, .modal-body textarea {
+.modal-ex input, .modal-ex textarea {
     all: unset;
     display: block;
     width: 100%;
@@ -163,15 +163,15 @@ body {
     box-sizing: border-box;
 }
 
-.modal-body textarea {
+.modal-ex textarea {
     height: 6vh;
 }
 
-.modal-body input:focus, .modal-body textarea:focus {
+.modal-ex input:focus, .modal-ex textarea:focus {
     background: white;
 }
 
-.modal-body .flex {
+.modal-ex .flex {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -179,11 +179,11 @@ body {
     gap: 3rem;
 }
 
-.modal-body .flex input {
+.modal-ex .flex input {
     text-align: center;
 }
 
-.modal-body input[type="number"] {
+.modal-ex input[type="number"] {
     width: 7rem;
 }
 
