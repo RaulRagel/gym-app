@@ -80,6 +80,7 @@ function editDay(day) {
     console.log(day);
 
     // TO DO modificar el dia de days y actualizar el json
+    
 }
 
 /* RENDER MODAL */
@@ -91,25 +92,31 @@ document.addEventListener('onclick', function () {
 function showDetails(event, ex) {
     event.stopPropagation();
     console.log('Detalle del ejercicio', ex);
-    renderEditModal(ex);
+    renderEditModal(ex, "ex");
 }
 
-function renderEditModal(ex) {
+function renderEditModal(ex, mode) {
     closeModal();
+    var save = document.getElementById('save-edit');
+      reset = document.getElementById('reset-edit');
+      close = document.getElementById('close-edit');
+
     console.log('renderEditModal', ex);
 
     // cerrar modal al hacer click fuera
     // editModal.addEventListener('click', function (event) {
     //     if (event.target === editModal) closeModal();
     // });
-
-    setExInfo(ex);
-
-    document.getElementById('reset-edit').onclick = () => reset(ex);
-    document.getElementById('close-edit').onclick = closeModal;
-    document.getElementById('save-edit').onclick = () => save(ex);
-
-    editModal.classList.add('show');
+  
+    if(ex === 'ex') {
+      setExInfo(ex);
+  
+      reset.onclick = () => reset(ex);
+      close.onclick = closeModal;
+      save.onclick = () => save(ex);
+  
+      editModal.classList.add('show');
+    }
 }
 
 function setExInfo(ex) {
@@ -119,6 +126,10 @@ function setExInfo(ex) {
     document.getElementById('m-wg').value = ex.pesos;
     document.getElementById('m-ser').value = ex.series;
     document.getElementById('m-rep').value = ex.repeticiones;
+}
+
+function dayInfo() {
+  
 }
 
 function closeModal() {
