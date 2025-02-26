@@ -15,3 +15,25 @@ function saveData(type, data) {
 function getData(data) {
   return JSON.parse(localStorage.getItem(data));
 }
+// function getData(data) {
+//     const parsedData = JSON.parse(localStorage.getItem(data));
+//     return convertEmptyStringsToArrays(parsedData);
+// }
+
+// function convertEmptyStringsToArrays(obj) {
+//     if (typeof obj !== 'object' || obj === null) {
+//         return obj;
+//     }
+
+//     for (const key in obj) {
+//         if (obj.hasOwnProperty(key)) {
+//             if (obj[key] === '') {
+//                 obj[key] = [];
+//             } else if (typeof obj[key] === 'object') {
+//                 obj[key] = convertEmptyStringsToArrays(obj[key]);
+//             }
+//         }
+//     }
+
+//     return obj;
+// }

@@ -179,7 +179,7 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    gap: 3rem;
+    gap: 2rem;
 }
 
 .modal-ex .flex input {

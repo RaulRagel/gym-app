@@ -1,5 +1,9 @@
 var days, exs;
+
 var editModal;
+
+var originalDay;
+var auxDay;
 
 const PATHS = {
     config: './config.json',
@@ -82,10 +86,11 @@ function toggleExs(element) {
 
 function editDay(day) {
     event.stopPropagation();
-    console.log('Ejercicios del día', day.ejercicios);
 
-    renderDay(day);
-    renderEditModal(day, "day");
+    originalDay = JSON.parse(JSON.stringify(day));
+    auxDay = JSON.parse(JSON.stringify(day));
+    renderDay(auxDay);
+    renderEditModal(auxDay, "day");
 }
 
 function renderDay(day) {
@@ -105,22 +110,23 @@ function renderDay(day) {
     });
 }
 
-function resetDay(day) {
-    renderDay(day);
+function resetDay() {
+    auxDay = JSON.parse(JSON.stringify(originalDay));
+    renderDay(auxDay);
 }
 
 function saveDay(day) {
-    console.log('save', days);
-    console.log('save', day);
     const index = days.dias.findIndex(d => d.nombre === day.nombre);
     days.dias[index] = day;
+    originalDay = JSON.parse(JSON.stringify(day));
+    auxDay = JSON.parse(JSON.stringify(day));
+    renderInfo();
 }
 
 function removeEx(day, exName) {
-    console.log('remove', exName);
     const index = day.ejercicios.findIndex(ex => ex === exName);
     day.ejercicios.splice(index, 1);
-    // saveData('days', days);
+    saveData('days', days);
     renderDay(day);
 }
 
@@ -128,7 +134,6 @@ function removeEx(day, exName) {
 
 function editEx(event, ex) {
     event.stopPropagation();
-    console.log('Detalle del ejercicio', ex);
     renderEditModal(ex, "ex");
 }
 
@@ -137,16 +142,22 @@ function resetEx(ex) {
 }
 
 function saveEx(ex) {
-    console.log('save ex', ex);
-
     var target = exs[ex.nombre];
-    target.descripcion = document.getElementById('m-desc').value;
-    target.musculo = document.getElementById('m-muscle').value;
-    target.pesos = document.getElementById('m-wg').value;
-    target.series = document.getElementById('m-ser').value;
-    target.repeticiones = document.getElementById('m-rep').value;
+    target.descripcion = document.getElementById('m-desc').value.trim();
+    target.musculo = document.getElementById('m-muscle').value.trim();
+    target.pesos = stringToNumberArray(document.getElementById('m-wg').value);
+    target.series = document.getElementById('m-ser').value.trim();
+    target.repeticiones = document.getElementById('m-rep').value.trim();
 
     saveData('exs', exs);
+    setExInfo(ex);
+    renderInfo();
+}
+
+function stringToNumberArray(str) {
+    return str.split(',')
+        .map(num => parseFloat(num.trim()))
+        .filter(num => !isNaN(num));
 }
 
 /* MODALES */
@@ -161,7 +172,7 @@ function renderEditModal(target, mode) {
     // editModal.addEventListener('click', function (event) {
     //     if (event.target === editModal) closeModal();
     // });
-  
+
     if (mode === 'ex') {
         setExInfo(target);
 
