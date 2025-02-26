@@ -11,3 +11,7 @@ async function readJSON(path) {
 function saveData(type, data) {
   localStorage.setItem(type, JSON.stringify(data));
 }
+
+function getData(data) {
+  return JSON.parse(localStorage.getItem(data));
+}

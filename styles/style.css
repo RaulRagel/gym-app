@@ -33,7 +33,6 @@ body {
 .day {
     background-color: #fff;
     border: 1px solid #ababab;
-    justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
     border-radius: 10px;
@@ -81,15 +80,14 @@ body {
 }
 
 .exs {
-    height: 0;
+    max-height: 0;
     overflow: hidden;
-    transition: height 0.1s ease, padding 0.1s ease;
-    padding: 0 1rem;
+    transition: max-height 0.3s ease-in-out;
 }
 
 .exs.show {
-    height: 100%;
-    padding: 1rem;
+    max-height: 500px;
+    overflow-y: scroll;
 }
 
 .ex {
@@ -131,6 +129,10 @@ body {
     display: block;
 }
 
+.modal.hide{
+    display: none;
+}
+
 .modal-content {
     background-color: #e7e7e7;
     border: 2px solid #ababab;
@@ -145,6 +147,7 @@ body {
     font-size: 1.5rem;
 }
 
+/* MODAL EX */
 .modal-ex {
     padding: 1rem;
 }
@@ -187,10 +190,24 @@ body {
     width: 7rem;
 }
 
+/* MODAL DAY */
+
+.modal-day {
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
 .modal .btn-container {
     display: flex;
     justify-content: space-around;
     padding: 1rem;
+}
+
+.m-ex {
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+    border-bottom: 1px solid #ababab;
 }
 
 .modal .btn-container .btn {

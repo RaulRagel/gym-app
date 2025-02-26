@@ -43,3 +43,9 @@ si no hay, usamos los por defecto
 aplastamos las variables exs y days
 al editar, modificamos exs y days
 al guardar, guardamos exs y days en el local
+
+
+readme:
+la etiqueta info es para ocultar o mostrar la info
+
+al final de la lista de ejercicios al editar el dia, el ultimo elemento será siempre un dropdown con un boton de agregar
