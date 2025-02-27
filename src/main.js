@@ -1,6 +1,7 @@
 var days, exs;
 
 var editModal;
+var menu;
 
 var originalDay;
 var auxDay;
@@ -17,9 +18,20 @@ document.addEventListener('DOMContentLoaded', async function () {
     await getLocalData();
 
     editModal = document.querySelector('#edit-modal');
+    menu = document.querySelector('#menu');
+    menu.onclick = () => displayMenu();
 
     renderInfo();
 });
+
+function displayMenu() {
+    const header = document.querySelector('.header');
+    if (header.classList.contains('show')) {
+        header.classList.remove('show');
+    } else {
+        header.classList.add('show');
+    }
+}
 
 async function getLocalData() {
     days = getData('days');
@@ -32,8 +44,14 @@ async function getLocalData() {
     console.log('Ejercicios', exs);
 }
 
-function renderInfo() {
+function renderInfo(update) {
     const container = document.querySelector('.container');
+    if(update) {
+        var index = -1;
+        document.querySelectorAll('.exs').forEach(function(elem, i) {
+            if(elem.classList.contains('show')) index = i;
+        });
+    }
     container.innerHTML = '';
     days.dias.forEach(day => {
         const dayElement = document.createElement('div');
@@ -67,6 +85,9 @@ function renderInfo() {
             }
         });
         container.appendChild(dayElement);
+        if(index || index === 0) {
+            document.querySelectorAll('.exs')[index].classList.add('show');
+        }
     });
 }
 
@@ -120,7 +141,7 @@ function saveDay(day) {
     days.dias[index] = day;
     originalDay = JSON.parse(JSON.stringify(day));
     auxDay = JSON.parse(JSON.stringify(day));
-    renderInfo();
+    renderInfo(true);
 }
 
 function removeEx(day, exName) {
@@ -151,7 +172,7 @@ function saveEx(ex) {
 
     saveData('exs', exs);
     setExInfo(ex);
-    renderInfo();
+    renderInfo(true);
 }
 
 function stringToNumberArray(str) {
@@ -192,6 +213,10 @@ function renderEditModal(target, mode) {
     editModal.classList.add('show');
 }
 
+/**
+ * Setear la info del ejercicio en el mnodal
+ * @param {Object} ex 
+ */
 function setExInfo(ex) {
     document.getElementById('m-title').innerHTML = ex.nombre;
     document.getElementById('m-muscle').value = ex.musculo;

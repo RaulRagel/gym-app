@@ -10,13 +10,46 @@ body {
 }
 
 .header {
+    max-height: 6vh;
+    position: relative;
     background-color: #333;
     color: #fff;
     font-size: 4vw;
     font-weight: 600;
     padding: 1rem;
     display: flex;
+    flex-direction: column;
+    z-index: 1;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.header.show {
+    max-height: fit-content;
+}
+
+.header .title {
+    display: flex;
     justify-content: space-between;
+}
+
+.menu {
+    font-size: 3vw;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    user-select: none;
+    margin-top: 2vh;
+}
+
+.menu-item {
+    all: unset;
+    background-color: #e7e7e7;
+    border: 1px solid #ababab;
+    padding: .5rem;
+    cursor: pointer;
+    border-radius: 10px;
 }
 
 .btn {
@@ -87,7 +120,7 @@ body {
 
 .exs.show {
     max-height: 500px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .ex {
@@ -194,7 +227,7 @@ body {
 
 .modal-day {
     max-height: 400px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .modal .btn-container {

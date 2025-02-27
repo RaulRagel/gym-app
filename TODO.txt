@@ -52,3 +52,9 @@ al final de la lista de ejercicios al editar el dia, el ultimo elemento será si
 
 
 en settings: botón de borrar datos locales
+
+botones nuevos:
+- ejercicio: muestra la lista de ejercicios y se pueden editar o borrar
+- agregar: formulario para agregar nuevo ejercicio, poder reutilizar el ex-modal
+- config: boton de config
+- futuro botón de plantillas?
