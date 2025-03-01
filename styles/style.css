@@ -209,13 +209,30 @@ body {
 }
 
 .modal-content {
+    position: relative; /* hijos con absolute */
     background-color: #e7e7e7;
     border: 2px solid #ababab;
     border-radius: 8px;
     width: 75vw;
-    min-height: 65vh;
+    min-height: 65vh; /* estándar */
     margin: 5vw auto;
     overflow: hidden;
+}
+
+.modal .btn-container {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    padding: 1rem;
+    bottom: 0;
+}
+
+.modal .btn-container .btn {
+    background-color: #333;
+    padding: .8rem;
+    border-radius: 10px;
+    border: 1px solid #ababab;
 }
 
 /* MODAL EX */
@@ -268,12 +285,6 @@ body {
     overflow-y: auto;
 }
 
-.modal .btn-container {
-    display: flex;
-    justify-content: space-around;
-    padding: 1rem;
-}
-
 .m-ex {
     display: flex;
     padding: 1rem;
@@ -281,11 +292,38 @@ body {
     border-bottom: 1px solid #ababab;
 }
 
-.modal .btn-container .btn {
-    background-color: #333;
-    padding: .8rem;
-    border-radius: 10px;
+.m-ex.new-ex {
+    border: none;
+    justify-content: center;
+}
+
+.m-ex.new-ex .add-btn {
+    padding: 1rem;
     border: 1px solid #ababab;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* MODAL LIST */
+
+.modal-list {
+    height: 65vh; /* estándar */
+    overflow-y: auto;
+}
+
+.m-muscle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #b2304f;
+    text-align: center;
+}
+
+.m-set {
+    margin-top: 1rem;
+}
+
+.m-set .ex {
+    padding: 0.5rem 1rem;
 }
 
 /* Estilos para dispositivos móviles */

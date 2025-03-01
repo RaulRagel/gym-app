@@ -67,3 +67,10 @@ Nueva plantilla vacía
 Botón de cancelar para ir atrás
 Bug no se actualiza
 Agregar ejercicios
+
+
+hacer ejercicios draggables cambiando un position
+
+lista con checkbox y ordenada por musculo
+
+a futuro: todo lo que puedas mover al html mejor

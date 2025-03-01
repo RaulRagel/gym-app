@@ -1,6 +1,7 @@
 var days, exs;
 
 var editModal;
+var exListModal;
 var menu;
 
 var originalDay;
@@ -44,7 +45,7 @@ async function getLocalData() {
     console.log('Ejercicios', exs);
 }
 
-function renderInfo(update) {
+function renderInfo(update) { // TO DO: agregar un boton para agregar dias
     const container = document.querySelector('.container');
     var index = [];
     if(update) { // Guardamos el index de los dias que estaban abiertos
@@ -113,17 +114,18 @@ function editDay(day) {
     originalDay = JSON.parse(JSON.stringify(day));
     auxDay = JSON.parse(JSON.stringify(day));
     renderDay(auxDay);
-    renderEditModal(auxDay, 'day');
+    renderEditModal('day', auxDay);
 }
 
-function renderDay(day) {
+function renderDay(day) { // TO DO: agregar un boton para agregar ejercicios
+    // Lista de ejercicios del día
     const modalDay = document.querySelector('.modal-day');
     modalDay.innerHTML = '';
     day.ejercicios.forEach(exName => {
         const exElement = document.createElement('div');
         exElement.className = 'm-ex';
         exElement.innerHTML = `
-            <div class="icon">${exName}</div>
+            <div>${exName}</div>
             <div class="remove-btn btn">
                 <div class="icon">🗑️</div>
             </div>
@@ -131,6 +133,12 @@ function renderDay(day) {
         exElement.querySelector('.remove-btn').onclick = () => removeEx(day, exName);
         modalDay.appendChild(exElement);
     });
+    // Agregar ejercicio
+    const newExElement = document.createElement('div');
+    newExElement.className = 'm-ex new-ex';
+    newExElement.innerHTML = `<div class='add-btn'>Agregar ✚</div>`;
+    newExElement.querySelector('.add-btn').onclick = () => renderEditModal(); // !
+    modalDay.appendChild(newExElement);
 }
 
 function resetDay() {
@@ -147,7 +155,7 @@ function saveDay(day) {
 }
 
 function newEx(day) {
-    renderEditModal(day, 'new');
+    renderEditModal('new', day);
 }
 
 function removeEx(day, exName) {
@@ -159,11 +167,47 @@ function removeEx(day, exName) {
     renderDay(day);
 }
 
+/**
+ * Lista de ejercicios generales. Con el parámetro readonly podemos agregar multiples
+ * ejercicios a ese día o simplemente ver los que están agregados a ese día
+ * @param {Boolean} readonly 
+ */
+function setExList(readonly) {
+    setTitle('Lista de ejercicios');
+    const modalList = document.querySelector('.modal-list');
+    var exsByMuscle = orderByMuscle();
+    modalList.innerHTML = '';
+    Object.keys(exsByMuscle).forEach(muscle => {
+        const muscleElement = document.createElement('div');
+        muscleElement.className = 'm-set';
+        muscleElement.innerHTML = `<div class='m-muscle'>${muscle}</div>`;
+        exsByMuscle[muscle].forEach(exName => {
+            const exElement = document.createElement('div');
+            exElement.className = 'ex';
+            exElement.innerHTML = exName;
+            exElement.onclick = () => addExToList(exName);
+            muscleElement.appendChild(exElement);
+        });
+        modalList.appendChild(muscleElement);
+    });
+}
+
+function orderByMuscle() {
+    var exsByMuscle = {};
+    Object.keys(exs).forEach(exName => {
+        const ex = exs[exName];
+        if(!ex.musculo) ex.musculo = 'Otros';
+        if (!exsByMuscle[ex.musculo]) exsByMuscle[ex.musculo] = [];
+        exsByMuscle[ex.musculo].push(exName);
+    });
+    return exsByMuscle;
+}
+
 /* EJERCICIOS */
 
 function editEx(event, ex) {
     event.stopPropagation();
-    renderEditModal(ex, 'ex');
+    renderEditModal('ex', ex);
 }
 
 function resetEx(ex) {
@@ -216,7 +260,12 @@ function stringToNumberArray(str) {
 
 /* MODALES */
 
-function renderEditModal(target, mode) {
+/**
+ * Función para renderizar cualquier modal. Por defecto, se renderiza la lista de ejercicios sin botones
+ * @param {String} mode Según el modo, se renderiza un modal distinto
+ * @param {Object} target Si necesitamos editar, este es el objeto editable
+ */
+function renderEditModal(mode, target) {
     closeModal();
     var closeBtn = document.getElementById('close-modal');
 
@@ -232,11 +281,15 @@ function renderEditModal(target, mode) {
     } else if (mode === 'day') {
         setDayInfo(target);
         toggleModalInfo('day');
-        setButtons(target, ['save', 'reset', 'new'], 'day');
-    } else { // 'new'
+        setButtons(target, ['save', 'reset', 'new'], 'day'); // TO DO: boton para borrar dia
+    } else if(mode === 'new') {
         setNewExInfo();
         toggleModalInfo('ex');
         setButtons(target, ['save', 'reset']);
+    } else {
+        setExList(true);
+        toggleModalInfo('list');
+        setButtons({}, []); // limpiamos los botones
     }
     closeBtn.onclick = closeModal;
     editModal.classList.add('show');
@@ -261,10 +314,11 @@ function setButtons(target, buttons, mode) {
         saveBtn.onclick = () => saveDay(target);
         resetBtn.onclick = () => resetDay(target);
         newBtn.onclick = () => newEx(target);
-    } else {
+    } else { // 'new'
         saveBtn.onclick = () => addEx(target);
-        resetBtn.onclick = () => resetEx({});
+        resetBtn.onclick = () => setNewExInfo();
     }
+    // si necesitamos botones para la lista de ejercicios, lo agregamos aqui
     showButtons(buttons);
 }
 
@@ -341,6 +395,12 @@ function showButtons(buttonsToShow) {
     });
 }
 
+/**
+ * Mostrar titulo del modal
+ * @param {String} title titulo del modal
+ * @param {Boolean} editable editable o no
+ * @param {String} placeholder placeholder del input
+ */
 function setTitle(title, editable, placeholder) {
     var readonlyElem = document.querySelector('.readonly'),
         titleElem = document.getElementById('m-title');
