@@ -60,3 +60,10 @@ botones nuevos:
 - futuro botón de plantillas?
 
 agregar toasts de error y de correcto
+
+Borrar día
+Agregar día
+Nueva plantilla vacía
+Botón de cancelar para ir atrás
+Bug no se actualiza
+Agregar ejercicios

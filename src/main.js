@@ -46,10 +46,10 @@ async function getLocalData() {
 
 function renderInfo(update) {
     const container = document.querySelector('.container');
-    var index = -1;
-    if(update) {
+    var index = [];
+    if(update) { // Guardamos el index de los dias que estaban abiertos
         document.querySelectorAll('.exs').forEach(function(elem, i) {
-            if(elem.classList.contains('show')) index = i;
+            if(elem.classList.contains('show')) index.push(i);
         });
     }
     container.innerHTML = '';
@@ -86,8 +86,10 @@ function renderInfo(update) {
         });
         container.appendChild(dayElement);
     });
-    if(index != -1) {
-        document.querySelectorAll('.exs')[index].classList.add('show');
+    if(index.length) { // Volvemos a abrir los dias que estaban abiertos
+        document.querySelectorAll('.exs').forEach(function(elem, i) {
+            if(index.includes(i)) elem.classList.add('show');
+        });
     }
 }
 
@@ -216,7 +218,7 @@ function stringToNumberArray(str) {
 
 function renderEditModal(target, mode) {
     closeModal();
-    var closeBtn = document.getElementById('close-edit');
+    var closeBtn = document.getElementById('close-modal');
 
     // Nueva funcionalidad futura
     // editModal.addEventListener('click', function (event) {
@@ -225,20 +227,16 @@ function renderEditModal(target, mode) {
 
     if (mode === 'ex') {
         setExInfo(target);
-
-        setButtons(target, ['save, reset'], 'ex');
-
         toggleModalInfo('ex');
+        setButtons(target, ['save', 'reset'], 'ex');
     } else if (mode === 'day') {
         setDayInfo(target);
-
-        setButtons(target, ['save', 'reset', 'new'], 'day');
-
         toggleModalInfo('day');
+        setButtons(target, ['save', 'reset', 'new'], 'day');
     } else { // 'new'
         setNewExInfo();
-        setButtons(target, ['save', 'reset']);
         toggleModalInfo('ex');
+        setButtons(target, ['save', 'reset']);
     }
     closeBtn.onclick = closeModal;
     editModal.classList.add('show');
