@@ -46,8 +46,8 @@ async function getLocalData() {
 
 function renderInfo(update) {
     const container = document.querySelector('.container');
+    var index = -1;
     if(update) {
-        var index = -1;
         document.querySelectorAll('.exs').forEach(function(elem, i) {
             if(elem.classList.contains('show')) index = i;
         });
@@ -85,10 +85,10 @@ function renderInfo(update) {
             }
         });
         container.appendChild(dayElement);
-        if(index || index === 0) {
-            document.querySelectorAll('.exs')[index].classList.add('show');
-        }
     });
+    if(index != -1) {
+        document.querySelectorAll('.exs')[index].classList.add('show');
+    }
 }
 
 function toggleExs(element) {
@@ -111,7 +111,7 @@ function editDay(day) {
     originalDay = JSON.parse(JSON.stringify(day));
     auxDay = JSON.parse(JSON.stringify(day));
     renderDay(auxDay);
-    renderEditModal(auxDay, "day");
+    renderEditModal(auxDay, 'day');
 }
 
 function renderDay(day) {
@@ -144,9 +144,15 @@ function saveDay(day) {
     renderInfo(true);
 }
 
+function newEx(day) {
+    renderEditModal(day, 'new');
+}
+
 function removeEx(day, exName) {
-    const index = day.ejercicios.findIndex(ex => ex === exName);
-    day.ejercicios.splice(index, 1);
+    const exIndex = day.ejercicios.findIndex(ex => ex === exName);
+    const dayIndex = days.dias.findIndex(d => d.nombre === day.nombre);
+    day.ejercicios.splice(exIndex, 1); // actualizamos dia
+    days.dias[dayIndex].ejercicios = day.ejercicios; // actualizamos dias
     saveData('days', days);
     renderDay(day);
 }
@@ -155,13 +161,17 @@ function removeEx(day, exName) {
 
 function editEx(event, ex) {
     event.stopPropagation();
-    renderEditModal(ex, "ex");
+    renderEditModal(ex, 'ex');
 }
 
 function resetEx(ex) {
     setExInfo(ex);
 }
 
+/**
+ * 
+ * @param {Object} ex Donde vamos a guardar la info
+ */
 function saveEx(ex) {
     var target = exs[ex.nombre];
     target.descripcion = document.getElementById('m-desc').value.trim();
@@ -175,6 +185,27 @@ function saveEx(ex) {
     renderInfo(true);
 }
 
+function addEx(day) {
+    var title = document.getElementById('m-title').value,
+        index = days.dias.findIndex(d => d.nombre === day.nombre);
+    if(!exs[title]) {
+        exs[title] = {
+            nombre: title,
+            descripcion: document.getElementById('m-desc').value.trim(),
+            musculo: document.getElementById('m-muscle').value.trim(),
+            pesos: stringToNumberArray(document.getElementById('m-wg').value),
+            series: document.getElementById('m-ser').value.trim(),
+            repeticiones: document.getElementById('m-rep').value.trim(),
+        };
+    }
+    if(!days.dias[index].ejercicios.includes(title)) {
+        days.dias[index].ejercicios.push(title);
+    }
+    saveData('exs', exs);
+    saveData('days', days);
+    renderInfo(true);
+}
+
 function stringToNumberArray(str) {
     return str.split(',')
         .map(num => parseFloat(num.trim()))
@@ -185,11 +216,9 @@ function stringToNumberArray(str) {
 
 function renderEditModal(target, mode) {
     closeModal();
-    var saveBtn = document.getElementById('save-edit');
-    var resetBtn = document.getElementById('reset-edit');
     var closeBtn = document.getElementById('close-edit');
 
-    // cerrar modal al hacer click fuera
+    // Nueva funcionalidad futura
     // editModal.addEventListener('click', function (event) {
     //     if (event.target === editModal) closeModal();
     // });
@@ -197,20 +226,48 @@ function renderEditModal(target, mode) {
     if (mode === 'ex') {
         setExInfo(target);
 
-        saveBtn.onclick = () => saveEx(target);
-        resetBtn.onclick = () => resetEx(target);
+        setButtons(target, ['save, reset'], 'ex');
 
         toggleModalInfo('ex');
-    } else {
+    } else if (mode === 'day') {
         setDayInfo(target);
 
-        saveBtn.onclick = () => saveDay(target);
-        resetBtn.onclick = () => resetDay(target);
+        setButtons(target, ['save', 'reset', 'new'], 'day');
 
         toggleModalInfo('day');
+    } else { // 'new'
+        setNewExInfo();
+        setButtons(target, ['save', 'reset']);
+        toggleModalInfo('ex');
     }
     closeBtn.onclick = closeModal;
     editModal.classList.add('show');
+}
+
+/**
+ * Creamos los botones de acuerdo al modo y los seteamos con sus respectivas funciones
+ * @param {Object} target Objeto a editar
+ * @param {Array} buttons Botones a mostrar
+ * @param {String} mode Modo de edición
+ */
+function setButtons(target, buttons, mode) {
+    var saveBtn = document.getElementById('save');
+    var resetBtn = document.getElementById('reset');
+    var newBtn = document.getElementById('new');
+
+    hideButtons();
+    if(mode === 'ex') {
+        saveBtn.onclick = () => saveEx(target);
+        resetBtn.onclick = () => resetEx(target);
+    } else if(mode === 'day') {
+        saveBtn.onclick = () => saveDay(target);
+        resetBtn.onclick = () => resetDay(target);
+        newBtn.onclick = () => newEx(target);
+    } else {
+        saveBtn.onclick = () => addEx(target);
+        resetBtn.onclick = () => resetEx({});
+    }
+    showButtons(buttons);
 }
 
 /**
@@ -218,16 +275,30 @@ function renderEditModal(target, mode) {
  * @param {Object} ex 
  */
 function setExInfo(ex) {
-    document.getElementById('m-title').innerHTML = ex.nombre;
-    document.getElementById('m-muscle').value = ex.musculo;
-    document.getElementById('m-desc').value = ex.descripcion;
-    document.getElementById('m-wg').value = ex.pesos;
-    document.getElementById('m-ser').value = ex.series;
-    document.getElementById('m-rep').value = ex.repeticiones;
+    setTitle(ex.nombre || '', false);
+
+    document.getElementById('m-muscle').value = ex.musculo || '';
+    document.getElementById('m-desc').value = ex.descripcion || '';
+    document.getElementById('m-wg').value = ex.pesos || '';
+    document.getElementById('m-ser').value = ex.series || '';
+    document.getElementById('m-rep').value = ex.repeticiones || '';
 }
 
 function setDayInfo(day) {
-    document.getElementById('m-title').innerHTML = day.nombre;
+    setTitle(day.nombre, false);
+}
+
+/**
+ * Setear la info del nuevo ejercicio en el modal
+ */
+function setNewExInfo() {
+    setTitle('', true, 'Nuevo Ejercicio ✏️');
+
+    document.getElementById('m-muscle').value = '';
+    document.getElementById('m-desc').value = '';
+    document.getElementById('m-wg').value = '';
+    document.getElementById('m-ser').value = '';
+    document.getElementById('m-rep').value = '';
 }
 
 function toggleModalInfo(type) {
@@ -243,4 +314,46 @@ function toggleModalInfo(type) {
 
 function closeModal() {
     editModal.classList.remove('show');
+    // hideButtons();
+    // resetValues();
+}
+
+/**
+ *  Ocultamos todos los botones. Util en casos en los que tenemos un modal
+ * con 3 botones y luego uno con 2, como es el caso de ir a agregar un nuevo ejercicio
+ */
+function hideButtons() {
+    var buttons = document.querySelectorAll('.btn-container .btn');
+    buttons.forEach(button => {
+        button.classList.add('hide');
+    });
+}
+
+/**
+ * Resetear valores que puedan ser mostrados accidentalmente en el siguiente modal
+ */
+function resetValues() {
+    
+}
+
+function showButtons(buttonsToShow) {
+    var buttons = document.querySelectorAll('.btn-container .btn');
+    buttons.forEach(button => {
+        if(buttonsToShow.includes(button.id)) button.classList.remove('hide');
+    });
+}
+
+function setTitle(title, editable, placeholder) {
+    var readonlyElem = document.querySelector('.readonly'),
+        titleElem = document.getElementById('m-title');
+    
+    if(editable) {
+        readonlyElem.classList.add('editable');
+        titleElem.removeAttribute('readonly');
+        titleElem.placeholder = placeholder;
+    } else {
+        readonlyElem.classList.remove('editable');
+        titleElem.setAttribute('readonly', true);
+    }
+    titleElem.value = title;
 }

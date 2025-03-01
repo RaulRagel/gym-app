@@ -14,15 +14,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body class="roboto-regular">
-    <div class="header">
+    <div class="header main-header">
         <div class="title">
             <div>Rutina fullbody</div>
             <input type="button" id="menu" class="btn" value="☰">
         </div>
         <div class="menu">
-            <input type="button" class="menu-item" id="add" value="✚">
-            <input type="button" class="menu-item" id="exercises" value="🏋️">
-            <input type="button" class="menu-item" id="config" value="⚙️">
+            <input type="button" class="menu-item btn" id="add" value="✚">
+            <input type="button" class="menu-item btn" id="exercises" value="🏋️">
+            <input type="button" class="menu-item btn" id="config" value="⚙️">
         </div>
     </div>
     <div class="container">
@@ -30,7 +30,9 @@
     <div id="edit-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header header">
-                <span id="m-title"></span>
+                <div class="readonly">
+                    <input type="text" id="m-title">
+                </div>
                 <input type="button" class="btn" id="close-edit" value="❌">
             </div>
             <div class="modal-ex info">
@@ -59,8 +61,9 @@
 
             </div>
             <div class="btn-container">
-                <button class="btn" id="reset-edit">Reestablecer 🔄</button>
-                <button class="btn" id="save-edit">Guardar ✅</button>
+                <button class="btn hide" id="new">Nuevo ✚</button>
+                <button class="btn hide" id="reset">Reestablecer 🔄</button>
+                <button class="btn hide" id="save">Guardar ✅</button>
             </div>
         </div>
     </div>

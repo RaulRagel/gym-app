@@ -10,18 +10,22 @@ body {
 }
 
 .header {
-    max-height: 6vh;
+    max-height: 8vh;
     position: relative;
     background-color: #333;
     color: #fff;
-    font-size: 4vw;
+    font-size: 2rem;
     font-weight: 600;
     padding: 1rem;
     display: flex;
-    flex-direction: column;
     z-index: 1;
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
+}
+
+.main-header {
+    flex-direction: column;
+    padding: 0;
 }
 
 .header.show {
@@ -31,6 +35,7 @@ body {
 .header .title {
     display: flex;
     justify-content: space-between;
+    padding: 1rem;
 }
 
 .menu {
@@ -40,7 +45,7 @@ body {
     align-items: center;
     justify-content: space-around;
     user-select: none;
-    margin-top: 2vh;
+    padding: 1rem;
 }
 
 .menu-item {
@@ -91,7 +96,7 @@ body {
 .dropdown {
     background-color: #e7e7e7;
     border: 2px solid #ababab;
-    font-size: 3vw;
+    font-size: 1rem;
     font-weight: 600;
     width: 90%;
     display: flex;
@@ -156,13 +161,50 @@ body {
     height: 100%;
     background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
+    z-index: 10;
 }
+
+.modal-header {
+    position: relative;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    max-height: fit-content;
+}
+
+.readonly {
+    position: relative;
+    display: inline-block;
+}
+
+.readonly input {
+    all: unset;
+    width: 100%;
+    padding: 0.5rem;
+    box-sizing: border-box;
+}
+
+.readonly.editable {
+    cursor: pointer;
+    border: 1px solid #ababab;
+    border-radius: 10px;
+}
+
+/* NUEVA FUNCIONALIDAD FUTURA */
+/* .readonly.editable::after {
+    content: '✏️';
+    position: absolute;
+    right: -2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: #333;
+} */
 
 .modal.show {
     display: block;
 }
 
-.modal.hide{
+.hide {
     display: none;
 }
 
@@ -174,10 +216,6 @@ body {
     min-height: 65vh;
     margin: 5vw auto;
     overflow: hidden;
-}
-
-.modal-header {
-    font-size: 1.5rem;
 }
 
 /* MODAL EX */

@@ -58,3 +58,5 @@ botones nuevos:
 - agregar: formulario para agregar nuevo ejercicio, poder reutilizar el ex-modal
 - config: boton de config
 - futuro botón de plantillas?
+
+agregar toasts de error y de correcto
