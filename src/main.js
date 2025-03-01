@@ -137,7 +137,7 @@ function renderDay(day) { // TO DO: agregar un boton para agregar ejercicios
     const newExElement = document.createElement('div');
     newExElement.className = 'm-ex new-ex';
     newExElement.innerHTML = `<div class='add-btn'>Agregar ✚</div>`;
-    newExElement.querySelector('.add-btn').onclick = () => renderEditModal(); // !
+    newExElement.querySelector('.add-btn').onclick = () => renderEditModal('list', day);
     modalDay.appendChild(newExElement);
 }
 
@@ -152,6 +152,10 @@ function saveDay(day) {
     originalDay = JSON.parse(JSON.stringify(day));
     auxDay = JSON.parse(JSON.stringify(day));
     renderInfo(true);
+}
+
+function saveExList(day) {
+    // ! TO DO: agregar ejercicios que están checkeados a los ejercicios del día
 }
 
 function newEx(day) {
@@ -171,8 +175,9 @@ function removeEx(day, exName) {
  * Lista de ejercicios generales. Con el parámetro readonly podemos agregar multiples
  * ejercicios a ese día o simplemente ver los que están agregados a ese día
  * @param {Boolean} readonly 
+ * @param {Object} day 
  */
-function setExList(readonly) {
+function setExList(readonly, day) { // ! TO DO: agregar checkboxes para agregar multiples ejercicios
     setTitle('Lista de ejercicios');
     const modalList = document.querySelector('.modal-list');
     var exsByMuscle = orderByMuscle();
@@ -266,6 +271,7 @@ function stringToNumberArray(str) {
  * @param {Object} target Si necesitamos editar, este es el objeto editable
  */
 function renderEditModal(mode, target) {
+    debugger;
     closeModal();
     var closeBtn = document.getElementById('close-modal');
 
@@ -286,10 +292,10 @@ function renderEditModal(mode, target) {
         setNewExInfo();
         toggleModalInfo('ex');
         setButtons(target, ['save', 'reset']);
-    } else {
-        setExList(true);
+    } else { // 'list'
+        setExList(true, target);
         toggleModalInfo('list');
-        setButtons({}, []); // limpiamos los botones
+        setButtons(target, ['save'], 'list');
     }
     closeBtn.onclick = closeModal;
     editModal.classList.add('show');
@@ -314,9 +320,11 @@ function setButtons(target, buttons, mode) {
         saveBtn.onclick = () => saveDay(target);
         resetBtn.onclick = () => resetDay(target);
         newBtn.onclick = () => newEx(target);
-    } else { // 'new'
+    } else if(mode === 'new') {
         saveBtn.onclick = () => addEx(target);
         resetBtn.onclick = () => setNewExInfo();
+    } else { // 'list'
+        saveBtn.onclick = () => saveExList(target);
     }
     // si necesitamos botones para la lista de ejercicios, lo agregamos aqui
     showButtons(buttons);
