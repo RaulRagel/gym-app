@@ -210,11 +210,12 @@ function setExList(readonly, day) {
             if(!readonly && day) {
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
-                exElement.appendChild(checkbox);
-                if(day.ejercicios.includes(exName)) checkbox.checked = true;
-                exElement.onclick = () => {
+                checkbox.onclick = () => {
                     checkbox.checked = !checkbox.checked;
                 };
+                exElement.appendChild(checkbox);
+                if(day.ejercicios.includes(exName)) checkbox.checked = true;
+                exElement.onclick = checkbox.onclick;
             }
             muscleElement.appendChild(exElement);
         });
