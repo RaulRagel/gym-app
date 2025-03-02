@@ -287,10 +287,21 @@ body {
 }
 
 .m-ex {
+    position: relative;
     display: flex;
     padding: 1rem;
     justify-content: space-between;
     border-bottom: 1px solid #ababab;
+}
+
+.m-ex.is-new::after {
+    content: 'new';
+    color: #9f1212;
+    position: absolute;
+    left: 0.1rem;
+    top: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
 }
 
 .m-ex.new-ex {

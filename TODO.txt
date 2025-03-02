@@ -77,3 +77,12 @@ a futuro: todo lo que puedas mover al html mejor
 
 draggable
 https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_draggable
+
+
+TO DO:
+- QA profundo
+- Probar a llamar a funciones con datos inesperados
+
+config: meter una variable para que el cliente decida si quiere que el modal se cierre al guardar
+
+controlar las mayus y minus, que no haya Biceps y biceps, y las tildes igual
