@@ -11,6 +11,7 @@ body {
 
 .header {
     max-height: 8vh;
+    height: 100%;
     position: relative;
     background-color: #333;
     color: #fff;
@@ -29,7 +30,7 @@ body {
 }
 
 .header.show {
-    max-height: fit-content;
+    max-height: 20vh;
 }
 
 .header .title {
@@ -281,7 +282,7 @@ body {
 /* MODAL DAY */
 
 .modal-day {
-    max-height: 400px;
+    max-height: 400px; /* estándar */
     overflow-y: auto;
 }
 
@@ -307,7 +308,7 @@ body {
 /* MODAL LIST */
 
 .modal-list {
-    height: 65vh; /* estándar */
+    max-height: 400px; /* estándar */
     overflow-y: auto;
 }
 
@@ -324,6 +325,7 @@ body {
 
 .m-set .ex {
     padding: 0.5rem 1rem;
+    justify-content: space-between;
 }
 
 /* Estilos para dispositivos móviles */

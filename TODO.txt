@@ -74,3 +74,6 @@ hacer ejercicios draggables cambiando un position
 lista con checkbox y ordenada por musculo
 
 a futuro: todo lo que puedas mover al html mejor
+
+draggable
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_draggable

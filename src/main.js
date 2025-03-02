@@ -20,17 +20,17 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     editModal = document.querySelector('#edit-modal');
     menu = document.querySelector('#menu');
-    menu.onclick = () => displayMenu();
+    menu.onclick = () => toggle('.main-header');
 
     renderInfo();
 });
 
-function displayMenu() {
-    const header = document.querySelector('.header');
-    if (header.classList.contains('show')) {
-        header.classList.remove('show');
+function toggle(id) {
+    const elem = document.querySelector(id);
+    if (elem.classList.contains('show')) {
+        elem.classList.remove('show');
     } else {
-        header.classList.add('show');
+        elem.classList.add('show');
     }
 }
 
@@ -136,7 +136,7 @@ function renderDay(day) { // TO DO: agregar un boton para agregar ejercicios
     // Agregar ejercicio
     const newExElement = document.createElement('div');
     newExElement.className = 'm-ex new-ex';
-    newExElement.innerHTML = `<div class='add-btn'>Agregar ✚</div>`;
+    newExElement.innerHTML = `<div class='add-btn'>Agregar o quitar</div>`;
     newExElement.querySelector('.add-btn').onclick = () => renderEditModal('list', day);
     modalDay.appendChild(newExElement);
 }
@@ -155,7 +155,16 @@ function saveDay(day) {
 }
 
 function saveExList(day) {
-    // ! TO DO: agregar ejercicios que están checkeados a los ejercicios del día
+    // Obtenemos las checkbox seleccionadas y buscamos su ejercicio asociado para agregarlo al día
+    const checkedBoxes = document.querySelectorAll('.ex input:checked');
+    const exsToAdd = [];
+    checkedBoxes.forEach(checkbox => {
+        exsToAdd.push(checkbox.parentElement.innerText);
+    });
+    const dayIndex = days.dias.findIndex(d => d.nombre === day.nombre);
+    days.dias[dayIndex].ejercicios = exsToAdd;
+    saveData('days', days);
+    renderInfo(true);
 }
 
 function newEx(day) {
@@ -172,12 +181,13 @@ function removeEx(day, exName) {
 }
 
 /**
- * Lista de ejercicios generales. Con el parámetro readonly podemos agregar multiples
+ * Lista de ejercicios generales.
+ * Con los parámetros readonly y day, podemos agregar multiples
  * ejercicios a ese día o simplemente ver los que están agregados a ese día
  * @param {Boolean} readonly 
  * @param {Object} day 
  */
-function setExList(readonly, day) { // ! TO DO: agregar checkboxes para agregar multiples ejercicios
+function setExList(readonly, day) {
     setTitle('Lista de ejercicios');
     const modalList = document.querySelector('.modal-list');
     var exsByMuscle = orderByMuscle();
@@ -189,8 +199,17 @@ function setExList(readonly, day) { // ! TO DO: agregar checkboxes para agregar 
         exsByMuscle[muscle].forEach(exName => {
             const exElement = document.createElement('div');
             exElement.className = 'ex';
-            exElement.innerHTML = exName;
-            exElement.onclick = () => addExToList(exName);
+            exElement.innerHTML = `<div>${exName}</div>`;
+            // Lógica para agregar ejercicios al día
+            if(!readonly && day) {
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                exElement.appendChild(checkbox);
+                if(day.ejercicios.includes(exName)) checkbox.checked = true;
+                exElement.onclick = () => {
+                    checkbox.checked = !checkbox.checked;
+                };
+            }
             muscleElement.appendChild(exElement);
         });
         modalList.appendChild(muscleElement);
@@ -271,9 +290,9 @@ function stringToNumberArray(str) {
  * @param {Object} target Si necesitamos editar, este es el objeto editable
  */
 function renderEditModal(mode, target) {
-    debugger;
     closeModal();
     var closeBtn = document.getElementById('close-modal');
+    closeBtn.onclick = closeModal; // cerramos por defecto, pero podemos modificarlo
 
     // Nueva funcionalidad futura
     // editModal.addEventListener('click', function (event) {
@@ -293,11 +312,11 @@ function renderEditModal(mode, target) {
         toggleModalInfo('ex');
         setButtons(target, ['save', 'reset']);
     } else { // 'list'
-        setExList(true, target);
+        setExList(false, target);
         toggleModalInfo('list');
         setButtons(target, ['save'], 'list');
+        // closeBtn.onclick = backToLastModal(); // ! TO DO: volvemos al modal
     }
-    closeBtn.onclick = closeModal;
     editModal.classList.add('show');
 }
 
