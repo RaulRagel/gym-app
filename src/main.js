@@ -34,6 +34,10 @@ function toggle(id) {
     }
 }
 
+/**
+ * Leemos la información de los días y ejercicios del el local storage.
+ * Si no existe, leemos los archivos JSON
+ */
 async function getLocalData() {
     days = getData('days');
     exs = getData('exs');
@@ -45,6 +49,11 @@ async function getLocalData() {
     console.log('Ejercicios', exs);
 }
 
+/**
+ * Reenderizado de la información obteniendo los datos de los días y ejercicios
+ * de la variable global
+ * @param {Boolean} update 
+ */
 function renderInfo(update) { // TO DO: agregar un boton para agregar dias
     const container = document.querySelector('.container');
     var index = [];
@@ -108,9 +117,9 @@ function toggleExs(element) {
 
 /* DIAS */
 
-function editDay(day) { // !
+function editDay(day) {
     event.stopPropagation();
-    auxDay = JSON.parse(JSON.stringify(day));
+    auxDay = JSON.parse(JSON.stringify(day)); // copia produnda del objeto
     renderDay(auxDay);
     renderEditModal('day', auxDay);
 }
@@ -147,8 +156,9 @@ function resetDay() {
 function saveDay(day) {
     const dayIndex = getDayIndex(day.nombre);
     days.dias[dayIndex] = day;
-    auxDay = JSON.parse(JSON.stringify(day));
+    saveData('days', days);
     renderInfo(true);
+    closeModal();
 }
 
 function saveExList(day) {
@@ -179,11 +189,8 @@ function newEx(day) {
 
 function removeEx(day, exName) {
     const exIndex = day.ejercicios.findIndex(ex => ex === exName);
-    const dayIndex = getDayIndex(day.nombre);
-    day.ejercicios.splice(exIndex, 1); // actualizamos dia
-    days.dias[dayIndex].ejercicios = day.ejercicios; // actualizamos dias
-    saveData('days', days);
-    renderDay(day);
+    auxDay.ejercicios.splice(exIndex, 1); // actualizamos dia auxiliar
+    renderDay(auxDay);
 }
 
 /**

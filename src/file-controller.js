@@ -8,13 +8,24 @@ async function readJSON(path) {
     }
 }
 
-function saveData(type, data) {
-  localStorage.setItem(type, JSON.stringify(data));
+/**
+ * Guardamos datos en local storage
+ * @param {String} name 
+ * @param {Object} data 
+ */
+function saveData(name, data) {
+  localStorage.setItem(name, JSON.stringify(data));
 }
 
+/**
+ * Leer datos del local storage
+ * @param {String} name 
+ */
 function getData(data) {
   return JSON.parse(localStorage.getItem(data));
 }
+
+// ! probar si lo necesitamos
 // function getData(data) {
 //     const parsedData = JSON.parse(localStorage.getItem(data));
 //     return convertEmptyStringsToArrays(parsedData);
