@@ -272,7 +272,7 @@ body {
 }
 
 .modal-ex .flex input {
-    text-align: center;
+    text-align: right;
 }
 
 .modal-ex input[type="number"] {
