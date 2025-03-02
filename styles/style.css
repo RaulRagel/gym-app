@@ -215,7 +215,7 @@ body {
     border: 2px solid #ababab;
     border-radius: 8px;
     width: 75vw;
-    min-height: 65vh; /* estándar */
+    min-height: 565px;
     margin: 5vw auto;
     overflow: hidden;
 }
@@ -234,6 +234,7 @@ body {
     padding: .8rem;
     border-radius: 10px;
     border: 1px solid #ababab;
+    text-align: center;
 }
 
 /* MODAL EX */
@@ -256,7 +257,7 @@ body {
 }
 
 .modal-ex textarea {
-    height: 6vh;
+    height: 55px;
 }
 
 .modal-ex input:focus, .modal-ex textarea:focus {
