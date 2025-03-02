@@ -15,16 +15,16 @@
       "pesos": [],
       "musculo": "Espalda"
     },
-    "Jalón de espalda con barra": {
-      "nombre": "Jalón de espalda con barra",
+    "Lat pulley con barra": {
+      "nombre": "Lat pulley con barra",
       "descripcion": "",
       "series": 3,
       "repeticiones": 10,
       "pesos": [42, 50],
       "musculo": "Espalda"
     },
-    "Lat pulley": {
-      "nombre": "Lat pulley",
+    "Lat pulley (maq)": {
+      "nombre": "Lat pulley (maq)",
       "descripcion": "Polea al pecho",
       "series": 3,
       "repeticiones": 10,
@@ -36,7 +36,7 @@
       "descripcion": "Remo sentado",
       "series": 3,
       "repeticiones": 10,
-      "pesos": [30, 35],
+      "pesos": [42, 50],
       "musculo": "Espalda"
     },
     "Long pull": {
@@ -52,12 +52,12 @@
       "descripcion": "",
       "series": 3,
       "repeticiones": 6,
-      "pesos": [-30],
+      "pesos": [50, 57, 65],
       "musculo": "Tríceps"
     },
     "Seated dip (maq)": {
       "nombre": "Seated dip (maq)",
-      "descripcion": "Fondos de triceps en máquina",
+      "descripcion": "Fondos de tríceps en máquina",
       "series": 3,
       "repeticiones": 10,
       "pesos": [50, 57],
@@ -65,7 +65,7 @@
     },
     "Tríceps en polea": {
       "nombre": "Tríceps en polea",
-      "descripcion": "Con triángulo o con cuerda",
+      "descripcion": "Con triángulo (20,25) o con cuerda (15, 20)",
       "series": 3,
       "repeticiones": 10,
       "pesos": [20, 25],
@@ -148,8 +148,8 @@
       "descripcion": "Curl de bíceps",
       "series": 3,
       "repeticiones": 10,
-      "pesos": [25, 35, 40],
-      "musculo": "Biceps"
+      "pesos": [25],
+      "musculo": "Bíceps"
     },
     "Bicep curl": {
       "nombre": "Bicep curl",
@@ -157,7 +157,7 @@
       "series": 3,
       "repeticiones": 10,
       "pesos": [7.5, 10],
-      "musculo": "Biceps"
+      "musculo": "Bíceps"
     },
     "Leg extension": {
       "nombre": "Leg extension",
@@ -172,7 +172,7 @@
       "descripcion": "En la última, 20-20-30 arriba",
       "series": 3,
       "repeticiones": 10,
-      "pesos": [20, 25, 60, 70],
+      "pesos": [40, 60, 70],
       "musculo": "Piernas"
     },
     "Leg press (maq)": {
@@ -201,10 +201,10 @@
     },
     "Gemelo sentado (maq)": {
       "nombre": "Gemelo sentado (maq)",
-      "descripcion": "Gemelo en máquina",
+      "descripcion": "Gemelo en máquina. Nivel 10",
       "series": 3,
       "repeticiones": 10,
-      "pesos": [],
+      "pesos": [45, 50],
       "musculo": "Piernas"
     }
 }
