@@ -1,0 +1,19 @@
+
+Edición de días
+
+El flujo de un día concreto es el siguiente:
+
+1. editDay:
+Función que es llamada por el onclick de edit-btn y por la función backToLastModal si estamos
+volviendo de otro modal que vaya después de este. Por ejemplo el modal de la lista de 
+ejercicios (modal-list)
+Es importante llamar a esta función si queremos ir a este modal porque aqui se controla la lógica de
+usar el día auxiliar y guardar el original, además de renderizar el día de nuevo para actualizar su html
+y llamar al render del modal de edición para obtener la información común a todos los modales (titulo,
+botones...)
+
+2. renderDay
+Usamos esta función cuando ya estamos en el modal de edición y queremos ahora renderizar los días
+
+3. renderEditModal
+Modal de edición con la información común a todos los modales

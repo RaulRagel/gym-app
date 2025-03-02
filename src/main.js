@@ -4,8 +4,8 @@ var editModal;
 var exListModal;
 var menu;
 
-var originalDay;
-var auxDay;
+var auxDay; // día auxiliar para mostrar cambios antes de guardar
+var returnableModal = false; // true cuando hay un modal al que podemos volver
 
 const PATHS = {
     config: './config.json',
@@ -108,10 +108,8 @@ function toggleExs(element) {
 
 /* DIAS */
 
-function editDay(day) {
+function editDay(day) { // !
     event.stopPropagation();
-
-    originalDay = JSON.parse(JSON.stringify(day));
     auxDay = JSON.parse(JSON.stringify(day));
     renderDay(auxDay);
     renderEditModal('day', auxDay);
@@ -136,20 +134,19 @@ function renderDay(day) { // TO DO: agregar un boton para agregar ejercicios
     // Agregar ejercicio
     const newExElement = document.createElement('div');
     newExElement.className = 'm-ex new-ex';
-    newExElement.innerHTML = `<div class='add-btn'>Agregar o quitar</div>`;
+    newExElement.innerHTML = `<div class='add-btn'>Elección múltiple</div>`;
     newExElement.querySelector('.add-btn').onclick = () => renderEditModal('list', day);
     modalDay.appendChild(newExElement);
 }
 
 function resetDay() {
-    auxDay = JSON.parse(JSON.stringify(originalDay));
-    renderDay(auxDay);
+    // Usamos el nombre del dia auxiliar para buscar el dia original
+    renderDay(getDay(auxDay.nombre));
 }
 
 function saveDay(day) {
-    const index = days.dias.findIndex(d => d.nombre === day.nombre);
-    days.dias[index] = day;
-    originalDay = JSON.parse(JSON.stringify(day));
+    const dayIndex = getDayIndex(day.nombre);
+    days.dias[dayIndex] = day;
     auxDay = JSON.parse(JSON.stringify(day));
     renderInfo(true);
 }
@@ -161,10 +158,19 @@ function saveExList(day) {
     checkedBoxes.forEach(checkbox => {
         exsToAdd.push(checkbox.parentElement.innerText);
     });
-    const dayIndex = days.dias.findIndex(d => d.nombre === day.nombre);
-    days.dias[dayIndex].ejercicios = exsToAdd;
-    saveData('days', days);
-    renderInfo(true);
+    // Actualizamos el dia auxiliar ya que aún no hemos confirmado el guardado del día
+    auxDay.ejercicios = exsToAdd;
+    backToLastModal('list', auxDay);
+}
+
+function backToLastModal(mode, target) {
+    if(!returnableModal) return;
+
+    if(mode === 'list') {
+        returnableModal = false;
+        // Volvemos al día auxiliar con los ejercicios seleccionados
+        editDay(target);
+    }
 }
 
 function newEx(day) {
@@ -173,7 +179,7 @@ function newEx(day) {
 
 function removeEx(day, exName) {
     const exIndex = day.ejercicios.findIndex(ex => ex === exName);
-    const dayIndex = days.dias.findIndex(d => d.nombre === day.nombre);
+    const dayIndex = getDayIndex(day.nombre);
     day.ejercicios.splice(exIndex, 1); // actualizamos dia
     days.dias[dayIndex].ejercicios = day.ejercicios; // actualizamos dias
     saveData('days', days);
@@ -257,7 +263,7 @@ function saveEx(ex) {
 
 function addEx(day) {
     var title = document.getElementById('m-title').value,
-        index = days.dias.findIndex(d => d.nombre === day.nombre);
+        index = getDayIndex(day.nombre);
     if(!exs[title]) {
         exs[title] = {
             nombre: title,
@@ -289,10 +295,8 @@ function stringToNumberArray(str) {
  * @param {String} mode Según el modo, se renderiza un modal distinto
  * @param {Object} target Si necesitamos editar, este es el objeto editable
  */
-function renderEditModal(mode, target) {
+function renderEditModal(mode, target) { // !
     closeModal();
-    var closeBtn = document.getElementById('close-modal');
-    closeBtn.onclick = closeModal; // cerramos por defecto, pero podemos modificarlo
 
     // Nueva funcionalidad futura
     // editModal.addEventListener('click', function (event) {
@@ -307,6 +311,7 @@ function renderEditModal(mode, target) {
         setDayInfo(target);
         toggleModalInfo('day');
         setButtons(target, ['save', 'reset', 'new'], 'day'); // TO DO: boton para borrar dia
+        returnableModal = true;
     } else if(mode === 'new') {
         setNewExInfo();
         toggleModalInfo('ex');
@@ -315,7 +320,6 @@ function renderEditModal(mode, target) {
         setExList(false, target);
         toggleModalInfo('list');
         setButtons(target, ['save'], 'list');
-        // closeBtn.onclick = backToLastModal(); // ! TO DO: volvemos al modal
     }
     editModal.classList.add('show');
 }
@@ -326,10 +330,13 @@ function renderEditModal(mode, target) {
  * @param {Array} buttons Botones a mostrar
  * @param {String} mode Modo de edición
  */
-function setButtons(target, buttons, mode) {
+function setButtons(target, buttons, mode) { // ! mirar si es necesario las funciones flecha
     var saveBtn = document.getElementById('save');
     var resetBtn = document.getElementById('reset');
     var newBtn = document.getElementById('new');
+
+    var closeBtn = document.getElementById('close-modal');
+    closeBtn.onclick = closeModal; // cerramos por defecto, pero podemos modificarlo
 
     hideButtons();
     if(mode === 'ex') {
@@ -344,6 +351,7 @@ function setButtons(target, buttons, mode) {
         resetBtn.onclick = () => setNewExInfo();
     } else { // 'list'
         saveBtn.onclick = () => saveExList(target);
+        closeBtn.onclick = () => backToLastModal(mode, target); // ! TO DO: volvemos al modal anterior
     }
     // si necesitamos botones para la lista de ejercicios, lo agregamos aqui
     showButtons(buttons);
@@ -441,4 +449,12 @@ function setTitle(title, editable, placeholder) {
         titleElem.setAttribute('readonly', true);
     }
     titleElem.value = title;
+}
+
+function getDayIndex(name) {
+    return days.dias.findIndex(d => d.nombre === name);
+}
+
+function getDay(name) {
+    return days.dias.find(d => d.nombre === name);
 }
