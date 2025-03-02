@@ -215,6 +215,7 @@ body {
     border: 2px solid #ababab;
     border-radius: 8px;
     width: 75vw;
+    min-width: 355px;
     min-height: 565px;
     margin: 5vw auto;
     overflow: hidden;
