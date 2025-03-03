@@ -176,18 +176,20 @@ function renderDay(day) { // TO DO: agregar un boton para agregar ejercicios
     modalDay.appendChild(newExElement);
 }
 
-function resetDay(day) {
-    var recoverDay = getDay(day.nombre);
+function resetDay() {
+    var recoverDay = getDay(auxDay.nombre);
     // Reseteamos auxDay porque hemos reestablecido la info
+    auxDay = {};
     auxDay = JSON.parse(JSON.stringify(recoverDay)); // Copia profunda del objeto
     // Usamos el nombre del dia auxiliar para buscar el dia original
     renderDay(auxDay);
 }
 
-function saveDay(day) {
-    const dayIndex = getDayIndex(day.nombre);
-    days.dias[dayIndex] = day;
-    if(Object.keys(newExs).length) { // SSi se han creado nuevos ejercicios, los agregamos
+function saveDay() {
+    const dayIndex = getDayIndex(auxDay.nombre);
+    days.dias[dayIndex] = JSON.parse(JSON.stringify(auxDay)); // Copia profunda del objeto
+    auxDay = {};
+    if(Object.keys(newExs).length) { // Si se han creado nuevos ejercicios, los agregamos
         exs = Object.assign(exs, newExs);
         newExs = {};
         saveData('exs', exs);
@@ -197,8 +199,9 @@ function saveDay(day) {
     closeModal();
 }
 
-function deleteDay(day) {
-    const dayIndex = getDayIndex(day.nombre);
+function deleteDay() {
+    const dayIndex = getDayIndex(auxDay.nombre);
+    auxDay = {};
     days.dias.splice(dayIndex, 1);
     saveData('days', days);
     renderInfo(true);
@@ -394,7 +397,7 @@ function setButtons(target, buttons, mode) {
         saveBtn.onclick = () => saveEx(target);
         resetBtn.onclick = () => resetEx(target);
     } else if(mode === 'day') {
-        saveBtn.onclick = () => saveDay(target);
+        saveBtn.onclick = () => saveDay();
         resetBtn.onclick = () => resetDay(target);
         deleteBtn.onclick = () => deleteDay(target);
         newBtn.onclick = () => newEx(target);

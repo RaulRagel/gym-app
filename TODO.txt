@@ -88,4 +88,7 @@ config: meter una variable para que el cliente decida si quiere que el modal se 
 controlar las mayus y minus, que no haya Biceps y biceps, y las tildes igual
 
 
-refactorizar nombres en español del json y por ejemplo como que days.dias.. borra dias
+refactorizar nombres en español del json y por ejemplo como que days.dias.. borra dias'
+
+
+La lista de ejercicios se puede poner en modo agregar o en modo borrar
