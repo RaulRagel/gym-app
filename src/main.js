@@ -79,7 +79,14 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
             </div>
         `;
         dayElement.querySelector('.edit-btn').onclick = () => editDay(day);
+        // Ejercicios de cada día
         const exsElement = dayElement.querySelector('.exs');
+        if(!day.ejercicios.length) {
+            const msgElement = document.createElement('div');
+            msgElement.className = 'no-ex';
+            msgElement.innerHTML = 'No tienes ejercicios este día';
+            exsElement.appendChild(msgElement);
+        }
         day.ejercicios.forEach(exName => {
             const ex = exs[exName];
             if (ex) {
@@ -373,7 +380,7 @@ function renderEditModal(mode, target) { // !
  * @param {Array} buttons Botones a mostrar
  * @param {String} mode Modo de edición
  */
-function setButtons(target, buttons, mode) { // ! mirar si es necesario las funciones flecha
+function setButtons(target, buttons, mode) {
     var saveBtn = document.getElementById('save');
     var resetBtn = document.getElementById('reset');
     var newBtn = document.getElementById('new');

@@ -155,6 +155,10 @@ body {
     cursor: pointer;
 }
 
+.no-ex {
+    padding: 1rem;
+}
+
 .ex > div {
     flex: 1;
 }
