@@ -143,7 +143,7 @@ function editDay(day) {
     renderEditModal('day', auxDay);
 }
 
-function renderDay(day) { // TO DO: agregar un boton para agregar ejercicios
+function renderDay(day) {
     // Lista de ejercicios del día
     const modalDay = document.querySelector('.modal-day');
     modalDay.innerHTML = '';
@@ -151,16 +151,17 @@ function renderDay(day) { // TO DO: agregar un boton para agregar ejercicios
         const exElement = document.createElement('div');
         exElement.className = 'm-ex';
         if(newExs[exName]) exElement.classList.add('is-new');
-        exElement.innerHTML = `
-            <div>${exName}</div>
-            <div class="remove-btn btn">
-                <div class="icon">🗑️</div>
-            </div>
-        `;
-        exElement.querySelector('.remove-btn').onclick = () => removeEx(day, exName);
+        exElement.innerHTML = `<div>${exName}</div>`;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-btn btn';
+        removeBtn.innerHTML = '<div class="icon">🗑️</div>';
+        removeBtn.onclick = () => removeEx(day, exName);
+        exElement.appendChild(removeBtn);
+
         modalDay.appendChild(exElement);
     });
-    // Botón de agregar ejercicio
+    // Botón de lista de ejercicios (editable por defecto)
     const newExElement = document.createElement('div');
     newExElement.className = 'm-ex new-ex';
     newExElement.innerHTML = `<div class='add-btn'>Lista de ejercicios</div>`;
@@ -227,8 +228,14 @@ function newEx(day) {
     renderEditModal('new', day);
 }
 
+/**
+ * Borrado del ejercicio.
+ * Si se especifica el día, se borra del día provisionalmente hasta que confirmemos la información auxiliar.
+ * Si no se especifica el día, se borrará de la lista global.
+ * @param {*} day 
+ * @param {*} exName 
+ */
 function removeEx(day, exName) {
-    console.log('removeEx');
     if(day) { // Borramos de un día concreto
         const exIndex = day.ejercicios.findIndex(ex => ex === exName);
         auxDay.ejercicios.splice(exIndex, 1); // Actualizamos dia auxiliar
@@ -296,7 +303,7 @@ function setExList(day, config) {
                 exElement.onclick = checkbox.onclick;
             }
             // Lógica para borrar ejercicios de la lista global
-            if(!config.readonly && !day && config.removable) { // !
+            if(!config.readonly && !day && config.removable) {
                 const removeBtn = document.createElement('button');
                 removeBtn.className = 'remove-btn btn';
                 removeBtn.innerHTML = '<div class="icon">🗑️</div>';
@@ -379,7 +386,7 @@ function stringToNumberArray(str) {
  * @param {Object} target Si necesitamos editar, este es el objeto editable
  * @param {Object} config Si necesitamos una configuración adicional
  */
-function renderEditModal(type, target, config) { // !
+function renderEditModal(type, target, config) {
     closeModal();
     var config = config || {};
 
