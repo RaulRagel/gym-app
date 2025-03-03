@@ -228,16 +228,38 @@ function newEx(day) {
 }
 
 function removeEx(day, exName) {
-    const exIndex = day.ejercicios.findIndex(ex => ex === exName);
-    auxDay.ejercicios.splice(exIndex, 1); // Actualizamos dia auxiliar
-    if(newExs[exName]) delete newExs[exName]; // Si se ha borrado un ejercicio nuevo, lo borramos
-    renderDay(auxDay);
+    console.log('removeEx');
+    if(day) { // Borramos de un día concreto
+        const exIndex = day.ejercicios.findIndex(ex => ex === exName);
+        auxDay.ejercicios.splice(exIndex, 1); // Actualizamos dia auxiliar
+        if(newExs[exName]) delete newExs[exName]; // Si se ha borrado un ejercicio nuevo, lo borramos
+        renderDay(auxDay);
+    } else { // Borramos de la lista general y de cada día
+        bulkDelete(exName);
+        delete exs[exName];
+        showExsList();
+        saveData('exs', exs);
+        renderInfo(true);
+    }
+}
+
+/**
+ * Borrado de un ejercicio en todos los dias donde se encuentre
+ * @param {String} exName 
+ */
+function bulkDelete(exName) {
+    days.dias.forEach(day => {
+        const exIndex = day.ejercicios.findIndex(ex => ex === exName);
+        if(exIndex !== -1) day.ejercicios.splice(exIndex, 1);
+    });
+    saveData('days', days);
 }
 
 /**
  * Lista de ejercicios generales.
- * Con los parámetros readonly y day, podemos agregar multiples
- * ejercicios a ese día o simplemente ver los que están agregados a ese día
+ * Se puede pasar por el objeto de configuración si la lista es de sólo lectura, o si se pueden
+ * agregar o borrar ejercicios (a un día concreto si pasamos el parámetro day o a la lista global
+ * de ejercicios).
  * @param {Object} day 
  * @param {Object} config 
  */
@@ -272,6 +294,14 @@ function setExList(day, config) {
                 exElement.appendChild(checkbox);
                 if(day.ejercicios.includes(exName)) checkbox.checked = true;
                 exElement.onclick = checkbox.onclick;
+            }
+            // Lógica para borrar ejercicios de la lista global
+            if(!config.readonly && !day && config.removable) { // !
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-btn btn';
+                removeBtn.innerHTML = '<div class="icon">🗑️</div>';
+                removeBtn.onclick = () => removeEx(null, exName);
+                exElement.appendChild(removeBtn);
             }
             muscleElement.appendChild(exElement);
         });

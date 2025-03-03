@@ -20,12 +20,10 @@ function removeData() {
 }
 
 function showExsList() {
-    // setExList(true);
-    // toggleModalInfo('list');
-    // toggle('.modal-list', 'full-list');
-    // editModal.classList.add('show');
+    // No pasamos el día para indicar que no hay día concreto, si no que es la lista global
     renderEditModal('list', null, {
-        readonly: true,
+        // readonly: true, // Con readonly no podriamos ni agregar ni borrar
+        removable: true,
         disableBtns: true
     });
 }
