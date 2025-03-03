@@ -57,10 +57,10 @@ async function getLocalData() {
  */
 function renderInfo(update) { // TO DO: agregar un boton para agregar dias
     const container = document.querySelector('.container');
-    var index = [];
+    var openedDays = [];
     if(update) { // Guardamos el index de los dias que estaban abiertos
         document.querySelectorAll('.exs').forEach(function(elem, i) {
-            if(elem.classList.contains('show')) index.push(i);
+            if(elem.classList.contains('show')) openedDays.push(i);
         });
     }
     container.innerHTML = '';
@@ -97,11 +97,30 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
         });
         container.appendChild(dayElement);
     });
-    if(index.length) { // Volvemos a abrir los dias que estaban abiertos
+    // Agregar botón de Nuevo día
+    container.appendChild(newDayElement());
+
+    if(openedDays.length) { // Volvemos a abrir los dias que estaban abiertos
         document.querySelectorAll('.exs').forEach(function(elem, i) {
-            if(index.includes(i)) elem.classList.add('show');
+            if(openedDays.includes(i)) elem.classList.add('show');
         });
     }
+}
+
+function newDayElement() {
+    const btnElement = document.createElement('button');
+    btnElement.classList.add('btn', 'new-day');
+    btnElement.innerHTML = 'Agregar día ✚';
+    btnElement.onclick = () => {
+        days.dias.push({
+            nombre: 'Día ' + (days.dias.length + 1),
+            descripcion: '',
+            ejercicios: []
+        });
+        saveData('days', days);
+        renderInfo(true);
+    };
+    return btnElement;
 }
 
 function toggleExs(element) {
@@ -161,11 +180,19 @@ function resetDay(day) {
 function saveDay(day) {
     const dayIndex = getDayIndex(day.nombre);
     days.dias[dayIndex] = day;
-    if(Object.keys(newExs).length) { // si se han creado nuevos ejercicios, los agregamos
+    if(Object.keys(newExs).length) { // SSi se han creado nuevos ejercicios, los agregamos
         exs = Object.assign(exs, newExs);
         newExs = {};
         saveData('exs', exs);
     }
+    saveData('days', days);
+    renderInfo(true);
+    closeModal();
+}
+
+function deleteDay(day) {
+    const dayIndex = getDayIndex(day.nombre);
+    days.dias.splice(dayIndex, 1);
     saveData('days', days);
     renderInfo(true);
     closeModal();
@@ -326,7 +353,7 @@ function renderEditModal(mode, target) { // !
     } else if (mode === 'day') {
         setDayInfo(target);
         toggleModalInfo(mode);
-        setButtons(target, ['save', 'reset', 'new'], mode); // TO DO: Boton para borrar dia
+        setButtons(target, ['save', 'reset', 'new', 'delete'], mode); // TO DO: Boton para borrar dia
         returnableModal = true;
     } else if(mode === 'new') {
         setNewExInfo();
@@ -350,6 +377,7 @@ function setButtons(target, buttons, mode) { // ! mirar si es necesario las func
     var saveBtn = document.getElementById('save');
     var resetBtn = document.getElementById('reset');
     var newBtn = document.getElementById('new');
+    var deleteBtn = document.getElementById('delete');
 
     var closeBtn = document.getElementById('close-modal');
     closeBtn.onclick = closeModal; // Cerramos modal por defecto
@@ -361,6 +389,7 @@ function setButtons(target, buttons, mode) { // ! mirar si es necesario las func
     } else if(mode === 'day') {
         saveBtn.onclick = () => saveDay(target);
         resetBtn.onclick = () => resetDay(target);
+        deleteBtn.onclick = () => deleteDay(target);
         newBtn.onclick = () => newEx(target);
     } else if(mode === 'new') {
         saveBtn.onclick = () => addEx();
