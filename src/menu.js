@@ -20,8 +20,12 @@ function removeData() {
 }
 
 function showExsList() {
-    setExList(true);
-    toggleModalInfo('list');
-    toggle('.modal-list', 'full-list');
-    editModal.classList.add('show');
+    // setExList(true);
+    // toggleModalInfo('list');
+    // toggle('.modal-list', 'full-list');
+    // editModal.classList.add('show');
+    renderEditModal('list', null, {
+        readonly: true,
+        disableBtns: true
+    });
 }

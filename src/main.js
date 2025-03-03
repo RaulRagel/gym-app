@@ -238,14 +238,22 @@ function removeEx(day, exName) {
  * Lista de ejercicios generales.
  * Con los parámetros readonly y day, podemos agregar multiples
  * ejercicios a ese día o simplemente ver los que están agregados a ese día
- * @param {Boolean} readonly 
  * @param {Object} day 
+ * @param {Object} config 
  */
-function setExList(readonly, day) {
-    setTitle('Lista de ejercicios');
+function setExList(day, config) {
+    var config = config || {},
+        disableBtns = config.disableBtns,
+        exsByMuscle = orderByMuscle();
     const modalList = document.querySelector('.modal-list');
-    var exsByMuscle = orderByMuscle();
     modalList.innerHTML = '';
+
+    // Si no hay botones, agregamos la clase para que ocupe todo el modal
+    if(disableBtns) modalList.classList.add('extended');
+    else modalList.classList.remove('extended');
+
+    setTitle('Lista de ejercicios');
+
     Object.keys(exsByMuscle).forEach(muscle => {
         const muscleElement = document.createElement('div');
         muscleElement.className = 'm-set';
@@ -255,7 +263,7 @@ function setExList(readonly, day) {
             exElement.className = 'ex';
             exElement.innerHTML = `<div>${exName}</div>`;
             // Lógica para agregar ejercicios al día
-            if(!readonly && day) {
+            if(!config.readonly && day) {
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
                 checkbox.onclick = () => {
@@ -337,34 +345,36 @@ function stringToNumberArray(str) {
 
 /**
  * Función para renderizar cualquier modal. Por defecto, se renderiza la lista de ejercicios sin botones
- * @param {String} mode Según el modo, se renderiza un modal distinto
+ * @param {String} type Según el tipo de modal, se renderiza un modal distinto
  * @param {Object} target Si necesitamos editar, este es el objeto editable
+ * @param {Object} config Si necesitamos una configuración adicional
  */
-function renderEditModal(mode, target) { // !
+function renderEditModal(type, target, config) { // !
     closeModal();
+    var config = config || {};
 
     // Nueva funcionalidad futura
     // editModal.addEventListener('click', function (event) {
     //     if (event.target === editModal) closeModal();
     // });
 
-    if (mode === 'ex') {
+    if (type === 'ex') {
         setExInfo(target);
-        toggleModalInfo(mode);
-        setButtons(target, ['save', 'reset'], mode);
-    } else if (mode === 'day') {
+        toggleFromGroup(type);
+        setButtons(target, type, ['save', 'reset']);
+    } else if (type === 'day') {
         setDayInfo(target);
-        toggleModalInfo(mode);
-        setButtons(target, ['save', 'reset', 'new', 'delete'], mode); // TO DO: Boton para borrar dia
+        toggleFromGroup(type);
+        setButtons(target, type, ['save', 'reset', 'new', 'delete']); // TO DO: Boton para borrar dia
         returnableModal = true;
-    } else if(mode === 'new') {
+    } else if(type === 'new') {
         setNewExInfo();
-        toggleModalInfo('ex');
-        setButtons(target, ['save', 'reset'], mode);
+        toggleFromGroup('ex');
+        setButtons(target, type, ['save', 'reset']);
     } else { // 'list'
-        setExList(false, target);
-        toggleModalInfo(mode);
-        setButtons(target, ['save'], mode);
+        setExList(target, config);
+        toggleFromGroup(type);
+        setButtons(target, type, ['save'], config);
     }
     editModal.classList.add('show');
 }
@@ -372,27 +382,31 @@ function renderEditModal(mode, target) { // !
 /**
  * Creamos los botones de acuerdo al modo y los seteamos con sus respectivas funciones
  * @param {Object} target Objeto a editar
+ * @param {String} type Tipo de modal
  * @param {Array} buttons Botones a mostrar
- * @param {String} mode Modo de edición
+ * @param {Object} config configuración adicional
  */
-function setButtons(target, buttons, mode) {
+function setButtons(target, type, buttons, config) {
     var saveBtn = document.getElementById('save');
     var resetBtn = document.getElementById('reset');
     var newBtn = document.getElementById('new');
     var deleteBtn = document.getElementById('delete');
+    var config = config || {};
 
     closeBtn.onclick = closeModal; // Cerramos modal por defecto
+    // hideButtons(); // Ocultamos botones si el modal anterior tenia botones y este no
 
-    hideButtons();
-    if(mode === 'ex') {
+    if(config.disableBtns) return;
+
+    if(type === 'ex') {
         saveBtn.onclick = () => saveEx(target);
         resetBtn.onclick = () => resetEx(target);
-    } else if(mode === 'day') {
+    } else if(type === 'day') {
         saveBtn.onclick = () => saveDay();
         resetBtn.onclick = () => resetDay(target);
         deleteBtn.onclick = () => deleteDay(target);
         newBtn.onclick = () => newEx(target);
-    } else if(mode === 'new') {
+    } else if(type === 'new') {
         saveBtn.onclick = () => addEx();
         resetBtn.onclick = () => setNewExInfo();
         closeBtn.onclick = () => backToLastModal(target);
@@ -404,7 +418,7 @@ function setButtons(target, buttons, mode) {
 }
 
 /**
- * Setear la info del ejercicio en el mnodal
+ * Setear la info del ejercicio en el modal
  * @param {Object} ex 
  */
 function setExInfo(ex) {
@@ -417,6 +431,9 @@ function setExInfo(ex) {
     document.getElementById('m-rep').value = ex.repeticiones || '';
 }
 
+/**
+ * Setear la info del dia en el modal. Como se crea en tiempo de ejecución, solo falta el título
+ */
 function setDayInfo(day) {
     setTitle(day.nombre, false);
 }
@@ -434,15 +451,15 @@ function setNewExInfo() {
     document.getElementById('m-rep').value = '';
 }
 
-function toggleModalInfo(type) {
+function toggleFromGroup(type) {
     var target = document.querySelector('.modal-' + type);
-    const infoElements = document.querySelectorAll('.info');
+    const groupElements = document.querySelectorAll('.group');
 
-    infoElements.forEach(element => {
-        element.style.display = 'none';
+    groupElements.forEach(element => {
+        element.classList.remove('show');
     });
 
-    target.style.display = 'block';
+    target.classList.add('show');
 }
 
 function closeModal() {
