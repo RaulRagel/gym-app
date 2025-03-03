@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="./styles/fonts.css">
     <link rel="stylesheet" href="./styles/style.css">
     <script src="./src/file-controller.js"></script>
+    <script src="./src/utils.js"></script>
+    <script src="./src/menu.js"></script>
     <script src="./src/main.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,11 +19,11 @@
     <div class="header main-header">
         <div class="title">
             <div>Rutina fullbody</div>
-            <input type="button" id="menu" class="btn" value="☰">
+            <input type="button" id="menu-btn" class="btn" value="☰">
         </div>
-        <div class="menu">
+        <div class="menu" id="menu">
             <input type="button" class="menu-item btn" id="add" value="Nuevo ejercicio">
-            <input type="button" class="menu-item btn" id="exercises" value="Lista de ejercicios">
+            <input type="button" class="menu-item btn" id="exsList" value="Lista de ejercicios">
             <input type="button" class="menu-item btn" id="removeData" value="Borrar datos">
             <input type="button" class="menu-item btn" id="config" value="Configuración">
         </div>

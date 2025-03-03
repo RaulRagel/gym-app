@@ -2,7 +2,7 @@ var days, exs;
 
 var editModal;
 var exListModal;
-var menu;
+var closeBtn;
 
 var auxDay; // Día auxiliar para mostrar cambios antes de guardar
 var newExs = {}; // Ejercicios nuevos, a la espera de guardar el día. Al guardar se reinicia la variable
@@ -20,20 +20,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     await getLocalData();
 
     editModal = document.querySelector('#edit-modal');
-    menu = document.querySelector('#menu');
-    menu.onclick = () => toggle('.main-header');
+    closeBtn = document.getElementById('close-modal');
+    closeBtn.onclick = closeModal; // Cerramos modal por defecto
 
+    initMenu();
     renderInfo();
 });
-
-function toggle(id) {
-    const elem = document.querySelector(id);
-    if (elem.classList.contains('show')) {
-        elem.classList.remove('show');
-    } else {
-        elem.classList.add('show');
-    }
-}
 
 /**
  * Leemos la información de los días y ejercicios del el local storage.
@@ -389,7 +381,6 @@ function setButtons(target, buttons, mode) {
     var newBtn = document.getElementById('new');
     var deleteBtn = document.getElementById('delete');
 
-    var closeBtn = document.getElementById('close-modal');
     closeBtn.onclick = closeModal; // Cerramos modal por defecto
 
     hideButtons();
@@ -456,8 +447,7 @@ function toggleModalInfo(type) {
 
 function closeModal() {
     editModal.classList.remove('show');
-    // hideButtons();
-    // resetValues();
+    hideButtons(); // Para casos como tener botones e ir a un modal que no tiene botones ni los cambia, como la lista
 }
 
 /**

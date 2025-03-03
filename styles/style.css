@@ -238,6 +238,7 @@ body {
     width: 75vw;
     min-width: 355px;
     min-height: 565px;
+    max-height: 400px; /* estándar */
     margin: 5vw auto;
     overflow: hidden;
 }
@@ -344,6 +345,10 @@ body {
 .modal-list {
     max-height: 400px; /* estándar */
     overflow-y: auto;
+}
+
+.modal-list.full-list {
+    max-height: 450px;
 }
 
 .m-muscle {
