@@ -4,7 +4,7 @@ var editModal;
 var exListModal;
 var closeBtn;
 
-var auxDay; // Día auxiliar para mostrar cambios antes de guardar
+var auxDay = {}; // Día auxiliar para mostrar cambios antes de guardar
 var newExs = {}; // Ejercicios nuevos, a la espera de guardar el día. Al guardar se reinicia la variable
 var lastModal = ''; // True cuando hay un modal al que podemos volver
 
