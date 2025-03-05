@@ -218,7 +218,6 @@ function saveExList() {
 }
 
 function backToLastModal(target) {
-    if(!lastModal) return;
     var hasLastModal = lastModal;
     lastModal = ''; // Reseteamos antes de decidir si volvemos a setearlo
     // Volvemos al día auxiliar con los ejercicios seleccionados
@@ -231,7 +230,7 @@ function backToLastModal(target) {
             canShowInfo: true
         });
     } else {
-        console.error('No se pudo volver atrás');
+        closeModal();
     }
 }
 
@@ -387,14 +386,25 @@ function addEx() {
         newExs[title] = {
             nombre: title,
             descripcion: document.getElementById('m-desc').value.trim(),
-            musculo: document.getElementById('m-muscle').value.trim(),
+            musculo: capitalize(document.getElementById('m-muscle').value),
             pesos: stringToNumberArray(document.getElementById('m-wg').value),
             series: document.getElementById('m-ser').value.trim(),
             repeticiones: document.getElementById('m-rep').value.trim(),
         };
-        if(!auxDay.ejercicios.includes(title)) auxDay.ejercicios.push(title);
+        if(auxDay.ejercicios) { // si es un dia concreto, tendremos auxDay
+            if(!auxDay.ejercicios.includes(title)) auxDay.ejercicios.push(title);
+            // else // TO DO: mostrar modal de ejercicio ya existente
+        } else { // si no, lo buscamos en la lista global
+            if(!exs[title]) exs[title] = newExs[title];
+            newExs = {};
+        }
     }
-    backToLastModal(auxDay);
+
+    if(lastModal) {
+        backToLastModal(auxDay);
+    } else {
+        closeModal();
+    }
 }
 
 function stringToNumberArray(str) {
@@ -431,7 +441,7 @@ function renderEditModal(type, target, config) {
         lastModal = type;
     } else if(type === 'new') {
         setNewExInfo();
-        toggleFromGroup('ex');
+        toggleFromGroup('ex'); // es el mismo tipo de modal
         setButtons(target, type, ['save', 'reset']);
     } else { // 'list'
         setExList(target, config);

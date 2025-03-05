@@ -7,16 +7,14 @@ function initMenu() {
     menuBtn.onclick = () => toggle('.main-header');
 
     menu = document.querySelector('#menu');
-    menu.querySelector('#add').onclick = () => {};
+    menu.querySelector('#add').onclick = () => addGlobalEx();
     menu.querySelector('#exsList').onclick = () => showExsList();
     menu.querySelector('#removeData').onclick = () => removeData();
     menu.querySelector('#config').onclick = () => {};
 }
 
-
-function removeData() {
-    localStorage.clear();
-    window.location.reload();
+function addGlobalEx() {
+    renderEditModal('new');
 }
 
 function showExsList() {
@@ -27,4 +25,9 @@ function showExsList() {
         disableBtns: true,
         canShowInfo: true
     });
+}
+
+function removeData() {
+    localStorage.clear();
+    window.location.reload();
 }

@@ -93,3 +93,5 @@ refactorizar nombres en español del json y por ejemplo como que days.dias.. bor
 
 La lista de ejercicios se puede poner en modo agregar o en modo borrar
 
+IDEA: cuando agregamos un ejercicio global, podemos marcar una opcion de creado múltiple
+de esa forma no te cierra el modal, solo te lo limpia
