@@ -92,3 +92,4 @@ refactorizar nombres en español del json y por ejemplo como que days.dias.. bor
 
 
 La lista de ejercicios se puede poner en modo agregar o en modo borrar
+

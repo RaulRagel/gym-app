@@ -40,7 +40,7 @@ body {
 }
 
 .menu {
-    font-size: 3vw;
+    font-size: 1rem;
     width: 100%;
     display: flex;
     align-items: center;

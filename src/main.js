@@ -6,7 +6,7 @@ var closeBtn;
 
 var auxDay; // Día auxiliar para mostrar cambios antes de guardar
 var newExs = {}; // Ejercicios nuevos, a la espera de guardar el día. Al guardar se reinicia la variable
-var returnableModal = false; // True cuando hay un modal al que podemos volver
+var lastModal = ''; // True cuando hay un modal al que podemos volver
 
 const PATHS = {
     config: './config.json',
@@ -84,7 +84,7 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
             if (ex) {
                 const exElement = document.createElement('div');
                 exElement.className = 'ex';
-                exElement.onclick = (event) => editEx(event, ex);
+                exElement.onclick = () => editEx(ex);
                 exElement.innerHTML = `
                     <div class="ex-muscle">${ex.musculo}</div>
                     <div class="ex-title">${ex.nombre}</div>
@@ -156,7 +156,7 @@ function renderDay(day) {
         const removeBtn = document.createElement('button');
         removeBtn.className = 'remove-btn btn';
         removeBtn.innerHTML = '<div class="icon">🗑️</div>';
-        removeBtn.onclick = () => removeEx(day, exName);
+        removeBtn.onclick = (event) => removeEx(event, day, exName);
         exElement.appendChild(removeBtn);
 
         modalDay.appendChild(exElement);
@@ -218,10 +218,21 @@ function saveExList() {
 }
 
 function backToLastModal(target) {
-    if(!returnableModal) return;
-    returnableModal = false;
+    if(!lastModal) return;
+    var hasLastModal = lastModal;
+    lastModal = ''; // Reseteamos antes de decidir si volvemos a setearlo
     // Volvemos al día auxiliar con los ejercicios seleccionados
-    editDay(target);
+    if(hasLastModal === 'day') {
+        editDay(target);
+    } else if(hasLastModal === 'list') {
+        renderEditModal('list', null, {
+            canBeRemoved: true,
+            disableBtns: true,
+            canShowInfo: true
+        });
+    } else {
+        console.error('No se pudo volver atrás');
+    }
 }
 
 function newEx(day) {
@@ -232,10 +243,12 @@ function newEx(day) {
  * Borrado del ejercicio.
  * Si se especifica el día, se borra del día provisionalmente hasta que confirmemos la información auxiliar.
  * Si no se especifica el día, se borrará de la lista global.
+ * @param {*} event 
  * @param {*} day 
  * @param {*} exName 
  */
-function removeEx(day, exName) {
+function removeEx(event, day, exName) {
+    event.stopPropagation(); // IMPORTANTE en el caso que borramos de la lista global, ya que el elemento padre tambien tiene un onclick
     if(day) { // Borramos de un día concreto
         const exIndex = day.ejercicios.findIndex(ex => ex === exName);
         auxDay.ejercicios.splice(exIndex, 1); // Actualizamos dia auxiliar
@@ -291,24 +304,28 @@ function setExList(day, config) {
             const exElement = document.createElement('div');
             exElement.className = 'ex';
             exElement.innerHTML = `<div>${exName}</div>`;
-            // Lógica para agregar ejercicios al día
-            if(!config.readonly && day) {
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.onclick = () => {
-                    checkbox.checked = !checkbox.checked;
-                };
-                exElement.appendChild(checkbox);
-                if(day.ejercicios.includes(exName)) checkbox.checked = true;
-                exElement.onclick = checkbox.onclick;
-            }
-            // Lógica para borrar ejercicios de la lista global
-            if(!config.readonly && !day && config.removable) {
-                const removeBtn = document.createElement('button');
-                removeBtn.className = 'remove-btn btn';
-                removeBtn.innerHTML = '<div class="icon">🗑️</div>';
-                removeBtn.onclick = () => removeEx(null, exName);
-                exElement.appendChild(removeBtn);
+            if(!config.readonly) { // canShowInfo
+                if(day) { // Lógica para agregar ejercicios al día
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.onclick = () => {
+                        checkbox.checked = !checkbox.checked;
+                    };
+                    exElement.appendChild(checkbox);
+                    if(day.ejercicios.includes(exName)) checkbox.checked = true;
+                    exElement.onclick = checkbox.onclick;
+                } else { // Lógica para borrar ejercicios de la lista global
+                    if(config.canBeRemoved) {
+                        const removeBtn = document.createElement('button');
+                        removeBtn.className = 'remove-btn btn';
+                        removeBtn.innerHTML = '<div class="icon">🗑️</div>';
+                        removeBtn.onclick = (event) => removeEx(event, null, exName);
+                        exElement.appendChild(removeBtn);
+                    }
+                    if(config.canShowInfo) {
+                        exElement.onclick = () => editEx(exs[exName], {canShowInfo: true});
+                    }
+                }
             }
             muscleElement.appendChild(exElement);
         });
@@ -329,9 +346,8 @@ function orderByMuscle() {
 
 /* EJERCICIOS */
 
-function editEx(event, ex) {
-    event.stopPropagation();
-    renderEditModal('ex', ex);
+function editEx(ex, config) {
+    renderEditModal('ex', ex, config);
 }
 
 function resetEx(ex) {
@@ -342,8 +358,10 @@ function resetEx(ex) {
  * 
  * @param {Object} ex Donde vamos a guardar la info
  */
-function saveEx(ex) {
-    var target = exs[ex.nombre];
+function saveEx(ex, config) {
+    var target = exs[ex.nombre],
+        config = config || {},
+        goLastModal = config.canShowInfo;
     target.descripcion = document.getElementById('m-desc').value.trim();
     target.musculo = document.getElementById('m-muscle').value.trim();
     target.pesos = stringToNumberArray(document.getElementById('m-wg').value);
@@ -353,7 +371,14 @@ function saveEx(ex) {
     saveData('exs', exs);
     setExInfo(ex);
     renderInfo(true);
-    closeModal();
+
+    if(lastModal && goLastModal) { // Si tenemos configurado un modal al que volver al guardar
+        // Por el momento este caso solo ocurre cuando volvemos atrás desde la info de un ejercicio
+        // en la lista global de ejercicios
+        backToLastModal();
+    } else {
+        closeModal();
+    }
 }
 
 function addEx() {
@@ -398,12 +423,12 @@ function renderEditModal(type, target, config) {
     if (type === 'ex') {
         setExInfo(target);
         toggleFromGroup(type);
-        setButtons(target, type, ['save', 'reset']);
+        setButtons(target, type, ['save', 'reset'], config);
     } else if (type === 'day') {
         setDayInfo(target);
         toggleFromGroup(type);
-        setButtons(target, type, ['save', 'reset', 'new', 'delete']); // TO DO: Boton para borrar dia
-        returnableModal = true;
+        setButtons(target, type, ['save', 'reset', 'new', 'delete']);
+        lastModal = type;
     } else if(type === 'new') {
         setNewExInfo();
         toggleFromGroup('ex');
@@ -412,6 +437,9 @@ function renderEditModal(type, target, config) {
         setExList(target, config);
         toggleFromGroup(type);
         setButtons(target, type, ['save'], config);
+        // La lista global tiene habilitado el mostrar información del ejercicio, y
+        // al volver atrás debemos poder volver a la lista
+        if(config.canShowInfo) lastModal = type;
     }
     editModal.classList.add('show');
 }
@@ -436,8 +464,9 @@ function setButtons(target, type, buttons, config) {
     if(config.disableBtns) return;
 
     if(type === 'ex') {
-        saveBtn.onclick = () => saveEx(target);
+        saveBtn.onclick = () => saveEx(target, config);
         resetBtn.onclick = () => resetEx(target);
+        if(config.canShowInfo) closeBtn.onclick = () => backToLastModal(target);
     } else if(type === 'day') {
         saveBtn.onclick = () => saveDay();
         resetBtn.onclick = () => resetDay(target);

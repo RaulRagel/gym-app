@@ -23,7 +23,8 @@ function showExsList() {
     // No pasamos el día para indicar que no hay día concreto, si no que es la lista global
     renderEditModal('list', null, {
         // readonly: true, // Con readonly no podriamos ni agregar ni borrar
-        removable: true,
-        disableBtns: true
+        canBeRemoved: true,
+        disableBtns: true,
+        canShowInfo: true
     });
 }
