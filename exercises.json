@@ -1,0 +1,210 @@
+{
+    "Calentamiento": {
+      "name": "Calentamiento",
+      "description": "Cinta 5 min",
+      "series": 1,
+      "reps": 1,
+      "weights": [],
+      "muscle": ""
+    },
+    "Dominadas": {
+      "name": "Dominadas",
+      "description": "Dominadas asistidas con goma",
+      "series": 3,
+      "reps": 3,
+      "weights": [],
+      "muscle": "Espalda"
+    },
+    "Lat pulley con barra": {
+      "name": "Lat pulley con barra",
+      "description": "",
+      "series": 3,
+      "reps": 10,
+      "weights": [42, 50],
+      "muscle": "Espalda"
+    },
+    "Lat pulley (maq)": {
+      "name": "Lat pulley (maq)",
+      "description": "Polea al pecho",
+      "series": 3,
+      "reps": 10,
+      "weights": [42, 50],
+      "muscle": "Espalda"
+    },
+    "Seated row": {
+      "name": "Seated row",
+      "description": "Remo sentado",
+      "series": 3,
+      "reps": 10,
+      "weights": [42, 50],
+      "muscle": "Espalda"
+    },
+    "Long pull": {
+      "name": "Long pull",
+      "description": "Remo largo",
+      "series": 3,
+      "reps": 10,
+      "weights": [35, 42.5],
+      "muscle": "Espalda"
+    },
+    "Fondos de tríceps asistidos": {
+      "name": "Fondos de tríceps asistidos",
+      "description": "",
+      "series": 3,
+      "reps": 6,
+      "weights": [-30],
+      "muscle": "Tríceps"
+    },
+    "Seated dip (maq)": {
+      "name": "Seated dip (maq)",
+      "description": "Fondos de tríceps en máquina",
+      "series": 3,
+      "reps": 10,
+      "weights": [50, 57, 65],
+      "muscle": "Tríceps"
+    },
+    "Tríceps en polea": {
+      "name": "Tríceps en polea",
+      "description": "Con triángulo (20,25) o con cuerda (15, 20)",
+      "series": 3,
+      "reps": 10,
+      "weights": [20, 25],
+      "muscle": "Tríceps"
+    },
+    "Shoulder press (maq)": {
+      "name": "Shoulder press (maq)",
+      "description": "Press de hombros en máquina",
+      "series": 3,
+      "reps": 10,
+      "weights": [25, 30],
+      "muscle": "Hombros"
+    },
+    "Shoulder press": {
+      "name": "Shoulder press",
+      "description": "Press de hombros con mancuernas",
+      "series": 3,
+      "reps": 10,
+      "weights": [7.5],
+      "muscle": "Hombros"
+    },
+    "Deltoid raise": {
+      "name": "Deltoid raise",
+      "description": "Elevación de deltoides (pajaritos)",
+      "series": 3,
+      "reps": 10,
+      "weights": [20, 25, 30],
+      "muscle": "Hombros"
+    },
+    "Elevación de piernas": {
+      "name": "Elevación de piernas",
+      "description": "",
+      "series": 3,
+      "reps": 10,
+      "weights": [],
+      "muscle": "Abdominales"
+    },
+    "Series de abominales": {
+      "name": "Series de abominales",
+      "description": "",
+      "series": 3,
+      "reps": 30,
+      "weights": [],
+      "muscle": "Abdominales"
+    },
+    "Abdomen lateral con peso": {
+      "name": "Abdomen lateral con peso",
+      "description": "",
+      "series": 3,
+      "reps": 10,
+      "weights": [12],
+      "muscle": "Abdominales"
+    },
+    "Seated chest press": {
+      "name": "Seated chest press",
+      "description": "Press de pecho inclinado",
+      "series": 3,
+      "reps": 10,
+      "weights": [25, 30],
+      "muscle": "Pecho"
+    },
+    "Incline bench press": {
+      "name": "Incline bench press",
+      "description": "Press de pecho inclinado",
+      "series": 3,
+      "reps": 10,
+      "weights": [25, 30, 35],
+      "muscle": "Pecho"
+    },
+    "Butterfly": {
+      "name": "Butterfly",
+      "description": "Mariposa, brazos en 90º",
+      "series": 3,
+      "reps": 10,
+      "weights": [25, 30],
+      "muscle": "Pecho"
+    },
+    "Bicep curl (maq)": {
+      "name": "Bicep curl (maq)",
+      "description": "Curl de bíceps",
+      "series": 3,
+      "reps": 10,
+      "weights": [25],
+      "muscle": "Bíceps"
+    },
+    "Bicep curl": {
+      "name": "Bicep curl",
+      "description": "Curl de bíceps con mancuernas",
+      "series": 3,
+      "reps": 10,
+      "weights": [7.5, 10],
+      "muscle": "Bíceps"
+    },
+    "Leg extension": {
+      "name": "Leg extension",
+      "description": "Extensión de piernas",
+      "series": 3,
+      "reps": 10,
+      "weights": [50, 55],
+      "muscle": "Piernas"
+    },
+    "Leg press": {
+      "name": "Leg press",
+      "description": "En la última, 20-20-30 arriba",
+      "series": 3,
+      "reps": 10,
+      "weights": [40, 60, 70],
+      "muscle": "Piernas"
+    },
+    "Leg press (maq)": {
+      "name": "Leg press (maq)",
+      "description": "Nivel 8, asiento a la mitad",
+      "series": 3,
+      "reps": 10,
+      "weights": [95, 102.5, 110],
+      "muscle": "Piernas"
+    },
+    "Piernas al culo": {
+      "name": "Piernas al culo",
+      "description": "Piernas al culo",
+      "series": 3,
+      "reps": 10,
+      "weights": [30, 35, 40],
+      "muscle": "Piernas"
+    },
+    "Gemelo de pie": {
+      "name": "Gemelo de pie",
+      "description": "Peso en los hombros, hacerlo con un pie",
+      "series": 3,
+      "reps": 10,
+      "weights": [30, 35],
+      "muscle": "Piernas"
+    },
+    "Gemelo sentado (maq)": {
+      "name": "Gemelo sentado (maq)",
+      "description": "Gemelo en máquina. Nivel 10",
+      "series": 3,
+      "reps": 10,
+      "weights": [45, 50],
+      "muscle": "Piernas"
+    }
+}

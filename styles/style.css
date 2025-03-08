@@ -196,6 +196,7 @@ body {
 .readonly {
     position: relative;
     display: inline-block;
+    width: 100%;
 }
 
 .readonly input {

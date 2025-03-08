@@ -11,7 +11,7 @@ var lastModal = ''; // True cuando hay un modal al que podemos volver
 const PATHS = {
     config: './config.json',
     days: './days.json',
-    exs: './ejercicios.json',
+    exs: './exercises.json',
 };
 
 /* INICIALIZACIÓN */
@@ -56,7 +56,8 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
         });
     }
     container.innerHTML = '';
-    days.dias.forEach(day => {
+    Object.keys(days).forEach(key => {
+        const day = days[key];
         const dayElement = document.createElement('div');
         dayElement.className = 'day';
         dayElement.innerHTML = `
@@ -64,7 +65,7 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
                 <div class="icon">✏️</div>
             </div>
             <div class="dropdown" onclick="toggleExs(this)">
-                <div class="title">${day.nombre}</div>
+                <div class="title">${day.title}</div>
                 <div class="icon">⬇️</div>
             </div>
             <div class="exs">
@@ -73,23 +74,23 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
         dayElement.querySelector('.edit-btn').onclick = () => editDay(day);
         // Ejercicios de cada día
         const exsElement = dayElement.querySelector('.exs');
-        if(!day.ejercicios.length) {
+        if(!day.exercises.length) {
             const msgElement = document.createElement('div');
             msgElement.className = 'no-ex';
             msgElement.innerHTML = 'No tienes ejercicios este día';
             exsElement.appendChild(msgElement);
         }
-        day.ejercicios.forEach(exName => {
+        day.exercises.forEach(exName => {
             const ex = exs[exName];
             if (ex) {
                 const exElement = document.createElement('div');
                 exElement.className = 'ex';
                 exElement.onclick = () => editEx(ex);
                 exElement.innerHTML = `
-                    <div class="ex-muscle">${ex.musculo}</div>
-                    <div class="ex-title">${ex.nombre}</div>
-                    <div class="ex-wg">${ex.pesos && ex.pesos.join(', ')}</div>
-                    <div class="ex-sets">${ex.series} x ${ex.repeticiones}</div>
+                    <div class="ex-muscle">${ex.muscle}</div>
+                    <div class="ex-title">${ex.name}</div>
+                    <div class="ex-wg">${ex.weights && ex.weights.join(', ')}</div>
+                    <div class="ex-sets">${ex.series} x ${ex.reps}</div>
                 `;
                 exsElement.appendChild(exElement);
             }
@@ -111,11 +112,13 @@ function newDayElement() {
     btnElement.classList.add('btn', 'new-day');
     btnElement.innerHTML = 'Agregar día ✚';
     btnElement.onclick = () => {
-        days.dias.push({
-            nombre: 'Día ' + (days.dias.length + 1),
-            descripcion: '',
-            ejercicios: []
-        });
+        var dayLength = Object.keys(days).length + 1;
+        days['day' + dayLength] = {
+            title: 'Día ' + dayLength,
+            name: 'day' + dayLength,
+            description: '',
+            exercises: []
+        };
         saveData('days', days);
         renderInfo(true);
     };
@@ -147,7 +150,7 @@ function renderDay(day) {
     // Lista de ejercicios del día
     const modalDay = document.querySelector('.modal-day');
     modalDay.innerHTML = '';
-    day.ejercicios.forEach(exName => {
+    day.exercises.forEach(exName => {
         const exElement = document.createElement('div');
         exElement.className = 'm-ex';
         if(newExs[exName]) exElement.classList.add('is-new');
@@ -170,17 +173,15 @@ function renderDay(day) {
 }
 
 function resetDay() {
-    var recoverDay = getDay(auxDay.nombre);
+    var recoverDay = days[auxDay.name];
     // Reseteamos auxDay porque hemos reestablecido la info
-    auxDay = {};
     auxDay = JSON.parse(JSON.stringify(recoverDay)); // Copia profunda del objeto
     // Usamos el nombre del dia auxiliar para buscar el dia original
     renderDay(auxDay);
 }
 
 function saveDay() {
-    const dayIndex = getDayIndex(auxDay.nombre);
-    days.dias[dayIndex] = JSON.parse(JSON.stringify(auxDay)); // Copia profunda del objeto
+    days[auxDay.name] = JSON.parse(JSON.stringify(auxDay)); // Copia profunda del objeto
     auxDay = {};
     if(Object.keys(newExs).length) { // Si se han creado nuevos ejercicios, los agregamos
         exs = Object.assign(exs, newExs);
@@ -193,9 +194,8 @@ function saveDay() {
 }
 
 function deleteDay() {
-    const dayIndex = getDayIndex(auxDay.nombre);
+    delete days[auxDay.name];
     auxDay = {};
-    days.dias.splice(dayIndex, 1);
     saveData('days', days);
     renderInfo(true);
     closeModal();
@@ -209,10 +209,10 @@ function saveExList() {
         exsToAdd.push(checkbox.parentElement.innerText);
     });
     // Actualizamos el dia auxiliar ya que aún no hemos confirmado el guardado del día
-    auxDay.ejercicios = exsToAdd;
+    auxDay.exercises = exsToAdd;
     // Agregamos posibles nuevos ejercicios
     if(Object.keys(newExs).length) {
-        auxDay.ejercicios = auxDay.ejercicios.concat(Object.keys(newExs));
+        auxDay.exercises = auxDay.exercises.concat(Object.keys(newExs));
     }
     backToLastModal(auxDay);
 }
@@ -249,8 +249,8 @@ function newEx(day) {
 function removeEx(event, day, exName) {
     event.stopPropagation(); // IMPORTANTE en el caso que borramos de la lista global, ya que el elemento padre tambien tiene un onclick
     if(day) { // Borramos de un día concreto
-        const exIndex = day.ejercicios.findIndex(ex => ex === exName);
-        auxDay.ejercicios.splice(exIndex, 1); // Actualizamos dia auxiliar
+        const exIndex = day.exercises.findIndex(ex => ex === exName);
+        auxDay.exercises.splice(exIndex, 1); // Actualizamos dia auxiliar
         if(newExs[exName]) delete newExs[exName]; // Si se ha borrado un ejercicio nuevo, lo borramos
         renderDay(auxDay);
     } else { // Borramos de la lista general y de cada día
@@ -267,9 +267,10 @@ function removeEx(event, day, exName) {
  * @param {String} exName 
  */
 function bulkDelete(exName) {
-    days.dias.forEach(day => {
-        const exIndex = day.ejercicios.findIndex(ex => ex === exName);
-        if(exIndex !== -1) day.ejercicios.splice(exIndex, 1);
+    Object.keys(days).forEach(key => {
+        const day = days[key];
+        const exIndex = day.exercises.findIndex(ex => ex === exName);
+        if(exIndex !== -1) day.exercises.splice(exIndex, 1);
     });
     saveData('days', days);
 }
@@ -311,7 +312,7 @@ function setExList(day, config) {
                         checkbox.checked = !checkbox.checked;
                     };
                     exElement.appendChild(checkbox);
-                    if(day.ejercicios.includes(exName)) checkbox.checked = true;
+                    if(day.exercises.includes(exName)) checkbox.checked = true;
                     exElement.onclick = checkbox.onclick;
                 } else { // Lógica para borrar ejercicios de la lista global
                     if(config.canBeRemoved) {
@@ -336,9 +337,9 @@ function orderByMuscle() {
     var exsByMuscle = {};
     Object.keys(exs).forEach(exName => {
         const ex = exs[exName];
-        if(!ex.musculo) ex.musculo = 'Otros';
-        if (!exsByMuscle[ex.musculo]) exsByMuscle[ex.musculo] = [];
-        exsByMuscle[ex.musculo].push(exName);
+        if(!ex.muscle) ex.muscle = 'Otros';
+        if (!exsByMuscle[ex.muscle]) exsByMuscle[ex.muscle] = [];
+        exsByMuscle[ex.muscle].push(exName);
     });
     return exsByMuscle;
 }
@@ -358,14 +359,14 @@ function resetEx(ex) {
  * @param {Object} ex Donde vamos a guardar la info
  */
 function saveEx(ex, config) {
-    var target = exs[ex.nombre],
+    var target = exs[ex.name],
         config = config || {},
         goLastModal = config.canShowInfo;
-    target.descripcion = document.getElementById('m-desc').value.trim();
+    target.description = document.getElementById('m-desc').value.trim();
     target.musculo = document.getElementById('m-muscle').value.trim();
-    target.pesos = stringToNumberArray(document.getElementById('m-wg').value);
+    target.weights = stringToNumberArray(document.getElementById('m-wg').value);
     target.series = document.getElementById('m-ser').value.trim();
-    target.repeticiones = document.getElementById('m-rep').value.trim();
+    target.reps = document.getElementById('m-rep').value.trim();
 
     saveData('exs', exs);
     setExInfo(ex);
@@ -384,15 +385,15 @@ function addEx() {
     var title = capitalize(document.getElementById('m-title').value);
     if(title) {
         newExs[title] = {
-            nombre: title,
-            descripcion: document.getElementById('m-desc').value.trim(),
-            musculo: capitalize(document.getElementById('m-muscle').value),
-            pesos: stringToNumberArray(document.getElementById('m-wg').value),
+            name: title,
+            description: document.getElementById('m-desc').value.trim(),
+            muscle: capitalize(document.getElementById('m-muscle').value),
+            weights: stringToNumberArray(document.getElementById('m-wg').value),
             series: document.getElementById('m-ser').value.trim(),
-            repeticiones: document.getElementById('m-rep').value.trim(),
+            reps: document.getElementById('m-rep').value.trim(),
         };
-        if(auxDay.ejercicios) { // si es un dia concreto, tendremos auxDay
-            if(!auxDay.ejercicios.includes(title)) auxDay.ejercicios.push(title);
+        if(auxDay.exercises) { // si es un dia concreto, tendremos auxDay
+            if(!auxDay.exercises.includes(title)) auxDay.exercises.push(title);
             // else // TO DO: mostrar modal de ejercicio ya existente
         } else { // si no, lo buscamos en la lista global
             if(!exs[title]) exs[title] = newExs[title];
@@ -498,20 +499,20 @@ function setButtons(target, type, buttons, config) {
  * @param {Object} ex 
  */
 function setExInfo(ex) {
-    setTitle(ex.nombre || '', false);
+    setTitle(ex.name || '', false);
 
-    document.getElementById('m-muscle').value = ex.musculo || '';
-    document.getElementById('m-desc').value = ex.descripcion || '';
-    document.getElementById('m-wg').value = ex.pesos || '';
+    document.getElementById('m-muscle').value = ex.muscle || '';
+    document.getElementById('m-desc').value = ex.description || '';
+    document.getElementById('m-wg').value = ex.weights || '';
     document.getElementById('m-ser').value = ex.series || '';
-    document.getElementById('m-rep').value = ex.repeticiones || '';
+    document.getElementById('m-rep').value = ex.reps || '';
 }
 
 /**
  * Setear la info del dia en el modal. Como se crea en tiempo de ejecución, solo falta el título
  */
 function setDayInfo(day) {
-    setTitle(day.nombre, false);
+    setTitle(day.title, false);
 }
 
 /**
@@ -587,14 +588,6 @@ function setTitle(title, editable, placeholder) {
         titleElem.setAttribute('readonly', true);
     }
     titleElem.value = title;
-}
-
-function getDayIndex(name) {
-    return days.dias.findIndex(d => d.nombre === name);
-}
-
-function getDay(name) {
-    return days.dias.find(d => d.nombre === name);
 }
 
 /**

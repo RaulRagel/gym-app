@@ -1,9 +1,9 @@
 {
-  "dias": [
-    {
-      "nombre": "Día 1",
-      "descripcion": "Tren superior con énfasis en espalda y triceps",
-      "ejercicios": [
+    "day1": {
+      "title": "Día 1",
+      "name": "day1",
+      "description": "Tren superior con énfasis en espalda y triceps",
+      "exercises": [
         "Calentamiento",
         "Dominadas",
         "Lat pulley",
@@ -14,10 +14,11 @@
         "Elevación de piernas"
       ]
     },
-    {
-      "nombre": "Día 2",
-      "descripcion": "Tren inferior con integración de tren superior",
-      "ejercicios": [
+    "day2": {
+      "title": "Día 2",
+      "name": "day2",
+      "description": "Tren inferior con integración de tren superior",
+      "exercises": [
         "Calentamiento",
         "Incline bench press",
         "Butterfly",
@@ -27,10 +28,11 @@
         "Piernas al culo"
       ]
     },
-    {
-      "nombre": "Día 3",
-      "descripcion": "Tren superior con énfasis en pecho, bíceps y hombros",
-      "ejercicios": [
+    "day3": {
+      "title": "Día 3",
+      "name": "day3",
+      "description": "Tren superior con énfasis en pecho, bíceps y hombros",
+      "exercises": [
         "Calentamiento",
         "Seated chest press",
         "Butterfly",
@@ -41,10 +43,11 @@
         "Long pull"
       ]
     },
-    {
-      "nombre": "Día 4",
-      "descripcion": "Todo el cuerpo con énfasis en espalda y brazos",
-      "ejercicios": [
+    "day4": {
+      "title": "Día 4",
+      "name": "day4",
+      "description": "Todo el cuerpo con énfasis en espalda y brazos",
+      "exercises": [
         "Calentamiento",
         "Jalón de espalda con barra",
         "Seated row",
@@ -55,5 +58,4 @@
         "Leg press"
       ]
     }
-  ]
 }
