@@ -14,6 +14,8 @@ const PATHS = {
     exs: './exercises.json',
 };
 
+var ELEMENTS = null;
+
 /* INICIALIZACIÓN */
 
 document.addEventListener('DOMContentLoaded', async function () {
@@ -24,8 +26,24 @@ document.addEventListener('DOMContentLoaded', async function () {
     closeBtn.onclick = closeModal; // Cerramos modal por defecto
 
     initMenu();
+    initElements();
     renderInfo();
 });
+
+function initElements() {
+    ELEMENTS = {
+        title: document.getElementById('m-title'),
+        desc: document.getElementById('m-desc'),
+        musc: document.getElementById('m-musc'),
+        wg: document.getElementById('m-wg'),
+        ser: document.getElementById('m-ser'),
+        rep: document.getElementById('m-rep')
+    };
+
+    ELEMENTS.wg.onchange = function() {
+        ELEMENTS.wg.value = stringToNumberArray(ELEMENTS.wg.value);
+    }
+}
 
 /**
  * Leemos la información de los días y ejercicios del el local storage.
@@ -299,7 +317,7 @@ function setExList(day, config) {
     Object.keys(exsByMuscle).forEach(muscle => {
         const muscleElement = document.createElement('div');
         muscleElement.className = 'm-set';
-        muscleElement.innerHTML = `<div class='m-muscle'>${muscle}</div>`;
+        muscleElement.innerHTML = `<div class='m-musc'>${muscle}</div>`;
         exsByMuscle[muscle].forEach(exName => {
             const exElement = document.createElement('div');
             exElement.className = 'ex';
@@ -362,11 +380,11 @@ function saveEx(ex, config) {
     var target = exs[ex.name],
         config = config || {},
         goLastModal = config.canShowInfo;
-    target.description = document.getElementById('m-desc').value.trim();
-    target.musculo = document.getElementById('m-muscle').value.trim();
-    target.weights = stringToNumberArray(document.getElementById('m-wg').value);
-    target.series = document.getElementById('m-ser').value.trim();
-    target.reps = document.getElementById('m-rep').value.trim();
+    target.description = ELEMENTS.desc.value.trim();
+    target.musculo = ELEMENTS.musc.value.trim();
+    target.weights = stringToNumberArray(ELEMENTS.wg.value);
+    target.series = ELEMENTS.ser.value.trim();
+    target.reps = ELEMENTS.rep.value.trim();
 
     saveData('exs', exs);
     setExInfo(ex);
@@ -382,15 +400,15 @@ function saveEx(ex, config) {
 }
 
 function addEx() {
-    var title = capitalize(document.getElementById('m-title').value);
+    var title = capitalize(ELEMENTS.title.value);
     if(title) {
         newExs[title] = {
             name: title,
-            description: document.getElementById('m-desc').value.trim(),
-            muscle: capitalize(document.getElementById('m-muscle').value),
-            weights: stringToNumberArray(document.getElementById('m-wg').value),
-            series: document.getElementById('m-ser').value.trim(),
-            reps: document.getElementById('m-rep').value.trim(),
+            description: ELEMENTS.desc.value.trim(),
+            muscle: capitalize(ELEMENTS.musc.value),
+            weights: stringToNumberArray(ELEMENTS.wg.value),
+            series: ELEMENTS.ser.value.trim(),
+            reps: ELEMENTS.rep.value.trim(),
         };
         if(auxDay.exercises) { // si es un dia concreto, tendremos auxDay
             if(!auxDay.exercises.includes(title)) auxDay.exercises.push(title);
@@ -501,11 +519,11 @@ function setButtons(target, type, buttons, config) {
 function setExInfo(ex) {
     setTitle(ex.name || '', false);
 
-    document.getElementById('m-muscle').value = ex.muscle || '';
-    document.getElementById('m-desc').value = ex.description || '';
-    document.getElementById('m-wg').value = ex.weights || '';
-    document.getElementById('m-ser').value = ex.series || '';
-    document.getElementById('m-rep').value = ex.reps || '';
+    ELEMENTS.musc.value = ex.muscle || '';
+    ELEMENTS.desc.value = ex.description || '';
+    ELEMENTS.wg.value = ex.weights || '';
+    ELEMENTS.ser.value = ex.series || '';
+    ELEMENTS.rep.value = ex.reps || '';
 }
 
 /**
@@ -521,11 +539,11 @@ function setDayInfo(day) {
 function setNewExInfo() {
     setTitle('', true, 'Nuevo Ejercicio ✏️');
 
-    document.getElementById('m-muscle').value = '';
-    document.getElementById('m-desc').value = '';
-    document.getElementById('m-wg').value = '';
-    document.getElementById('m-ser').value = '';
-    document.getElementById('m-rep').value = '';
+    ELEMENTS.musc.value = '';
+    ELEMENTS.desc.value = '';
+    ELEMENTS.wg.value = '';
+    ELEMENTS.ser.value = '';
+    ELEMENTS.rep.value = '';
 }
 
 function toggleFromGroup(type) {
@@ -577,7 +595,7 @@ function showButtons(buttonsToShow) {
  */
 function setTitle(title, editable, placeholder) {
     var readonlyElem = document.querySelector('.readonly'),
-        titleElem = document.getElementById('m-title');
+        titleElem = ELEMENTS.title;
     
     if(editable) {
         readonlyElem.classList.add('editable');

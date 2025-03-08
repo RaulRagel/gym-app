@@ -196,7 +196,6 @@ body {
 .readonly {
     position: relative;
     display: inline-block;
-    width: 100%;
 }
 
 .readonly input {
@@ -359,7 +358,7 @@ body {
     max-height: 470px;
 }
 
-.m-muscle {
+.m-musc {
     font-size: 1.2rem;
     font-weight: 600;
     color: #b2304f;
