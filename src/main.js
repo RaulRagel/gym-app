@@ -12,6 +12,7 @@ const PATHS = {
     config: './config.json',
     days: './days.json',
     exs: './exercises.json',
+    vars: './variations.json'
 };
 
 var ELEMENTS = null;
@@ -37,7 +38,8 @@ function initElements() {
         musc: document.getElementById('m-musc'),
         wg: document.getElementById('m-wg'),
         ser: document.getElementById('m-ser'),
-        rep: document.getElementById('m-rep')
+        rep: document.getElementById('m-rep'),
+        var: document.getElementById('m-var')
     };
 
     ELEMENTS.wg.onchange = function() {
@@ -52,12 +54,15 @@ function initElements() {
 async function getLocalData() {
     days = getData('days');
     exs = getData('exs');
+    vars = getData('vars');
     
     if (!days) days = await readJSON(PATHS.days);
     if (!exs) exs = await readJSON(PATHS.exs);
+    if (!vars) vars = await readJSON(PATHS.vars);
     
     console.log('Dias', days);
     console.log('Ejercicios', exs);
+    console.log('Alternativas', vars);
 }
 
 /**
@@ -82,7 +87,7 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
             <div class="edit-btn btn">
                 <div class="icon">✏️</div>
             </div>
-            <div class="dropdown" onclick="toggleExs(this)">
+            <div class="dropdown" onclick="dropdownExs(this)">
                 <div class="title">${day.title}</div>
                 <div class="icon">⬇️</div>
             </div>
@@ -143,7 +148,7 @@ function newDayElement() {
     return btnElement;
 }
 
-function toggleExs(element) {
+function dropdownExs(element) {
     const exs = element.nextElementSibling;
     const icon = element.querySelector('.icon');
     if (exs.classList.contains('show')) {
@@ -524,6 +529,66 @@ function setExInfo(ex) {
     ELEMENTS.wg.value = ex.weights || '';
     ELEMENTS.ser.value = ex.series || '';
     ELEMENTS.rep.value = ex.reps || '';
+
+    const variations = vars[ex.name];
+    ELEMENTS.var.innerHTML = '';
+    if(variations) {
+        Object.keys(variations).forEach(key => {
+            const variation = variations[key];
+            renderVariation(variation);
+        });
+    }
+    document.querySelector('.vars-container').appendChild(newVariationBtn(ex));
+}
+
+function renderVariation(variation) {
+    const varElement = document.createElement('div');
+    varElement.className = 'm-var';
+    // varElement.onclick = () => openVariation(variation);
+    varElement.onchange = () => updateVariation(variation);
+    varElement.innerHTML = `
+        <input class="var-name" type="text" value="${variation.name}">
+        <input class="var-wg" type="text" value="${variation.weights && variation.weights.join(', ')}">
+        <div class="var-sets">
+            <input type="number" value="${variation.series}">
+            <span>x</span>
+            <input type="number" value="${variation.reps}">
+        </div>
+    `;
+    varElement.appendChild(deleteVariationBtn(variation));
+    ELEMENTS.var.appendChild(varElement);
+}
+
+function updateVariation(variation) { // !
+    console.log('update', variation);
+}
+
+function deleteVariationBtn(variation) {
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'remove-btn btn';
+    removeBtn.innerHTML = '<div class="icon">🗑️</div>';
+    removeBtn.onclick = (event) => deleteVariation(event, variation);
+    return removeBtn;
+}
+
+function deleteVariation(event, variation) {
+    event.stopPropagation();
+    console.log('remove', variation);
+}
+
+function newVariationBtn(ex) {
+    const btnElement = document.createElement('button');
+    btnElement.classList.add('btn', 'new-var');
+    btnElement.innerHTML = 'Agregar variante ✚';
+    btnElement.onclick = (event) => addVariation(event, ex);
+    return btnElement;
+}
+
+function addVariation(evt, ex) { // !
+    // TO DO
+    // placeholders en todos los campos
+    // renderVariation(variation)
+    console.log('new variation of', ex);
 }
 
 /**

@@ -1,0 +1,22 @@
+{
+  "Lat pulley": {
+      "Con barra": {
+        "main": "Lat pulley",
+        "name": "Con barra",
+        "description": "Con la barra",
+        "series": 3,
+        "reps": 10,
+        "weights": [42, 50],
+        "muscle": "Espalda"
+      },
+      "En máquina": {
+        "main": "Lat pulley",
+        "name": "En máquina",
+        "description": "En máquina con doble agarre",
+        "series": 3,
+        "reps": 10,
+        "weights": [42, 50],
+        "muscle": "Espalda"
+      }
+  }
+}

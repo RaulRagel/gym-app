@@ -15,17 +15,9 @@
       "weights": [],
       "muscle": "Espalda"
     },
-    "Lat pulley con barra": {
-      "name": "Lat pulley con barra",
+    "Lat pulley": {
+      "name": "Lat pulley",
       "description": "",
-      "series": 3,
-      "reps": 10,
-      "weights": [42, 50],
-      "muscle": "Espalda"
-    },
-    "Lat pulley (maq)": {
-      "name": "Lat pulley (maq)",
-      "description": "Polea al pecho",
       "series": 3,
       "reps": 10,
       "weights": [42, 50],
