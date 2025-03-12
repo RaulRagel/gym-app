@@ -573,6 +573,7 @@ function updateVariation(ex, elem, index) {
     if(index === undefined) index = newVariationIndex(ex.name);
     
     vars[ex.name][index] = updatedVariation;
+    saveData('vars', vars);
     updateExVariations(ex);
 }
 
@@ -589,6 +590,7 @@ function deleteVariation(event, ex, index) {
     if(index === undefined) index = newVariationIndex(ex.name);
 
     vars[ex.name].splice(index, 1);
+    saveData('vars', vars);
     updateExVariations(ex);
 }
 
@@ -604,7 +606,6 @@ function addVariation(_, ex) {
         isNew: true
     };
     exVariations.push(newVariation);
-    console.log('Variantes de este ejercicio', vars[ex.name]);
     renderVariation(ex, newVariation);
 }
 
