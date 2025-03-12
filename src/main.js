@@ -530,65 +530,86 @@ function setExInfo(ex) {
     ELEMENTS.ser.value = ex.series || '';
     ELEMENTS.rep.value = ex.reps || '';
 
-    const variations = vars[ex.name];
-    ELEMENTS.var.innerHTML = '';
-    if(variations) {
-        Object.keys(variations).forEach(key => {
-            const variation = variations[key];
-            renderVariation(variation);
-        });
-    }
-    document.querySelector('.vars-container').appendChild(newVariationBtn(ex));
+    updateExVariations(ex);
+    document.querySelector('.vars-container .new-var').onclick = (event) => addVariation(event, ex);
 }
 
-function renderVariation(variation) {
+function updateExVariations(ex) {
+    const variations = vars[ex.name] || [];
+    ELEMENTS.var.innerHTML = '';
+    if(variations.length) {
+        variations.forEach((variation, index) => {
+            renderVariation(ex, variation, index);
+        });
+    }
+}
+
+function renderVariation(ex, variation, index) {
     const varElement = document.createElement('div');
     varElement.className = 'm-var';
-    // varElement.onclick = () => openVariation(variation);
-    varElement.onchange = () => updateVariation(variation);
+    varElement.onchange = () => updateVariation(ex, varElement, index);
     varElement.innerHTML = `
-        <input class="var-name" type="text" value="${variation.name}">
-        <input class="var-wg" type="text" value="${variation.weights && variation.weights.join(', ')}">
+        <input class="var-name" type="text" value="${variation.name || ''}" placeholder="Nombre">
+        <input class="var-wg" type="text" value="${variation.weights && variation.weights.join(', ') || ''}" placeholder="Pesos">
         <div class="var-sets">
-            <input type="number" value="${variation.series}">
+            <input type="number" class="var-ser" value="${variation.series || '1'}">
             <span>x</span>
-            <input type="number" value="${variation.reps}">
+            <input type="number" class="var-rep" value="${variation.reps || '1'}">
         </div>
     `;
-    varElement.appendChild(deleteVariationBtn(variation));
+    varElement.appendChild(deleteVariationBtn(ex, index));
     ELEMENTS.var.appendChild(varElement);
 }
 
-function updateVariation(variation) { // !
-    console.log('update', variation);
+function updateVariation(ex, elem, index) {
+    var updatedVariation = {
+            main: ex.name,
+            name: elem.querySelector('.var-name').value || 'Nueva',
+            weights: stringToNumberArray(elem.querySelector('.var-wg').value),
+            series: elem.querySelector('.var-ser').value,
+            reps: elem.querySelector('.var-rep').value
+        };
+
+    if(index === undefined) index = newVariationIndex(ex.name);
+    
+    vars[ex.name][index] = updatedVariation;
+    updateExVariations(ex);
 }
 
-function deleteVariationBtn(variation) {
+function deleteVariationBtn(ex, index) {
     const removeBtn = document.createElement('button');
     removeBtn.className = 'remove-btn btn';
     removeBtn.innerHTML = '<div class="icon">🗑️</div>';
-    removeBtn.onclick = (event) => deleteVariation(event, variation);
+    removeBtn.onclick = (event) => deleteVariation(event, ex, index);
     return removeBtn;
 }
 
-function deleteVariation(event, variation) {
+function deleteVariation(event, ex, index) {
     event.stopPropagation();
-    console.log('remove', variation);
+    if(index === undefined) index = newVariationIndex(ex.name);
+
+    vars[ex.name].splice(index, 1);
+    updateExVariations(ex);
 }
 
-function newVariationBtn(ex) {
-    const btnElement = document.createElement('button');
-    btnElement.classList.add('btn', 'new-var');
-    btnElement.innerHTML = 'Agregar variante ✚';
-    btnElement.onclick = (event) => addVariation(event, ex);
-    return btnElement;
+function addVariation(_, ex) {
+    var exVariations = vars[ex.name],
+        isAnyNew = exVariations.some(variation => variation.isNew),
+        newVariation = null;
+    if(isAnyNew) return;
+    newVariation = {
+        main: ex.name,
+        // la etiqueta isNew es única ya que no podremos crear una nueva si ya hay una siendo creada
+        // y cuando se guarda, la etiqueta se elimina
+        isNew: true
+    };
+    exVariations.push(newVariation);
+    console.log('Variantes de este ejercicio', vars[ex.name]);
+    renderVariation(ex, newVariation);
 }
 
-function addVariation(evt, ex) { // !
-    // TO DO
-    // placeholders en todos los campos
-    // renderVariation(variation)
-    console.log('new variation of', ex);
+function newVariationIndex(exName) {
+    return vars[exName].findIndex(variation => variation.isNew);
 }
 
 /**
