@@ -3,6 +3,7 @@ var days, exs;
 var editModal;
 var exListModal;
 var closeBtn;
+var addVariationBtn;
 
 var auxDay = {}; // Día auxiliar para mostrar cambios antes de guardar
 var newExs = {}; // Ejercicios nuevos, a la espera de guardar el día. Al guardar se reinicia la variable
@@ -25,6 +26,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     editModal = document.querySelector('#edit-modal');
     closeBtn = document.getElementById('close-modal');
     closeBtn.onclick = closeModal; // Cerramos modal por defecto
+
+    addVariationBtn = document.querySelector('.vars-container .new-var');
 
     initMenu();
     initElements();
@@ -529,14 +532,15 @@ function setExInfo(ex) {
     ELEMENTS.wg.value = ex.weights || '';
     ELEMENTS.ser.value = ex.series || '';
     ELEMENTS.rep.value = ex.reps || '';
+    ELEMENTS.var.innerHTML = '';
 
     updateExVariations(ex);
-    document.querySelector('.vars-container .new-var').onclick = (event) => addVariation(event, ex);
+    addVariationBtn.onclick = (event) => addVariation(event, ex);
 }
 
 function updateExVariations(ex) {
+    ELEMENTS.var.innerHTML = ''; // actualizamos de nuevo siempre antes de renderizar
     const variations = vars[ex.name] || [];
-    ELEMENTS.var.innerHTML = '';
     if(variations.length) {
         variations.forEach((variation, index) => {
             renderVariation(ex, variation, index);
@@ -550,7 +554,7 @@ function renderVariation(ex, variation, index) {
     varElement.onchange = () => updateVariation(ex, varElement, index);
     varElement.innerHTML = `
         <input class="var-name" type="text" value="${variation.name || ''}" placeholder="Nombre">
-        <input class="var-wg" type="text" value="${variation.weights && variation.weights.join(', ') || ''}" placeholder="Pesos">
+        <input class="var-amount" type="text" value="${variation.amount || ''}" placeholder="Pesos/Tiempo">
         <div class="var-sets">
             <input type="number" class="var-ser" value="${variation.series || '1'}">
             <span>x</span>
@@ -565,7 +569,7 @@ function updateVariation(ex, elem, index) {
     var updatedVariation = {
             main: ex.name,
             name: elem.querySelector('.var-name').value || 'Nueva',
-            weights: stringToNumberArray(elem.querySelector('.var-wg').value),
+            amount: elem.querySelector('.var-amount').value,
             series: elem.querySelector('.var-ser').value,
             reps: elem.querySelector('.var-rep').value
         };
@@ -595,7 +599,8 @@ function deleteVariation(event, ex, index) {
 }
 
 function addVariation(_, ex) {
-    var exVariations = vars[ex.name] || [],
+    if(!vars[ex.name]) vars[ex.name] = [];
+    var exVariations = vars[ex.name],
         isAnyNew = exVariations.some(variation => variation.isNew),
         newVariation = null;
     if(isAnyNew) return;
@@ -631,6 +636,9 @@ function setNewExInfo() {
     ELEMENTS.wg.value = '';
     ELEMENTS.ser.value = '';
     ELEMENTS.rep.value = '';
+    ELEMENTS.var.innerHTML = '';
+
+    addVariationBtn.onclick = (event) => {}; // ! TO DO addTemporalVariation
 }
 
 function toggleFromGroup(type) {

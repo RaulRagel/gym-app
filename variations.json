@@ -5,14 +5,23 @@
         "name": "Con barra",
         "series": 3,
         "reps": 10,
-        "weights": [42, 50]
+        "amount": "42, 50"
       },
       {
         "main": "Lat pulley",
         "name": "En máquina",
         "series": 3,
         "reps": 10,
-        "weights": [42, 50]
+        "amount": "42, 50"
       }
-  ]
+  ],
+  "Calentamiento": [
+    {
+        "main": "Calentamiento",
+        "name": "En bici",
+        "amount": "10min",
+        "series": "1",
+        "reps": "1"
+    }
+]
 }
