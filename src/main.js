@@ -595,7 +595,7 @@ function deleteVariation(event, ex, index) {
 }
 
 function addVariation(_, ex) {
-    var exVariations = vars[ex.name],
+    var exVariations = vars[ex.name] || [],
         isAnyNew = exVariations.some(variation => variation.isNew),
         newVariation = null;
     if(isAnyNew) return;
