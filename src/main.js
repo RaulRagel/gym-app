@@ -386,7 +386,7 @@ function saveEx(ex, config) {
         config = config || {},
         goLastModal = config.canShowInfo;
     target.description = ELEMENTS.desc.value.trim();
-    target.musculo = ELEMENTS.musc.value.trim();
+    target.muscle = ELEMENTS.musc.value.trim();
     target.weights = stringToNumberArray(ELEMENTS.wg.value);
     target.series = ELEMENTS.ser.value.trim();
     target.reps = ELEMENTS.rep.value.trim();
