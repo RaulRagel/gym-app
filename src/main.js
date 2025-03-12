@@ -554,14 +554,15 @@ function renderVariation(ex, variation, index) {
     varElement.onchange = () => updateVariation(ex, varElement, index);
     varElement.innerHTML = `
         <input class="var-name" type="text" value="${variation.name || ''}" placeholder="Nombre">
-        <input class="var-amount" type="text" value="${variation.amount || ''}" placeholder="Pesos/Tiempo">
-        <div class="var-sets">
-            <input type="number" class="var-ser" value="${variation.series || '1'}">
-            <span>x</span>
-            <input type="number" class="var-rep" value="${variation.reps || '1'}">
-        </div>
+        <div class="remove-btn"></div>
+        <label for="var-amount">Pesos/Tiempo</label>
+        <input class="var-amount" id="var-amount" type="text" value="${variation.amount || ''}" placeholder="Pesos/Tiempo">
+        <label for="var-ser">Series</label>
+        <input type="text" class="var-ser" id="var-ser" value="${variation.series || '1'}">
+        <label for="var-rep">Repeticiones</label>
+        <input type="text" class="var-rep" id="var-rep" value="${variation.reps || '1'}">
     `;
-    varElement.appendChild(deleteVariationBtn(ex, index));
+    varElement.querySelector('.remove-btn').appendChild(deleteVariationBtn(ex, index));
     ELEMENTS.var.appendChild(varElement);
 }
 
@@ -583,7 +584,7 @@ function updateVariation(ex, elem, index) {
 
 function deleteVariationBtn(ex, index) {
     const removeBtn = document.createElement('button');
-    removeBtn.className = 'remove-btn btn';
+    removeBtn.className = 'btn';
     removeBtn.innerHTML = '<div class="icon">🗑️</div>';
     removeBtn.onclick = (event) => deleteVariation(event, ex, index);
     return removeBtn;
