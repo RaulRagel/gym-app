@@ -555,7 +555,7 @@ function renderVariation(ex, variation, index) {
     varElement.innerHTML = `
         <input class="var-name" type="text" value="${variation.name || ''}" placeholder="Nombre">
         <div class="remove-btn"></div>
-        <label for="var-amount">Pesos/Tiempo</label>
+        <label for="var-amount">Pesos/Tiempos</label>
         <input class="var-amount" id="var-amount" type="text" value="${variation.amount || ''}" placeholder="Pesos/Tiempo">
         <label for="var-ser">Series</label>
         <input type="text" class="var-ser" id="var-ser" value="${variation.series || '1'}">
