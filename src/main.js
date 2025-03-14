@@ -565,7 +565,7 @@ function renderVariation(ex, variation, index) {
     varElement.appendChild(titleElement);
     setsElement.className = 'm-var-sets';
     setsElement.innerHTML = `
-        <label for="var-amount">Pesos/Tiempos</label>
+        <label for="var-amount">Peso/Tiempo</label>
         <input class="var-amount" id="var-amount" type="text" value="${variation.amount || ''}" placeholder="Pesos/Tiempo">
         <label for="var-ser">Ser.</label>
         <input type="text" class="var-ser" id="var-ser" value="${variation.series || '1'}">

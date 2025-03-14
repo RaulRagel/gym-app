@@ -408,7 +408,7 @@ body {
     gap: .2rem;
 }
 
-.m-var .var-name { /* el nombre de la variante debe ocupar todo lo que pueda */
+.m-var .var-name,.m-var .var-amount { /* el nombre de la variante debe ocupar todo lo que pueda */
     width: 100%;
     font-weight: 500;
 }
