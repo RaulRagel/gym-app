@@ -417,7 +417,7 @@ body {
 }
 
 .m-var .var-ser, .m-var .var-rep { /* contenedores de los numeros */
-    width: 15%;
+    width: 40%;
     text-align: center;
 }
 
