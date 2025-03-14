@@ -3,25 +3,116 @@
       {
         "main": "Lat pulley",
         "name": "Con barra",
+        "amount": "42, 50",
         "series": 3,
-        "reps": 10,
-        "amount": "42, 50"
+        "reps": 10
       },
       {
         "main": "Lat pulley",
         "name": "En máquina",
+        "amount": "42, 50",
         "series": 3,
-        "reps": 10,
-        "amount": "42, 50"
+        "reps": 10
       }
   ],
-  "Calentamiento": [
+  "Seated row": [
+      {
+        "main": "Seated row",
+        "name": "En máquina",
+        "amount": "42, 50",
+        "series": 3,
+        "reps": 10
+      },
+      {
+        "main": "Seated row",
+        "name": "Con discos. Peso asimétrico",
+        "amount": "",
+        "series": 3,
+        "reps": 10
+      }
+  ],
+  "Tríceps en polea": [
     {
-        "main": "Calentamiento",
-        "name": "En bici",
-        "amount": "10min",
-        "series": "1",
-        "reps": "1"
+      "main": "Tríceps en polea",
+      "name": "Con triángulo",
+      "amount": "20,25",
+      "series": "3",
+      "reps": "10"
+    },
+    {
+      "main": "Tríceps en polea",
+      "name": "Con cuerda",
+      "amount": "15,20",
+      "series": "3",
+      "reps": "10"
     }
-]
+  ],
+  "Shoulder press": [
+    {
+      "main": "Shoulder press",
+      "name": "En máquina",
+      "amount": "25, 30",
+      "series": "3",
+      "reps": "10"
+    },
+    {
+      "main": "Shoulder press",
+      "name": "Con mancuernas",
+      "amount": "7.5",
+      "series": "3",
+      "reps": "10"
+    }
+  ],
+  "Bicep curl": [
+    {
+      "main": "Bicep curl",
+      "name": "En máquina",
+      "amount": "25, 30",
+      "series": "3",
+      "reps": "10"
+    },
+    {
+      "main": "Bicep curl",
+      "name": "Con mancuernas",
+      "amount": "7.5, 10",
+      "series": "3",
+      "reps": "10"
+    }
+  ],
+  "Leg press": [
+    {
+      "main": "Leg press",
+      "name": "Normal (jaula)",
+      "amount": "40, 60, 70",
+      "description": "En la última, 20-20-30 arriba",
+      "series": "3",
+      "reps": "10"
+    },
+    {
+      "main": "Leg press",
+      "name": "En máquina",
+      "amount": "102.5, 110, 117.5",
+      "description": "Nivel 7, asiento a la mitad",
+      "series": "3",
+      "reps": "10"
+    }
+  ],
+  "Gemelo": [
+    {
+      "main": "Gemelo",
+      "name": "De pie",
+      "amount": "30, 35",
+      "description": "Peso en los hombros, hacerlo con un pie",
+      "series": "3",
+      "reps": "10"
+    },
+    {
+      "main": "Gemelo",
+      "name": "En máquina",
+      "amount": "45, 50",
+      "description": "Nivel 10",
+      "series": "3",
+      "reps": "10"
+    }
+  ]
 }

@@ -390,37 +390,42 @@ body {
     width: 100%;
 }
 
-.m-var {
+.m-var { /* contenedores de las variantes */
     display: flex;
     padding: 0.5rem;
     margin: 0.5rem 0;
     background-color: #cfcfcf;
     border-radius: 8px;
     position: relative;
-    flex-wrap: wrap;
     width: 100%;
     gap: 1rem;
+    flex-direction: column;
 }
 
-.m-var .var-name {
-    width: 80%;
+.m-var > div { /* sub contenedores de las variantes */
+    display: flex;
+    justify-content: space-between;
+    gap: .2rem;
+}
+
+.m-var .var-name { /* el nombre de la variante debe ocupar todo lo que pueda */
+    width: 100%;
+    font-weight: 500;
 }
 .m-var .remove-btn {
     line-height: 35px;
 }
 
-.m-var .var-amount {
-    width: 50%;
-}
-.m-var .var-ser, .m-var .var-rep {
+.m-var .var-ser, .m-var .var-rep { /* contenedores de los numeros */
     width: 15%;
     text-align: center;
 }
 
-.m-var label {
+.m-var label { /* sobreescribe las label de modal-ex */
     color: #b2304f;
     font-size: .9rem;
     line-height: 35px;
+    font-weight: normal;
 }
 
 .btn.new-var {

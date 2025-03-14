@@ -17,18 +17,18 @@
     },
     "Lat pulley": {
       "name": "Lat pulley",
-      "description": "",
+      "description": "Con barra o en máquina",
       "series": 3,
       "reps": 10,
-      "weights": [42, 50],
+      "weights": [],
       "muscle": "Espalda"
     },
     "Seated row": {
       "name": "Seated row",
-      "description": "Remo sentado",
+      "description": "Remo sentado en máquina o con discos",
       "series": 3,
       "reps": 10,
-      "weights": [42, 50],
+      "weights": [],
       "muscle": "Espalda"
     },
     "Long pull": {
@@ -57,23 +57,15 @@
     },
     "Tríceps en polea": {
       "name": "Tríceps en polea",
-      "description": "Con triángulo (20,25) o con cuerda (15, 20)",
+      "description": "Con triángulo o con cuerda",
       "series": 3,
       "reps": 10,
-      "weights": [20, 25],
+      "weights": [],
       "muscle": "Tríceps"
-    },
-    "Shoulder press (maq)": {
-      "name": "Shoulder press (maq)",
-      "description": "Press de hombros en máquina",
-      "series": 3,
-      "reps": 10,
-      "weights": [25, 30],
-      "muscle": "Hombros"
     },
     "Shoulder press": {
       "name": "Shoulder press",
-      "description": "Press de hombros con mancuernas",
+      "description": "Press de hombros en máquina o con mancuernas",
       "series": 3,
       "reps": 10,
       "weights": [7.5],
@@ -92,7 +84,7 @@
       "description": "",
       "series": 3,
       "reps": 10,
-      "weights": [],
+      "weights": [45, 50],
       "muscle": "Abdominales"
     },
     "Series de abominales": {
@@ -124,7 +116,7 @@
       "description": "Press de pecho inclinado",
       "series": 3,
       "reps": 10,
-      "weights": [25, 30, 35],
+      "weights": [35, 42.5],
       "muscle": "Pecho"
     },
     "Butterfly": {
@@ -132,20 +124,12 @@
       "description": "Mariposa, brazos en 90º",
       "series": 3,
       "reps": 10,
-      "weights": [25, 30],
+      "weights": [30, 35, 40],
       "muscle": "Pecho"
-    },
-    "Bicep curl (maq)": {
-      "name": "Bicep curl (maq)",
-      "description": "Curl de bíceps",
-      "series": 3,
-      "reps": 10,
-      "weights": [25],
-      "muscle": "Bíceps"
     },
     "Bicep curl": {
       "name": "Bicep curl",
-      "description": "Curl de bíceps con mancuernas",
+      "description": "Curl de bíceps en máquina o con mancuernas",
       "series": 3,
       "reps": 10,
       "weights": [7.5, 10],
@@ -161,18 +145,10 @@
     },
     "Leg press": {
       "name": "Leg press",
-      "description": "En la última, 20-20-30 arriba",
+      "description": "En jaula o en máquina",
       "series": 3,
       "reps": 10,
-      "weights": [40, 60, 70],
-      "muscle": "Piernas"
-    },
-    "Leg press (maq)": {
-      "name": "Leg press (maq)",
-      "description": "Nivel 8, asiento a la mitad",
-      "series": 3,
-      "reps": 10,
-      "weights": [95, 102.5, 110],
+      "weights": [],
       "muscle": "Piernas"
     },
     "Piernas al culo": {
@@ -183,20 +159,20 @@
       "weights": [30, 35, 40],
       "muscle": "Piernas"
     },
-    "Gemelo de pie": {
-      "name": "Gemelo de pie",
-      "description": "Peso en los hombros, hacerlo con un pie",
+    "Gemelo": {
+      "name": "Gemelo",
+      "description": "De pie o en máquina",
       "series": 3,
       "reps": 10,
-      "weights": [30, 35],
+      "weights": [],
       "muscle": "Piernas"
     },
-    "Gemelo sentado (maq)": {
-      "name": "Gemelo sentado (maq)",
-      "description": "Gemelo en máquina. Nivel 10",
+    "Abductores": {
+      "name": "Abductores",
+      "description": "Aperturas de abductores hacia dentro",
       "series": 3,
       "reps": 10,
-      "weights": [45, 50],
+      "weights": [50, 55],
       "muscle": "Piernas"
     }
 }

@@ -549,20 +549,34 @@ function updateExVariations(ex) {
 }
 
 function renderVariation(ex, variation, index) {
-    const varElement = document.createElement('div');
+    const varElement = document.createElement('div'),
+        titleElement = document.createElement('div'),
+        setsElement = document.createElement('div'),
+        extraElement = document.createElement('div');
     varElement.className = 'm-var';
     varElement.onchange = () => updateVariation(ex, varElement, index);
-    varElement.innerHTML = `
+
+    titleElement.className = 'm-var-title';
+    titleElement.innerHTML = `
         <input class="var-name" type="text" value="${variation.name || ''}" placeholder="Nombre">
         <div class="remove-btn"></div>
+    `;
+    titleElement.querySelector('.remove-btn').appendChild(deleteVariationBtn(ex, index));
+    varElement.appendChild(titleElement);
+    setsElement.className = 'm-var-sets';
+    setsElement.innerHTML = `
         <label for="var-amount">Pesos/Tiempos</label>
         <input class="var-amount" id="var-amount" type="text" value="${variation.amount || ''}" placeholder="Pesos/Tiempo">
-        <label for="var-ser">Series</label>
+        <label for="var-ser">Ser.</label>
         <input type="text" class="var-ser" id="var-ser" value="${variation.series || '1'}">
-        <label for="var-rep">Repeticiones</label>
+        <label for="var-rep">Rep.</label>
         <input type="text" class="var-rep" id="var-rep" value="${variation.reps || '1'}">
     `;
-    varElement.querySelector('.remove-btn').appendChild(deleteVariationBtn(ex, index));
+    varElement.appendChild(setsElement);
+    // extraElement.className = 'm-var-extra';
+    // extraElement.innerHTML = ``;
+    // varElement.appendChild(extraElement);
+
     ELEMENTS.var.appendChild(varElement);
 }
 
