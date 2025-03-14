@@ -46,7 +46,7 @@ body {
     align-items: center;
     justify-content: space-around;
     user-select: none;
-    padding: 1rem 0;
+    padding: 1rem;
 }
 
 .menu-item {
