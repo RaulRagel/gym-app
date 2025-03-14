@@ -419,6 +419,8 @@ body {
 .m-var .var-ser, .m-var .var-rep { /* contenedores de los numeros */
     width: 40%;
     text-align: center;
+    border: 1px solid #b2304f;
+    border-radius: 10px;
 }
 
 .m-var label { /* sobreescribe las label de modal-ex */
