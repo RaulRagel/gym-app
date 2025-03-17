@@ -17,6 +17,7 @@ const PATHS = {
 };
 
 var ELEMENTS = null;
+var MODALS = null;
 
 /* INICIALIZACIÓN */
 
@@ -43,6 +44,12 @@ function initElements() {
         ser: document.getElementById('m-ser'),
         rep: document.getElementById('m-rep'),
         var: document.getElementById('m-var')
+    };
+
+    MODALS = {
+        ex: document.querySelector('.modal-ex'),
+        day: document.querySelector('.modal-day'),
+        list: document.querySelector('.modal-list')
     };
 
     ELEMENTS.wg.onchange = function() {
@@ -174,7 +181,7 @@ function editDay(day) {
 
 function renderDay(day) {
     // Lista de ejercicios del día
-    const modalDay = document.querySelector('.modal-day');
+    const modalDay = MODALS.day;
     modalDay.innerHTML = '';
     day.exercises.forEach(exName => {
         const exElement = document.createElement('div');
@@ -313,7 +320,7 @@ function setExList(day, config) {
     var config = config || {},
         disableBtns = config.disableBtns,
         exsByMuscle = orderByMuscle();
-    const modalList = document.querySelector('.modal-list');
+    const modalList = MODALS.list;
     modalList.innerHTML = '';
 
     // Si no hay botones, agregamos la clase para que ocupe todo el modal
@@ -393,6 +400,8 @@ function saveEx(ex, config) {
     target.weights = stringToNumberArray(ELEMENTS.wg.value);
     target.series = ELEMENTS.ser.value.trim();
     target.reps = ELEMENTS.rep.value.trim();
+
+    saveVariations(ex);
 
     saveData('exs', exs);
     setExInfo(ex);
@@ -554,7 +563,7 @@ function renderVariation(ex, variation, index) {
         setsElement = document.createElement('div'),
         extraElement = document.createElement('div');
     varElement.className = 'm-var';
-    varElement.onchange = () => updateVariation(ex, varElement, index);
+    varElement.onchange = () => capitalizeOnChange(varElement);
 
     titleElement.className = 'm-var-title';
     titleElement.innerHTML = `
@@ -579,20 +588,38 @@ function renderVariation(ex, variation, index) {
     ELEMENTS.var.appendChild(varElement);
 }
 
-function updateVariation(ex, elem, index) {
-    var updatedVariation = {
-            main: ex.name,
-            name: elem.querySelector('.var-name').value || 'Nueva',
-            amount: elem.querySelector('.var-amount').value,
-            series: elem.querySelector('.var-ser').value,
-            reps: elem.querySelector('.var-rep').value
-        };
-
-    if(index === undefined) index = newVariationIndex(ex.name);
+/**
+ * Función para guardar todas las variantes del ejercicio actual.
+ * Actualiza el objeto vars con las variantes que están actualmente abiertas
+ * dentro de un ejercicio que está siendo mostrado por pantalla
+ */
+function saveVariations(ex) {
+    var updatedVariations = [],
+        unsavedVariations = document.querySelectorAll('.m-var');
     
-    vars[ex.name][index] = updatedVariation;
+    if(!unsavedVariations.length) {
+        delete vars[ex.name];
+        return;
+    }
+
+    unsavedVariations.forEach(variationElem => {
+        updatedVariations.push({
+            main: ex.name,
+            name: variationElem.querySelector('.var-name').value || 'Otra variante',
+            amount: variationElem.querySelector('.var-amount').value,
+            series: variationElem.querySelector('.var-ser').value,
+            reps: variationElem.querySelector('.var-rep').value
+        });
+    });
+
+    vars[ex.name] = updatedVariations;
     saveData('vars', vars);
-    updateExVariations(ex);
+}
+
+function capitalizeOnChange(elem) { // ! TO DO generalizar función
+    var value = elem.querySelector('.var-name').value;
+    
+    elem.querySelector('.var-name').value = capitalize(value);
 }
 
 function deleteVariationBtn(ex, index) {
@@ -605,31 +632,40 @@ function deleteVariationBtn(ex, index) {
 
 function deleteVariation(event, ex, index) {
     event.stopPropagation();
-    if(index === undefined) index = newVariationIndex(ex.name);
-
-    vars[ex.name].splice(index, 1);
-    saveData('vars', vars);
-    updateExVariations(ex);
+    event.currentTarget.closest('.m-var').remove();
 }
 
 function addVariation(_, ex) {
     if(!vars[ex.name]) vars[ex.name] = [];
-    var exVariations = vars[ex.name],
-        isAnyNew = exVariations.some(variation => variation.isNew),
-        newVariation = null;
-    if(isAnyNew) return;
+    var newVariation = null,
+        index = document.querySelectorAll('.m-var').length;
+
+    scrollDown(MODALS.ex);
+    if(alreadyAdding()) return;
     newVariation = {
-        main: ex.name,
-        // la etiqueta isNew es única ya que no podremos crear una nueva si ya hay una siendo creada
-        // y cuando se guarda, la etiqueta se elimina
-        isNew: true
+        main: ex.name
     };
-    exVariations.push(newVariation);
-    renderVariation(ex, newVariation);
+
+    renderVariation(ex, newVariation, index);
 }
 
-function newVariationIndex(exName) {
-    return vars[exName].findIndex(variation => variation.isNew);
+/**
+ * Si ya hay alguna variante en proceso de creación, no podemos crear otra.
+ * @return {Boolean}
+ */
+function alreadyAdding() {
+    var unsavedVariations = document.querySelectorAll('.m-var'),
+        alreadyAdding = false;
+
+    if(!unsavedVariations.length) return alreadyAdding;
+
+    unsavedVariations.forEach(variationElem => {
+        if(variationElem.querySelector('.var-name').value === '') {
+            alreadyAdding = true;
+        }
+    });
+
+    return alreadyAdding;
 }
 
 /**
@@ -725,4 +761,8 @@ function setTitle(title, editable, placeholder) {
 function capitalize(str) {
     str = str.trim();
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+function scrollDown(container) {
+    container.scrollTop = container.scrollHeight;
 }

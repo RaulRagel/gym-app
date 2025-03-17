@@ -4,15 +4,15 @@
         "main": "Lat pulley",
         "name": "Con barra",
         "amount": "42, 50",
-        "series": 3,
-        "reps": 10
+        "series": "3",
+        "reps": "10"
       },
       {
         "main": "Lat pulley",
         "name": "En máquina",
         "amount": "42, 50",
-        "series": 3,
-        "reps": 10
+        "series": "3",
+        "reps": "10"
       }
   ],
   "Seated row": [
@@ -20,15 +20,15 @@
         "main": "Seated row",
         "name": "En máquina",
         "amount": "42, 50",
-        "series": 3,
-        "reps": 10
+        "series": "3",
+        "reps": "10"
       },
       {
         "main": "Seated row",
         "name": "Con discos. Peso asimétrico",
         "amount": "",
-        "series": 3,
-        "reps": 10
+        "series": "3",
+        "reps": "10"
       }
   ],
   "Tríceps en polea": [
