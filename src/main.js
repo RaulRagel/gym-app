@@ -55,6 +55,10 @@ function initElements() {
     ELEMENTS.wg.onchange = function() {
         ELEMENTS.wg.value = stringToNumberArray(ELEMENTS.wg.value);
     }
+
+    ELEMENTS.title.onchange = function() {
+        ELEMENTS.title.value = capitalize(ELEMENTS.title.value);
+    }
 }
 
 /**
@@ -567,7 +571,6 @@ function renderVariation(variation) {
         setsElement = document.createElement('div'),
         extraElement = document.createElement('div');
     varElement.className = 'm-var';
-    varElement.onchange = () => capitalizeOnChange(varElement);
 
     titleElement.className = 'm-var-title';
     titleElement.innerHTML = `
@@ -575,6 +578,9 @@ function renderVariation(variation) {
         <div class="remove-btn"></div>
     `;
     titleElement.querySelector('.remove-btn').appendChild(deleteVariationBtn());
+    titleElement.querySelector('.var-name').onchange = () => {
+        titleElement.value = capitalize(titleElement.value);
+    };
     varElement.appendChild(titleElement);
     setsElement.className = 'm-var-sets';
     setsElement.innerHTML = `
@@ -619,12 +625,6 @@ function saveVariations(exName) {
 
     vars[exName] = updatedVariations;
     saveData('vars', vars);
-}
-
-function capitalizeOnChange(elem) { // ! TO DO generalizar función
-    var value = elem.querySelector('.var-name').value;
-    
-    elem.querySelector('.var-name').value = capitalize(value);
 }
 
 function deleteVariationBtn() {
