@@ -577,9 +577,10 @@ function renderVariation(variation) {
         <input class="var-name" type="text" value="${variation.name || ''}" placeholder="Nombre de la variante">
         <div class="remove-btn"></div>
     `;
+    const varName = titleElement.querySelector('.var-name');
     titleElement.querySelector('.remove-btn').appendChild(deleteVariationBtn());
-    titleElement.querySelector('.var-name').onchange = () => {
-        titleElement.value = capitalize(titleElement.value);
+    varName.onchange = () => {
+        varName.value = capitalize(varName.value);
     };
     varElement.appendChild(titleElement);
     setsElement.className = 'm-var-sets';
