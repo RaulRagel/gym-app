@@ -401,7 +401,7 @@ function saveEx(ex, config) {
     target.series = ELEMENTS.ser.value.trim();
     target.reps = ELEMENTS.rep.value.trim();
 
-    saveVariations(ex);
+    saveVariations(ex.name);
 
     saveData('exs', exs);
     setExInfo(ex);
@@ -416,6 +416,9 @@ function saveEx(ex, config) {
     }
 }
 
+/**
+ * Función para agregar un nuevo ejercicio
+ */
 function addEx() {
     var title = capitalize(ELEMENTS.title.value);
     if(title) {
@@ -434,6 +437,7 @@ function addEx() {
             if(!exs[title]) exs[title] = newExs[title];
             newExs = {};
         }
+        saveVariations(title);
     }
 
     if(lastModal) {
@@ -551,13 +555,13 @@ function updateExVariations(ex) {
     ELEMENTS.var.innerHTML = ''; // actualizamos de nuevo siempre antes de renderizar
     const variations = vars[ex.name] || [];
     if(variations.length) {
-        variations.forEach((variation, index) => {
-            renderVariation(ex, variation, index);
+        variations.forEach(variation => {
+            renderVariation(variation);
         });
     }
 }
 
-function renderVariation(ex, variation, index) {
+function renderVariation(variation) {
     const varElement = document.createElement('div'),
         titleElement = document.createElement('div'),
         setsElement = document.createElement('div'),
@@ -570,7 +574,7 @@ function renderVariation(ex, variation, index) {
         <input class="var-name" type="text" value="${variation.name || ''}" placeholder="Nombre de la variante">
         <div class="remove-btn"></div>
     `;
-    titleElement.querySelector('.remove-btn').appendChild(deleteVariationBtn(ex, index));
+    titleElement.querySelector('.remove-btn').appendChild(deleteVariationBtn());
     varElement.appendChild(titleElement);
     setsElement.className = 'm-var-sets';
     setsElement.innerHTML = `
@@ -592,19 +596,20 @@ function renderVariation(ex, variation, index) {
  * Función para guardar todas las variantes del ejercicio actual.
  * Actualiza el objeto vars con las variantes que están actualmente abiertas
  * dentro de un ejercicio que está siendo mostrado por pantalla
+ * @param {String} exName Guardamos por el nombre
  */
-function saveVariations(ex) {
+function saveVariations(exName) {
     var updatedVariations = [],
         unsavedVariations = document.querySelectorAll('.m-var');
     
     if(!unsavedVariations.length) {
-        delete vars[ex.name];
+        delete vars[exName];
         return;
     }
 
     unsavedVariations.forEach(variationElem => {
         updatedVariations.push({
-            main: ex.name,
+            main: exName,
             name: variationElem.querySelector('.var-name').value || 'Otra variante',
             amount: variationElem.querySelector('.var-amount').value,
             series: variationElem.querySelector('.var-ser').value,
@@ -612,7 +617,7 @@ function saveVariations(ex) {
         });
     });
 
-    vars[ex.name] = updatedVariations;
+    vars[exName] = updatedVariations;
     saveData('vars', vars);
 }
 
@@ -622,31 +627,29 @@ function capitalizeOnChange(elem) { // ! TO DO generalizar función
     elem.querySelector('.var-name').value = capitalize(value);
 }
 
-function deleteVariationBtn(ex, index) {
+function deleteVariationBtn() {
     const removeBtn = document.createElement('button');
     removeBtn.className = 'btn';
     removeBtn.innerHTML = '<div class="icon">🗑️</div>';
-    removeBtn.onclick = (event) => deleteVariation(event, ex, index);
+    removeBtn.onclick = (event) => deleteVariation(event);
     return removeBtn;
 }
 
-function deleteVariation(event, ex, index) {
+function deleteVariation(event) {
     event.stopPropagation();
     event.currentTarget.closest('.m-var').remove();
 }
 
 function addVariation(_, ex) {
-    if(!vars[ex.name]) vars[ex.name] = [];
-    var newVariation = null,
-        index = document.querySelectorAll('.m-var').length;
+    var newVariation = null;
 
     scrollDown(MODALS.ex);
     if(alreadyAdding()) return;
     newVariation = {
-        main: ex.name
+        main: ex && ex.name || ''
     };
 
-    renderVariation(ex, newVariation, index);
+    renderVariation(newVariation);
 }
 
 /**
@@ -688,7 +691,7 @@ function setNewExInfo() {
     ELEMENTS.rep.value = '';
     ELEMENTS.var.innerHTML = '';
 
-    addVariationBtn.onclick = (event) => {}; // ! TO DO addTemporalVariation
+    addVariationBtn.onclick = (event) => addVariation(event);
 }
 
 function toggleFromGroup(type) {
