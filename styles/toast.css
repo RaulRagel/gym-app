@@ -1,0 +1,72 @@
+
+
+.toast-position {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 50vw;
+    border: 2px solid #ababab;
+    border-bottom-width: 6px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 20;
+
+    transition: all 1s ease;
+    transform: translate(-50%, 100%);
+}
+
+#toast.show {
+    transform: translate(-50%, -50%);
+}
+
+.toast-header {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem;
+}
+.toast-body {
+    background-color: #f4f4f4;
+    color: black;
+    width: 70%;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.toast-position input {
+    margin-right: 1rem;
+}
+
+.t-icon {
+    margin-left: 1rem;
+}
+
+.t-title {
+
+}
+
+.t-msg {
+
+}
+
+/* Clases para diferentes tipos de toast */
+#toast.success {
+    border-color: #28a745;
+}
+
+#toast.error {
+    border-color: #dc3545;
+}
+
+#toast.warning {
+    border-color: #ffc107;
+}
+
+#toast.info {
+    border-color: #17a2b8;
+}

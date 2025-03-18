@@ -6,10 +6,13 @@
     <title>GyMapp</title>
     <link rel="icon" href="./images/icon-png.png">
     <link rel="stylesheet" href="./styles/fonts.css">
-    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/toast.css">
+    <link rel="stylesheet" href="./styles/main.css">
     <script src="./src/file-controller.js"></script>
+    <script src="./src/app-config.js"></script>
     <script src="./src/utils.js"></script>
     <script src="./src/menu.js"></script>
+    <script src="./src/toast.js"></script>
     <script src="./src/main.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,7 +40,7 @@
                 <div class="readonly">
                     <input type="text" id="m-title">
                 </div>
-                <input type="button" class="btn" id="close-modal" value="❌">
+                <input type="button" class="btn" id="close-modal" value="✖️">
             </div>
             <div class="modal-ex group">
                 <div class="main-info">
@@ -77,6 +80,14 @@
                 <button class="btn hide" id="save">Guardar ✅</button>
             </div>
         </div>
+    </div>
+    <div id="toast" class="toast-position">
+        <div class="t-icon"></div>
+        <div class="toast-body roboto-bold">
+            <div class="t-title"></div>
+            <div class="t-msg roboto-regular"></div>
+        </div>
+        <input type="button" class="btn" id="close-toast" value="✖️">
     </div>
 </body>
 </html>

@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     initMenu();
     initElements();
+    initToast();
     renderInfo();
 });
 
@@ -228,6 +229,7 @@ function saveDay() {
     saveData('days', days);
     renderInfo(true);
     closeModal();
+    showToast('success', 'Hecho!', 'Día añadido correctamente.', '✅');
 }
 
 function deleteDay() {
@@ -236,6 +238,7 @@ function deleteDay() {
     saveData('days', days);
     renderInfo(true);
     closeModal();
+    showToast('success', 'Hecho!', 'Día borrado correctamente.', '✅');
 }
 
 function saveExList() {
@@ -410,12 +413,13 @@ function saveEx(ex, config) {
     saveData('exs', exs);
     setExInfo(ex);
     renderInfo(true);
+    showToast('success', 'Hecho!', 'Ejercicio actualizado correctamente.', '✅');
 
     if(lastModal && goLastModal) { // Si tenemos configurado un modal al que volver al guardar
         // Por el momento este caso solo ocurre cuando volvemos atrás desde la info de un ejercicio
         // en la lista global de ejercicios
         backToLastModal();
-    } else {
+    } else if(appConfig.closeModalOnSave) {
         closeModal();
     }
 }
@@ -426,6 +430,10 @@ function saveEx(ex, config) {
 function addEx() {
     var title = capitalize(ELEMENTS.title.value);
     if(title) {
+        if(exs[title]) {
+            showToast('error', 'Error!', 'Este ejercicio ya existe.', '❌');
+            return;
+        }
         newExs[title] = {
             name: title,
             description: ELEMENTS.desc.value.trim(),
@@ -438,7 +446,7 @@ function addEx() {
             if(!auxDay.exercises.includes(title)) auxDay.exercises.push(title);
             // else // TO DO: mostrar modal de ejercicio ya existente
         } else { // si no, lo buscamos en la lista global
-            if(!exs[title]) exs[title] = newExs[title];
+            exs[title] = newExs[title];
             newExs = {};
         }
         saveVariations(title);
@@ -466,7 +474,7 @@ function stringToNumberArray(str) {
  * @param {Object} config Si necesitamos una configuración adicional
  */
 function renderEditModal(type, target, config) {
-    closeModal();
+    hideButtons(); // Para casos como tener botones e ir a un modal que no tiene botones ni los cambia, como la lista
     var config = config || {};
 
     // Nueva funcionalidad futura
@@ -709,6 +717,7 @@ function toggleFromGroup(type) {
 function closeModal() {
     editModal.classList.remove('show');
     hideButtons(); // Para casos como tener botones e ir a un modal que no tiene botones ni los cambia, como la lista
+    lastModal = ''; // reiniciamos porque hemos cerrado los modales
 }
 
 /**
@@ -757,16 +766,3 @@ function setTitle(title, editable, placeholder) {
     titleElem.value = title;
 }
 
-/**
- * Capitaliza y borra los espacio
- * @param {String} str
- * @return {String}
- */
-function capitalize(str) {
-    str = str.trim();
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-}
-
-function scrollDown(container) {
-    container.scrollTop = container.scrollHeight;
-}

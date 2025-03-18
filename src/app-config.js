@@ -1,0 +1,5 @@
+
+
+var appConfig = {
+    closeModalOnSave: false
+}
