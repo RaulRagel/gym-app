@@ -36,11 +36,11 @@ function closeToast() {
 window.showToast = showToast;
 
 /*
-showToast('success', 'Success!', 'This is a success message.', '✅');
+showToast('success', 'Hecho!', 'This is a success message.', '✅');
 
 showToast('error', 'Error!', 'This is an error message.', '❌');
 
-showToast('warning', 'Warning!', 'This is a warning message.', '⚠️');
+showToast('warning', 'Advertencia', 'This is a warning message.', '⚠️');
 
-showToast('info', 'Info', 'This is an info message.', 'ℹ️');
+showToast('info', 'Información', 'This is an info message.', 'ℹ️');
 */

@@ -5,6 +5,7 @@
     left: 50%;
     bottom: 0;
     width: 50vw;
+    min-width: 300px;
     border: 2px solid #ababab;
     border-bottom-width: 6px;
     border-radius: 10px;
