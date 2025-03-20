@@ -46,7 +46,7 @@ body {
     
     /* Experimental colors */
     background: linear-gradient(90deg, rgb(178 218 196) 0%, rgb(227 211 155) 100%);
-    box-shadow: 10px 10px 10px rgba(3, 7, 18, 0.20);
+    box-shadow: 0px 10px 10px rgba(3, 7, 18, 0.20);
     color: #38385f;
 }
 
@@ -258,6 +258,7 @@ body {
 .readonly input {
     all: unset;
     width: 50vw;
+    min-width: 250px;
     padding: 0.5rem;
     box-sizing: border-box;
 }
