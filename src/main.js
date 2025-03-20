@@ -505,6 +505,7 @@ function renderEditModal(type, target, config) {
         // al volver atrás debemos poder volver a la lista
         if(config.canShowInfo) lastModal = type;
     }
+    document.body.classList.add('no-scroll');
     editModal.classList.add('show');
 }
 
@@ -717,6 +718,7 @@ function toggleFromGroup(type) {
 }
 
 function closeModal() {
+    document.body.classList.remove('no-scroll');
     editModal.classList.remove('show');
     hideButtons(); // Para casos como tener botones e ir a un modal que no tiene botones ni los cambia, como la lista
     lastModal = ''; // reiniciamos porque hemos cerrado los modales

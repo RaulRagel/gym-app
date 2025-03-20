@@ -19,6 +19,10 @@ body {
     /* background-repeat: no-repeat; */
 }
 
+.no-scroll {
+    overflow: hidden;
+}
+
 .white-shadow {
     text-shadow: 2px 2px 1px white;
 }
@@ -221,6 +225,9 @@ body {
     font-size: 0.8rem;
     color: #9f1212;
     font-weight: 600;
+
+    /* Experimental colors */
+    color: #38385f;
 }
 
 /* MODAL */
@@ -250,7 +257,7 @@ body {
 
 .readonly input {
     all: unset;
-    width: 100%;
+    width: 50vw;
     padding: 0.5rem;
     box-sizing: border-box;
 }
@@ -291,6 +298,9 @@ body {
     max-height: 400px; /* estándar */
     margin: 5vw auto;
     overflow: hidden;
+
+    /* Experimental colors */
+    background-color: white;
 }
 
 .modal .btn-container {
@@ -328,6 +338,9 @@ body {
     font-size: 1.2rem;
     font-weight: 600;
     color: #b2304f;
+
+    /* Experimental colors */
+    color: #38385f;
 }
 
 .modal-ex input, .modal-ex textarea {
@@ -388,6 +401,9 @@ body {
     top: 0;
     font-size: 0.75rem;
     font-weight: 700;
+
+    /* Experimental colors */
+    color: #38385f;
 }
 
 .m-ex.new-ex {
@@ -418,6 +434,9 @@ body {
     font-weight: 600;
     color: #b2304f;
     text-align: center;
+
+    /* Experimental colors */
+    color: #38385f;
 }
 
 .m-set {
@@ -450,6 +469,10 @@ body {
     width: 100%;
     gap: 1rem;
     flex-direction: column;
+
+    /* Experimental colors */
+    color: #38385f;
+    background: linear-gradient(181deg, rgb(239 211 197) 0%, rgb(204 210 235) 100%);
 }
 
 .m-var > div { /* sub contenedores de las variantes */
@@ -471,6 +494,9 @@ body {
     text-align: center;
     border: 1px solid #b2304f;
     border-radius: 10px;
+
+    /* Experimental colors */
+    border: 1px solid #38385f;
 }
 
 .m-var label { /* sobreescribe las label de modal-ex */
@@ -478,6 +504,9 @@ body {
     font-size: .9rem;
     line-height: 35px;
     font-weight: normal;
+
+    /* Experimental colors */
+    color: #38385f;
 }
 
 .btn.new-var {
@@ -487,6 +516,9 @@ body {
     color: #7f7f7f;
     width: fit-content;
     margin: 0.5rem 0;
+
+    color: #38385f;
+    background: linear-gradient(181deg, rgb(239 211 197) 0%, rgb(204 210 235) 100%);
 }
 
 /* Estilos para dispositivos móviles */
@@ -521,6 +553,9 @@ body {
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #888;
+
+    /* Experimental colors */
+    background: #38385f;
 }
 
 /* Handle on hover */
