@@ -6,6 +6,7 @@
     bottom: 0;
     width: 50vw;
     min-width: 300px;
+    background-color: #f4f4f4;
     border: 2px solid #ababab;
     border-bottom-width: 6px;
     border-radius: 10px;
@@ -31,7 +32,6 @@
     padding: .5rem;
 }
 .toast-body {
-    background-color: #f4f4f4;
     color: black;
     width: 70%;
     padding: .5rem;
