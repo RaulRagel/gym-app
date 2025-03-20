@@ -48,6 +48,7 @@ body {
     background: linear-gradient(90deg, rgb(178 218 196) 0%, rgb(227 211 155) 100%);
     box-shadow: 0px 10px 10px rgba(3, 7, 18, 0.20);
     color: #38385f;
+    border-bottom: 2px solid #38385f;
 }
 
 .header input {
@@ -123,6 +124,7 @@ body {
     /* background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%); */
     /* background: linear-gradient(24deg, rgb(164 188 225) 0%, rgb(175 214 207) 100%); */
     color: #38385f;
+    border: 2px solid #38385f;
 }
 
 .btn.new-day {
@@ -141,7 +143,7 @@ body {
 
 .edit-btn {
     position: absolute;
-    width: 10%;
+    width: 20%;
     height: 100%;
     right: 0;
     top: 0;
@@ -157,7 +159,6 @@ body {
 .dropdown {
     position: relative;
     background-color: #e7e7e7;
-    border: 2px solid #ababab;
     font-size: 1rem;
     font-weight: 600;
     width: 100%;
@@ -171,13 +172,13 @@ body {
     z-index: 1;
     transition: all .2s ease-in-out;
 
-    /* Experimental */
+    /* Experimental colors */
     background: linear-gradient(270deg, rgb(164 188 225) 0%, rgb(175 214 207) 100%);
-    border: 2px solid #38385f;
+    outline: 2px solid #38385f;
 }
 
 .dropdown.edit {
-    width: 90%;
+    width: 80%;
 }
 
 .dropdown .title {
