@@ -169,9 +169,11 @@ function dropdownExs(element) {
     if (exs.classList.contains('show')) {
         exs.classList.remove('show');
         icon.innerHTML = '⬇️';
+        element.classList.remove('edit');
     } else {
         exs.classList.add('show');
         icon.innerHTML = '⬆️';
+        element.classList.add('edit');
     }
 }
 

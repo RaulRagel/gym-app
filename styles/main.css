@@ -14,6 +14,18 @@ body {
     background-color: #f4f4f4;
     position: relative;
     height: 100%;
+    background-image: url('./../images/bg1.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.white-shadow {
+    text-shadow: 2px 2px 1px white;
+}
+
+.color-shadow {
+    text-shadow: 2px 2px 1px white, 3px 3px 2px #eb9788;
 }
 
 .header {
@@ -28,6 +40,16 @@ body {
     z-index: 1;
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
+    
+    /* Experimental colors */
+    background: linear-gradient(90deg, rgb(178 218 196) 0%, rgb(227 211 155) 100%);
+    box-shadow: 10px 10px 10px rgba(3, 7, 18, 0.20);
+    color: #38385f;
+}
+
+.header input {
+    /* Experimental colors */
+    color: #38385f;
 }
 
 .main-header {
@@ -93,6 +115,11 @@ body {
     position: relative;
     width: 100%; /* Importante si por encima tenemos un flex */
     box-shadow: 10px 10px 10px rgba(3, 7, 18, 0.20);
+
+    /* Experimental colors */
+    /* background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%); */
+    /* background: linear-gradient(24deg, rgb(164 188 225) 0%, rgb(175 214 207) 100%); */
+    color: #38385f;
 }
 
 .btn.new-day {
@@ -102,6 +129,11 @@ body {
     padding: 1rem;
     color: #ababab;
     width: fit-content; /* Importante si por encima tenemos un flex */
+
+    /* Experimental colors */
+    background: linear-gradient(24deg, rgb(164 188 225) 0%, rgb(175 214 207) 100%);
+    color: #38385f;
+    border: 2px solid #38385f;
 }
 
 .edit-btn {
@@ -120,11 +152,12 @@ body {
 }
 
 .dropdown {
+    position: relative;
     background-color: #e7e7e7;
     border: 2px solid #ababab;
     font-size: 1rem;
     font-weight: 600;
-    width: 90%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -132,6 +165,16 @@ body {
     cursor: pointer;
     border-radius: 10px;
     user-select: none;
+    z-index: 1;
+    transition: all .2s ease-in-out;
+
+    /* Experimental */
+    background: linear-gradient(270deg, rgb(164 188 225) 0%, rgb(175 214 207) 100%);
+    border: 2px solid #38385f;
+}
+
+.dropdown.edit {
+    width: 90%;
 }
 
 .dropdown .title {
