@@ -27,14 +27,11 @@ function checkForUpdate() {
     const storedVersion = localStorage.getItem("app_version");
 
     if (storedVersion !== APP_VERSION) {
-        showToast('warning', 'Nueva versión detectada', 'Hay una nueva versión de la aplicación, reiniciando la página...', '⚠️');
+        showToast('warning', 'Nueva versión detectada', 'Reinicia la app para aplicar posibles cambios.', '⚠️');
         caches.keys().then((names) => {
             names.forEach((name) => caches.delete(name));
         });
         localStorage.setItem('app_version', APP_VERSION);
-        setTimeout(function() {
-            location.reload();
-        }, 2800);
     }
 }
 
