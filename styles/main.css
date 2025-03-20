@@ -303,6 +303,7 @@ body {
 
     /* Experimental colors */
     background-color: white;
+    border: 2px solid #38385f;
 }
 
 .modal .btn-container {
@@ -318,8 +319,11 @@ body {
     background-color: #333;
     padding: .8rem;
     border-radius: 10px;
-    border: 1px solid #ababab;
+    /* border: 1px solid #ababab; */
     text-align: center;
+
+    /* Experimental colors */
+    background-color: #38385f;
 }
 
 .group {
