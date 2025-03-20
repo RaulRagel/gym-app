@@ -21,7 +21,7 @@ var MODALS = null;
 
 /* APP VERSION */
 
-const APP_VERSION = "1.0.1";
+const APP_VERSION = "1.0.2";
 
 function checkForUpdate() {
     const storedVersion = localStorage.getItem("app_version");
