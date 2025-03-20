@@ -19,6 +19,27 @@ const PATHS = {
 var ELEMENTS = null;
 var MODALS = null;
 
+/* APP VERSION */
+
+const APP_VERSION = "1.0.1";
+
+function checkForUpdate() {
+    const storedVersion = localStorage.getItem("app_version");
+
+    if (storedVersion !== APP_VERSION) {
+        console.log("Nueva versión detectada, limpiando caché...");
+        showToast('warning', 'Nueva versión detectada', 'Hay una nueva versión de la aplicación, reiniciando la página...', '⚠️');
+        caches.keys().then((names) => {
+            names.forEach((name) => caches.delete(name));
+        });
+        localStorage.setItem("app_version", APP_VERSION);
+        setTimeout(function() {
+            location.reload();
+        }, 2800);
+    }
+}
+
+
 /* INICIALIZACIÓN */
 
 document.addEventListener('DOMContentLoaded', async function () {
@@ -34,6 +55,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     initElements();
     initToast();
     renderInfo();
+
+    checkForUpdate();
 });
 
 function initElements() {
