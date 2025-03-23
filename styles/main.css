@@ -158,7 +158,7 @@ body {
 
 .edit-btn {
     position: absolute;
-    right: 2rem;
+    right: 2vw;
     height: 4rem;
     color: #38385f;
 
@@ -173,10 +173,10 @@ body {
 
 .edit-btn span {
     font-family: 'Roboto';
-    font-size: .8rem;
+    font-size: 2.8vw;
     position: absolute;
     bottom: 5px;
-    right: -9px;
+    right: -12px;
     width: 180%;
     font-weight: 600;
 }
