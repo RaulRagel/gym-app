@@ -147,9 +147,12 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
                 exElement.onclick = () => editEx(ex);
                 exElement.innerHTML = `
                     <div class="ex-muscle">${ex.muscle}</div>
-                    <div class="ex-title">${ex.name}</div>
+                    <div class="ex-title grow">${ex.name}</div>
                     <div class="ex-wg">${ex.weights && ex.weights.join(', ')}</div>
-                    <div class="ex-sets">${ex.series} x ${ex.reps}</div>
+                    <div class="ex-sets no-flex">${ex.series} x ${ex.reps}</div>
+                    <div class="ex-done no-flex">
+                        <input type="checkbox" onclick="event.stopPropagation()">
+                    </div>
                 `;
                 exsElement.appendChild(exElement);
             }

@@ -173,7 +173,7 @@ body {
 
 .edit-btn span {
     font-family: 'Roboto';
-    font-size: 2.8vw;
+    font-size: 0.8rem;
     position: absolute;
     bottom: 5px;
     right: -12px;
@@ -237,6 +237,7 @@ body {
     border-bottom: 1px solid #ababab;
     text-align: center;
     cursor: pointer;
+    gap: 1rem;
 }
 
 .no-ex {
@@ -246,6 +247,14 @@ body {
 .ex > div {
     flex: 1;
     text-align: start;
+}
+
+.ex > div.grow {
+    flex-grow: 2;
+}
+
+.ex .no-flex {
+    flex: none;
 }
 
 .ex:hover {
@@ -259,6 +268,10 @@ body {
 
     /* Experimental colors */
     color: #38385f;
+}
+
+.ex .ex-wg {
+    text-align: center;
 }
 
 /* MODAL */
@@ -579,6 +592,10 @@ body {
         width: 100%;
         padding: 1rem;
         font-size: 1rem;
+    }
+
+    .ex {
+        padding: 0.5rem .8rem;
     }
 }
 
