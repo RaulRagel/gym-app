@@ -62,6 +62,12 @@ body {
     color: #38385f;
 }
 
+.menu input {
+    width: 22vw;
+    border-radius: 0;
+    text-align: center;
+}
+
 .main-header {
     flex-direction: column;
     padding: 0;

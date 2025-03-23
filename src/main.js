@@ -21,7 +21,7 @@ var MODALS = null;
 
 /* APP VERSION */
 
-const APP_VERSION = "1.0.3";
+const APP_VERSION = "1.0.4";
 
 function checkForUpdate() {
     const storedVersion = localStorage.getItem("app_version");
@@ -231,7 +231,7 @@ function renderDay(day) {
     // Botón de lista de ejercicios (editable por defecto)
     const newExElement = document.createElement('div');
     newExElement.className = 'm-ex new-ex';
-    newExElement.innerHTML = `<div class='add-btn'>Lista de ejercicios</div>`;
+    newExElement.innerHTML = `<div class='add-btn'>Agregar más ejercicios</div>`;
     newExElement.querySelector('.add-btn').onclick = () => renderEditModal('list', day);
     modalDay.appendChild(newExElement);
 }
