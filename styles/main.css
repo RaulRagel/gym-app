@@ -164,7 +164,7 @@ body {
 
 .edit-btn {
     position: absolute;
-    right: 2vw;
+    right: 4.5vw;
     height: 3rem;
     color: #38385f;
 
@@ -213,7 +213,7 @@ body {
 }
 
 .dropdown.show {
-    width: 85%;
+    width: 80%;
 }
 .dropdown .title {
     line-height: 3vh;
