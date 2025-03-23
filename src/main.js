@@ -21,7 +21,7 @@ var MODALS = null;
 
 /* APP VERSION */
 
-const APP_VERSION = "1.0.2";
+const APP_VERSION = "1.0.3";
 
 function checkForUpdate() {
     const storedVersion = localStorage.getItem("app_version");
@@ -118,12 +118,14 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
         const dayElement = document.createElement('div');
         dayElement.className = 'day';
         dayElement.innerHTML = `
-            <div class="edit-btn btn">
-                <div class="icon">✏️</div>
-            </div>
+            <button class="btn edit-btn">
+                <i class="fa fa-edit fa-2x">
+                    <span>Editar día</span>
+                </i>
+            </button>
             <div class="dropdown" onclick="dropdownExs(this)">
                 <div class="title">${day.title}</div>
-                <div class="icon">⬇️</div>
+                <i class="icon fa fa-arrow-down"></i>
             </div>
             <div class="exs">
             </div>
@@ -166,7 +168,7 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
 
 function newDayElement() {
     const btnElement = document.createElement('button');
-    btnElement.classList.add('btn', 'new-day');
+    btnElement.classList.add('btn', 'main-btn');
     btnElement.innerHTML = 'Agregar día ✚';
     btnElement.onclick = () => {
         var dayLength = Object.keys(days).length + 1;
@@ -184,14 +186,11 @@ function newDayElement() {
 
 function dropdownExs(element) {
     const exs = element.nextElementSibling;
-    const icon = element.querySelector('.icon');
     if (exs.classList.contains('show')) {
         exs.classList.remove('show');
-        icon.innerHTML = '⬇️';
         element.classList.remove('edit');
     } else {
         exs.classList.add('show');
-        icon.innerHTML = '⬆️';
         element.classList.add('edit');
     }
 }

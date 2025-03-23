@@ -139,7 +139,7 @@ body {
     border: 2px solid #38385f;
 }
 
-.btn.new-day {
+.btn.main-btn {
     background-color: #e7e7e7;
     border: 2px solid #ababab;
     border-radius: 10px;
@@ -158,17 +158,27 @@ body {
 
 .edit-btn {
     position: absolute;
-    width: 20%;
-    height: 100%;
-    right: 0;
-    top: 0;
+    right: 2rem;
     height: 4rem;
-    place-content: center;
+    color: #38385f;
+
+    /* Experimental colors */ /* Tema 2 */
+    color: #38385f;
 }
 
-.edit-btn .icon {
+/* .edit-btn .icon {
     text-align: center;
     font-size: 1.5rem;
+} */
+
+.edit-btn span {
+    font-family: 'Roboto';
+    font-size: .8rem;
+    position: absolute;
+    bottom: 5px;
+    right: -9px;
+    width: 180%;
+    font-weight: 600;
 }
 
 .dropdown {
@@ -197,7 +207,7 @@ body {
 }
 
 .dropdown.edit {
-    width: 80%;
+    width: 85%;
 }
 
 .dropdown .title {
@@ -223,7 +233,7 @@ body {
 .ex {
     display: flex;
     align-items: center;
-    padding: 0.5rem 0;
+    padding: 0.5rem 2rem;
     border-bottom: 1px solid #ababab;
     text-align: center;
     cursor: pointer;
@@ -235,6 +245,7 @@ body {
 
 .ex > div {
     flex: 1;
+    text-align: start;
 }
 
 .ex:hover {
