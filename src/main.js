@@ -162,9 +162,9 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
     // Agregar botón de Nuevo día
     container.appendChild(newDayElement());
 
-    if(openedDays.length) { // Volvemos a abrir los dias que estaban abiertos
-        document.querySelectorAll('.exs').forEach(function(elem, i) {
-            if(openedDays.includes(i)) elem.classList.add('show');
+    if(openedDays.length) { // Volvemos a abrir los dias que estaban abiertos desde el dropdown
+        document.querySelectorAll('.dropdown').forEach(function(dropdown, i) {
+            if(openedDays.includes(i)) dropdownExs(dropdown);
         });
     }
 }
@@ -351,14 +351,9 @@ function bulkDelete(exName) {
  */
 function setExList(day, config) {
     var config = config || {},
-        disableBtns = config.disableBtns,
         exsByMuscle = orderByMuscle();
     const modalList = MODALS.list;
     modalList.innerHTML = '';
-
-    // Si no hay botones, agregamos la clase para que ocupe todo el modal
-    if(disableBtns) modalList.classList.add('extended');
-    else modalList.classList.remove('extended');
 
     setTitle('Lista de ejercicios');
 

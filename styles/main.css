@@ -343,8 +343,8 @@ body {
     border-radius: 8px;
     width: 75vw;
     min-width: 355px;
-    min-height: 565px;
-    max-height: 400px; /* estándar */
+    min-height: 500px;
+    max-height: 700px;
     margin: 5vw auto;
     overflow: hidden;
 
@@ -354,12 +354,10 @@ body {
 }
 
 .modal .btn-container {
-    position: absolute;
     display: flex;
     width: 100%;
     justify-content: space-around;
     padding: 1rem;
-    bottom: 0;
 }
 
 .modal .btn-container .btn {
@@ -383,7 +381,8 @@ body {
 /* MODAL EX */
 .modal-ex {
     padding: 1rem;
-    max-height: 400px; /* estándar */
+    min-height: 340px; /* estándar */
+    max-height: 480px; /* estándar */
     overflow-y: auto;
 }
 
@@ -434,7 +433,8 @@ body {
 /* MODAL DAY */
 
 .modal-day {
-    max-height: 400px; /* estándar */
+    min-height: 340px; /* estándar */
+    max-height: 480px; /* estándar */
     overflow-y: auto;
 }
 
@@ -474,12 +474,9 @@ body {
 /* MODAL LIST */
 
 .modal-list {
-    max-height: 400px; /* estándar */
+    min-height: 340px; /* estándar */
+    max-height: 480px; /* estándar */
     overflow-y: auto;
-}
-
-.modal-list.extended {
-    max-height: 470px;
 }
 
 .m-musc {
