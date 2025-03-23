@@ -159,7 +159,7 @@ body {
 .edit-btn {
     position: absolute;
     right: 2vw;
-    height: 4rem;
+    height: 3rem;
     color: #38385f;
 
     /* Experimental colors */ /* Tema 2 */
@@ -175,7 +175,7 @@ body {
     font-family: 'Roboto';
     font-size: 0.8rem;
     position: absolute;
-    bottom: 5px;
+    bottom: -2px;
     right: -12px;
     width: 180%;
     font-weight: 600;
@@ -206,17 +206,19 @@ body {
     color: white;
 }
 
-.dropdown.edit {
+.dropdown.show {
     width: 85%;
 }
-
 .dropdown .title {
     line-height: 3vh;
     height: 3vh;
 }
-
 .dropdown .icon {
     font-size: 1.5rem;
+    transition: all .2s ease-in-out;
+}
+.dropdown .icon.show {
+    transform: rotate(180deg);
 }
 
 .exs {
@@ -296,9 +298,9 @@ body {
     color: white;
 }
 
-.readonly {
-    position: relative;
-    display: inline-block;
+#close-modal .fa {
+    transform: rotate(45deg);
+    font-size: 2rem;
 }
 
 .readonly input {
@@ -596,6 +598,10 @@ body {
 
     .ex {
         padding: 0.5rem .8rem;
+    }
+
+    .modal .btn-container .btn {
+        padding: .5rem;
     }
 }
 

@@ -125,7 +125,7 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
             </button>
             <div class="dropdown" onclick="dropdownExs(this)">
                 <div class="title">${day.title}</div>
-                <i class="icon fa fa-arrow-down"></i>
+                <i class="icon fa fa-chevron-down"></i>
             </div>
             <div class="exs">
             </div>
@@ -189,12 +189,15 @@ function newDayElement() {
 
 function dropdownExs(element) {
     const exs = element.nextElementSibling;
+    const icon = element.querySelector('.icon');
     if (exs.classList.contains('show')) {
-        exs.classList.remove('show');
-        element.classList.remove('edit');
+        exs.classList.remove('show'); // ejercicios
+        icon.classList.remove('show'); // icono
+        element.classList.remove('show'); // dropdown
     } else {
         exs.classList.add('show');
-        element.classList.add('edit');
+        icon.classList.add('show');
+        element.classList.add('show');
     }
 }
 
