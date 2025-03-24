@@ -116,14 +116,14 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
     Object.keys(days).forEach(key => {
         const day = days[key];
         const dayElement = document.createElement('div');
-        dayElement.className = 'day';
+        dayElement.className = 'day shaped';
         dayElement.innerHTML = `
             <button class="btn edit-btn">
                 <i class="fa fa-edit fa-2x">
                     <span>Editar día</span>
                 </i>
             </button>
-            <div class="dropdown" onclick="dropdownExs(this)">
+            <div class="dropdown shaped" onclick="dropdownExs(this)">
                 <div class="title">${day.title}</div>
                 <i class="icon fa fa-chevron-down"></i>
             </div>

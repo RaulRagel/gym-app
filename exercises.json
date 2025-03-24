@@ -52,7 +52,7 @@
       "description": "Fondos de tríceps en máquina",
       "series": 3,
       "reps": 10,
-      "weights": [50, 57, 65],
+      "weights": [57, 65],
       "muscle": "Tríceps"
     },
     "Tríceps en polea": {
@@ -85,7 +85,7 @@
       "series": 3,
       "reps": 10,
       "weights": [45, 50],
-      "muscle": "Abdominales"
+      "muscle": "Abdomen"
     },
     "Series de abominales": {
       "name": "Series de abominales",
@@ -93,7 +93,7 @@
       "series": 3,
       "reps": 30,
       "weights": [],
-      "muscle": "Abdominales"
+      "muscle": "Abdomen"
     },
     "Abdomen lateral con peso": {
       "name": "Abdomen lateral con peso",
@@ -101,7 +101,7 @@
       "series": 3,
       "reps": 10,
       "weights": [12],
-      "muscle": "Abdominales"
+      "muscle": "Abdomen"
     },
     "Seated chest press": {
       "name": "Seated chest press",

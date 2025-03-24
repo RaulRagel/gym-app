@@ -34,6 +34,10 @@ body {
     text-shadow: 2px 2px 1px white, 3px 3px 2px #eb9788;
 }
 
+.shaped {
+    border-radius: 10px 0 !important;  
+}
+
 .header {
     max-height: 8vh;
     position: relative;
