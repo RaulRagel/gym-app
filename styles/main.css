@@ -61,7 +61,7 @@ body {
     background: linear-gradient(90deg, rgb(192 170 214) 0%, rgb(188 212 228) 100%);
 }
 
-.header input {
+.header input, .title-container .btn {
     /* Experimental colors */
     color: #38385f;
 }
@@ -169,26 +169,22 @@ body {
 .edit-btn {
     position: absolute;
     right: 4.5vw;
-    height: 3rem;
-    color: #38385f;
+    top: 2.5vh;
+    height: fit-content;
 
     /* Experimental colors */ /* Tema 2 */
     color: #38385f;
 }
 
-/* .edit-btn .icon {
-    text-align: center;
-    font-size: 1.5rem;
-} */
-
 .edit-btn span {
     font-family: 'Roboto';
     font-size: 0.8rem;
     position: absolute;
-    bottom: -2px;
+    top: -13px;
     right: -12px;
     width: 180%;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .dropdown {
