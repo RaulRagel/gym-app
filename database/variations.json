@@ -63,6 +63,22 @@
       "reps": "10"
     }
   ],
+  "Bench press": [
+    {
+      "main": "Bench press",
+      "name": "Barra en jaula",
+      "amount": "5, 10, 12.5",
+      "series": "3",
+      "reps": "10"
+    },
+    {
+      "main": "Bench press",
+      "name": "Mancuernas en banco",
+      "amount": "",
+      "series": "3",
+      "reps": "10"
+    }
+  ],
   "Bicep curl": [
     {
       "main": "Bicep curl",

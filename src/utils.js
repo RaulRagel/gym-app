@@ -26,3 +26,11 @@ function capitalize(str) {
 function scrollDown(container) {
     container.scrollTop = container.scrollHeight;
 }
+
+function hasKeys(obj) {
+    return obj && keys(obj).length > 0;
+}
+
+function keys(obj) {
+    return obj ? Object.keys(obj) : [];
+}

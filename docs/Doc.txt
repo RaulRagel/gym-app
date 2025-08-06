@@ -26,3 +26,9 @@ modal-day
 modal-list
 Todos pertenecen a un grupo, y gracias a la función toggleFromGroup podemos controlar que
 sólo se muestre uno del grupo, mientras los demás permanecen ocultos por defecto
+
+ICONOS:
+success: '✅',
+error: '❌',
+warning: '⚠️',
+info: 'ℹ️'

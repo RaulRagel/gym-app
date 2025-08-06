@@ -10,6 +10,7 @@ function initMenu() {
     menu.querySelector('#add').onclick = () => addGlobalEx();
     menu.querySelector('#exsList').onclick = () => showExsList();
     menu.querySelector('#removeData').onclick = () => removeData();
+    menu.querySelector('#resetData').onclick = () => resetData();
     menu.querySelector('#config').onclick = () => showConfig();
 }
 
@@ -27,11 +28,18 @@ function showExsList() {
     });
 }
 
-function removeData() {
+function resetData() { // si local esta vacío, obtenemos datos por defecto
     localStorage.clear();
     window.location.reload();
 }
 
+function removeData() {
+    saveData('days', {});
+    saveData('exs', {});
+    saveData('vars', {});
+    window.location.reload();
+}
+
 function showConfig() {
-  showToast('warning', 'Advertencia', 'Esta funcionalidad no está implementada.', '⚠️'); 
+  showToast('warning', 'Advertencia', 'Esta funcionalidad no está implementada.'); 
 }

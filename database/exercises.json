@@ -119,6 +119,14 @@
       "weights": [35, 42.5],
       "muscle": "Pecho"
     },
+    "Bench press": {
+      "name": "Bench press",
+      "description": "Press de pecho normal (tumbado con barra o mancuernas). Pesos a cada lado.",
+      "series": 3,
+      "reps": 10,
+      "weights": [5, 10, 12.5],
+      "muscle": "Pecho"
+    },
     "Butterfly": {
       "name": "Butterfly",
       "description": "Mariposa, brazos en 90º",

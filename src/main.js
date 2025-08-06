@@ -9,6 +9,8 @@ var auxDay = {}; // Día auxiliar para mostrar cambios antes de guardar
 var newExs = {}; // Ejercicios nuevos, a la espera de guardar el día. Al guardar se reinicia la variable
 var lastModal = ''; // True cuando hay un modal al que podemos volver
 
+var currentTarget = {}; // Objeto que se está editando actualmente
+
 const PATHS = {
     days: './../database/days.json',
     exs: './../database/exercises.json',
@@ -25,7 +27,7 @@ const APP_VERSION = "1.0.4";
 function initialMessage() {
     let hasMessage = localStorage.getItem('message');
     if (hasMessage) {
-        showToast('info', 'Información', hasMessage, 'ℹ️');
+        showToast('info', 'Información', hasMessage);
         localStorage.removeItem('message');
     }
 }
@@ -59,7 +61,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     initToast();
     renderInfo();
 
-    checkForUpdate();
+    // checkForUpdate();
     initialMessage();
 });
 
@@ -121,7 +123,7 @@ function renderInfo(update) { // TO DO: agregar un boton para agregar dias
         });
     }
     container.innerHTML = '';
-    Object.keys(days).forEach(key => {
+    keys(days).forEach(key => {
         const day = days[key];
         const dayElement = document.createElement('div');
         dayElement.className = 'day shaped';
@@ -182,7 +184,7 @@ function newDayElement() {
     btnElement.classList.add('btn', 'main-btn');
     btnElement.innerHTML = 'Agregar día ✚';
     btnElement.onclick = () => {
-        var dayLength = Object.keys(days).length + 1;
+        var dayLength = keys(days).length + 1;
         days['day' + dayLength] = {
             title: 'Día ' + dayLength,
             name: 'day' + dayLength,
@@ -239,7 +241,7 @@ function renderDay(day) {
     // Botón de lista de ejercicios (editable por defecto)
     const newExElement = document.createElement('div');
     newExElement.className = 'm-ex new-ex';
-    newExElement.innerHTML = `<div class='add-btn'>Agregar más ejercicios</div>`;
+    newExElement.innerHTML = `<div class='add-btn'>Agregar ejercicios existentes</div>`;
     newExElement.querySelector('.add-btn').onclick = () => renderEditModal('list', day);
     modalDay.appendChild(newExElement);
 }
@@ -255,7 +257,7 @@ function resetDay() {
 function saveDay() {
     days[auxDay.name] = JSON.parse(JSON.stringify(auxDay)); // Copia profunda del objeto
     auxDay = {};
-    if(Object.keys(newExs).length) { // Si se han creado nuevos ejercicios, los agregamos
+    if(hasKeys(newExs)) { // Si se han creado nuevos ejercicios, los agregamos
         exs = Object.assign(exs, newExs);
         newExs = {};
         saveData('exs', exs);
@@ -263,7 +265,7 @@ function saveDay() {
     saveData('days', days);
     renderInfo(true);
     closeModal();
-    showToast('success', 'Hecho!', 'Día añadido correctamente.', '✅');
+    showToast('success', 'Hecho!', 'Día añadido correctamente.');
 }
 
 function deleteDay() {
@@ -272,7 +274,7 @@ function deleteDay() {
     saveData('days', days);
     renderInfo(true);
     closeModal();
-    showToast('success', 'Hecho!', 'Día borrado correctamente.', '✅');
+    showToast('success', 'Hecho!', 'Día borrado correctamente.');
 }
 
 function saveExList() {
@@ -285,8 +287,8 @@ function saveExList() {
     // Actualizamos el dia auxiliar ya que aún no hemos confirmado el guardado del día
     auxDay.exercises = exsToAdd;
     // Agregamos posibles nuevos ejercicios
-    if(Object.keys(newExs).length) {
-        auxDay.exercises = auxDay.exercises.concat(Object.keys(newExs));
+    if(hasKeys(newExs)) {
+        auxDay.exercises = auxDay.exercises.concat(keys(newExs));
     }
     backToLastModal(auxDay);
 }
@@ -341,7 +343,7 @@ function removeEx(event, day, exName) {
  * @param {String} exName 
  */
 function bulkDelete(exName) {
-    Object.keys(days).forEach(key => {
+    keys(days).forEach(key => {
         const day = days[key];
         const exIndex = day.exercises.findIndex(ex => ex === exName);
         if(exIndex !== -1) day.exercises.splice(exIndex, 1);
@@ -358,6 +360,7 @@ function bulkDelete(exName) {
  * @param {Object} config 
  */
 function setExList(day, config) {
+    if(!hasKeys(exs)) showToast('warning', 'Advertencia', 'No hay ejercicios creados');
     var config = config || {},
         exsByMuscle = orderByMuscle();
     const modalList = MODALS.list;
@@ -365,7 +368,7 @@ function setExList(day, config) {
 
     setTitle('Lista de ejercicios');
 
-    Object.keys(exsByMuscle).forEach(muscle => {
+    keys(exsByMuscle).forEach(muscle => {
         const muscleElement = document.createElement('div');
         muscleElement.className = 'm-set';
         muscleElement.innerHTML = `<div class='m-musc'>${muscle}</div>`;
@@ -404,7 +407,7 @@ function setExList(day, config) {
 
 function orderByMuscle() {
     var exsByMuscle = {};
-    Object.keys(exs).forEach(exName => {
+    keys(exs).forEach(exName => {
         const ex = exs[exName];
         if(!ex.muscle) ex.muscle = 'Otros';
         if (!exsByMuscle[ex.muscle]) exsByMuscle[ex.muscle] = [];
@@ -432,17 +435,17 @@ function saveEx(ex, config) {
         config = config || {},
         goLastModal = config.canShowInfo;
     target.description = ELEMENTS.desc.value.trim();
-    target.muscle = ELEMENTS.musc.value.trim();
-    target.weights = stringToNumberArray(ELEMENTS.wg.value);
-    target.series = ELEMENTS.ser.value.trim();
-    target.reps = ELEMENTS.rep.value.trim();
+    target.muscle = ELEMENTS.musc.value.trim() || 'Otros';
+    target.weights = stringToNumberArray(ELEMENTS.wg.value)|| '0';
+    target.series = ELEMENTS.ser.value.trim() || '1';
+    target.reps = ELEMENTS.rep.value.trim() || '1';
 
     saveVariations(ex.name);
 
     saveData('exs', exs);
     setExInfo(ex);
     renderInfo(true);
-    showToast('success', 'Hecho!', 'Ejercicio actualizado correctamente.', '✅');
+    showToast('success', 'Hecho!', 'Ejercicio actualizado correctamente.');
 
     if(lastModal && goLastModal) { // Si tenemos configurado un modal al que volver al guardar
         // Por el momento este caso solo ocurre cuando volvemos atrás desde la info de un ejercicio
@@ -460,22 +463,23 @@ function addEx() {
     var title = capitalize(ELEMENTS.title.value);
     if(title) {
         if(exs[title]) {
-            showToast('error', 'Error!', 'Este ejercicio ya existe.', '❌');
+            showToast('error', 'Error!', 'Este ejercicio ya existe.');
             return;
         }
         newExs[title] = {
             name: title,
             description: ELEMENTS.desc.value.trim(),
-            muscle: capitalize(ELEMENTS.musc.value),
-            weights: stringToNumberArray(ELEMENTS.wg.value),
-            series: ELEMENTS.ser.value.trim(),
-            reps: ELEMENTS.rep.value.trim(),
+            muscle: capitalize(ELEMENTS.musc.value) || 'Otros',
+            weights: stringToNumberArray(ELEMENTS.wg.value) || '0',
+            series: ELEMENTS.ser.value.trim() || '1',
+            reps: ELEMENTS.rep.value.trim() || '1',
         };
         if(auxDay.exercises) { // si es un dia concreto, tendremos auxDay
             if(!auxDay.exercises.includes(title)) auxDay.exercises.push(title);
             // else // TO DO: mostrar modal de ejercicio ya existente
         } else { // si no, lo buscamos en la lista global
             exs[title] = newExs[title];
+            saveData('exs', exs);
             newExs = {};
         }
         saveVariations(title);
@@ -502,7 +506,9 @@ function stringToNumberArray(str) {
  * @param {Object} target Si necesitamos editar, este es el objeto editable
  * @param {Object} config Si necesitamos una configuración adicional
  */
-function renderEditModal(type, target, config) {
+function renderEditModal(type, target, config) { // !
+    currentTarget = target || {};
+    console.log('currentTarget', currentTarget);
     hideButtons(); // Para casos como tener botones e ir a un modal que no tiene botones ni los cambia, como la lista
     var config = config || {};
 
@@ -624,7 +630,7 @@ function renderVariation(variation) {
     setsElement.className = 'm-var-sets';
     setsElement.innerHTML = `
         <label>Peso/Tiempo</label>
-        <input class="var-amount" type="text" value="${variation.amount || ''}" placeholder="Cuánto?">
+        <input class="var-amount" type="text" value="${variation.amount || ''}">
         <input type="text" class="var-ser" value="${variation.series || '3'}">
         <label> x </label>
         <input type="text" class="var-rep" value="${variation.reps || '10'}">
@@ -674,7 +680,8 @@ function deleteVariationBtn() {
     return removeBtn;
 }
 
-function deleteVariation(event) {
+function deleteVariation(event) { // !
+    console.log('currentTarget', currentTarget);
     event.stopPropagation();
     event.currentTarget.closest('.m-var').remove();
 }
@@ -749,6 +756,8 @@ function closeModal() {
     editModal.classList.remove('show');
     hideButtons(); // Para casos como tener botones e ir a un modal que no tiene botones ni los cambia, como la lista
     lastModal = ''; // reiniciamos porque hemos cerrado los modales
+    currentTarget = {};
+    console.log('currentTarget', currentTarget);
 }
 
 /**
