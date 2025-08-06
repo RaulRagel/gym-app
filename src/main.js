@@ -10,10 +10,9 @@ var newExs = {}; // Ejercicios nuevos, a la espera de guardar el día. Al guarda
 var lastModal = ''; // True cuando hay un modal al que podemos volver
 
 const PATHS = {
-    config: './config.json',
-    days: './days.json',
-    exs: './exercises.json',
-    vars: './variations.json'
+    days: './../database/days.json',
+    exs: './../database/exercises.json',
+    vars: './../database/variations.json'
 };
 
 var ELEMENTS = null;
