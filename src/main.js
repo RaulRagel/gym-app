@@ -22,15 +22,23 @@ var MODALS = null;
 
 const APP_VERSION = "1.0.4";
 
+function initialMessage() {
+    let hasMessage = localStorage.getItem('message');
+    if (hasMessage) {
+        showToast('info', 'Información', hasMessage, 'ℹ️');
+        localStorage.removeItem('message');
+    }
+}
+
 function checkForUpdate() {
     const storedVersion = localStorage.getItem("app_version");
 
     if (storedVersion !== APP_VERSION) {
-        showToast('warning', 'Nueva versión detectada', 'Reinicia la app para aplicar posibles cambios.', '⚠️');
         caches.keys().then((names) => {
             names.forEach((name) => caches.delete(name));
         });
         localStorage.setItem('app_version', APP_VERSION);
+        // window.location.reload();
     }
 }
 
@@ -52,6 +60,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     renderInfo();
 
     checkForUpdate();
+    initialMessage();
 });
 
 function initElements() {
