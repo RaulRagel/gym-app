@@ -56,8 +56,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     await getLocalData();
 
     editModal = document.querySelector('#edit-modal');
+    if(isMobile) editModal.querySelector('.modal-content').classList.add('mobile-edit-modal');
     closeBtn = document.getElementById('close-modal');
-    if(isMobile) closeBtn.classList.add('mobile-close-btn')
+    if(isMobile) closeBtn.classList.add('mobile-close-btn');
     closeBtn.onclick = closeModal; // Cerramos modal por defecto
 
     addVariationBtn = document.querySelector('.vars-container .new-var');

@@ -133,6 +133,9 @@ body {
 }
 
 /* Mobile styles */
+.header {
+    max-height: 10vh;
+}
 .mobile-close-btn {
     position: fixed;
     bottom: 10vh;
@@ -145,7 +148,7 @@ body {
 }
 
 .mobile-header {
-    padding-top: 10px;
+    padding-top: 20px;
 }
 
 .mobile-header.show {
@@ -163,6 +166,7 @@ body {
     width: 100%;
     padding: 0;
     margin-bottom: .8rem;
+    font-size: 1.1rem;
 }
 /* Mobile styles */
 
@@ -393,6 +397,10 @@ body {
     /* Experimental colors */
     background-color: white;
     border: 2px solid #38385f;
+}
+
+.mobile-edit-modal {
+    margin: 15vw auto;
 }
 
 .modal .btn-container {
