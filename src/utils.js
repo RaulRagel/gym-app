@@ -1,5 +1,25 @@
 
 
+function getPlatform() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    if (/android/i.test(userAgent)) {
+        return 'android';
+    }
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return 'ios';
+    }
+    if (/Win/.test(userAgent)) {
+        return 'windows';
+    }
+    if (/Mac/.test(userAgent)) {
+        return 'mac';
+    }
+    if (/Linux/.test(userAgent)) {
+        return 'linux';
+    }
+    return '';
+}
+
 function toggle(target, className) {
     const elem = typeof target === 'string' 
         ? document.querySelector(target)

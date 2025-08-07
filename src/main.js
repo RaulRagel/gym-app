@@ -16,9 +16,14 @@ const PATHS = {
     exs: './../database/exercises.json',
     vars: './../database/variations.json'
 };
+const platform = getPlatform();
+const isMobile = ['android', 'ios'].includes(platform);
+// const isMobile = true; // ! test only
 
 var ELEMENTS = null;
 var MODALS = null;
+
+var debugMode = false;
 
 /* APP VERSION */
 
@@ -52,6 +57,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     editModal = document.querySelector('#edit-modal');
     closeBtn = document.getElementById('close-modal');
+    if(isMobile) closeBtn.classList.add('mobile-close-btn')
     closeBtn.onclick = closeModal; // Cerramos modal por defecto
 
     addVariationBtn = document.querySelector('.vars-container .new-var');
@@ -59,6 +65,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     initMenu();
     initElements();
     initToast();
+    if(debugMode) showToast('info', 'Platform', platform, 10);
     renderInfo();
 
     // checkForUpdate();

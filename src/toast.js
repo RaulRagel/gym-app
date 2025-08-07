@@ -15,11 +15,11 @@ function initToast() {
     document.getElementById('close-toast').onclick = closeToast;
 }
 
-function showToast(type, title, message, icon) {
+function showToast(type, title, message, time) {
     closeToast();
 
     toastElem.classList.remove('success', 'error', 'warning', 'info');
-    toastElem.classList.add(type);
+    toastElem.classList.add(type.toLowerCase());
 
     document.querySelector('.t-icon').innerHTML = ICONS[type] || '';
     document.querySelector('.t-title').innerHTML = title;
@@ -29,7 +29,7 @@ function showToast(type, title, message, icon) {
 
     toastTout = setTimeout(() => {
         closeToast();
-    }, timeToShow);
+    }, time ? time * 1000 : timeToShow);
 }
 
 function closeToast() {

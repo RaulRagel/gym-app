@@ -12,6 +12,10 @@ function initMenu() {
     menu.querySelector('#removeData').onclick = () => removeData();
     menu.querySelector('#resetData').onclick = () => resetData();
     menu.querySelector('#config').onclick = () => showConfig();
+
+    if(isMobile) {
+        document.querySelector('.main-header').classList.add('mobile-header');
+    }
 }
 
 function addGlobalEx() {
