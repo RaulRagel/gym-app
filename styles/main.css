@@ -601,12 +601,14 @@ body {
 .m-var > div { /* sub contenedores de las variantes */
     display: flex;
     justify-content: space-between;
-    gap: .2rem;
+    gap: .8rem;
 }
 
-.m-var .var-name,.m-var .var-amount { /* el nombre de la variante debe ocupar todo lo que pueda */
+.m-var .var-name, .m-var .var-amount, .m-var .var-notes { /* el nombre de la variante debe ocupar todo lo que pueda */
     width: 100%;
     font-weight: normal;
+    border-radius: 10px;
+    border: 1px solid #38385f;
 }
 .m-var .remove-btn {
     line-height: 35px;
@@ -683,7 +685,7 @@ body {
 
     .modal .btn-container .btn {
         padding: .5rem;
-        font-size: 1rem;
+        font-size: .8rem;
     }
 }
 

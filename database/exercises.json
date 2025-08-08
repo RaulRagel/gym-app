@@ -121,7 +121,7 @@
     },
     "Bench press": {
       "name": "Bench press",
-      "description": "Press de pecho normal (tumbado con barra o mancuernas). Pesos a cada lado.",
+      "description": "Press de pecho normal (tumbado con barra o mancuernas)",
       "series": 3,
       "reps": 10,
       "weights": [5, 10, 12.5],

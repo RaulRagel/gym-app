@@ -621,12 +621,12 @@ function renderVariation(variation) {
     const varElement = document.createElement('div'),
         titleElement = document.createElement('div'),
         setsElement = document.createElement('div'),
-        extraElement = document.createElement('div');
+        notesElement = document.createElement('div');
     varElement.className = 'm-var';
-
+    // TITULO DE LA VARIANTE
     titleElement.className = 'm-var-title';
     titleElement.innerHTML = `
-        <input class="var-name" type="text" value="${variation.name || ''}" placeholder="Nombre de la variante">
+        <input class="var-name" type="text" value="${variation.name || ''}" placeholder="Ej: Con barra, con mancuernas...">
         <div class="remove-btn"></div>
     `;
     const varName = titleElement.querySelector('.var-name');
@@ -635,18 +635,30 @@ function renderVariation(variation) {
         varName.value = capitalize(varName.value);
     };
     varElement.appendChild(titleElement);
+    // PESO, REPETICIONES Y SERIES DE LA VARIANTE
     setsElement.className = 'm-var-sets';
     setsElement.innerHTML = `
-        <label>Peso/Tiempo</label>
-        <input class="var-amount" type="text" value="${variation.amount || ''}">
-        <input type="text" class="var-ser" value="${variation.series || '3'}">
-        <label> x </label>
-        <input type="text" class="var-rep" value="${variation.reps || '10'}">
+        <div class="m-var-info">
+            <div class="label">Peso/Tiempo</div>
+            <input class="var-amount" type="text" value="${variation.amount || ''}">
+        </div>
+        <div class="m-var-info">
+            <div class="label">Series/Reps</div>
+            <input type="text" class="var-ser" value="${variation.series || '3'}">
+            <div> x </div>
+            <input type="text" class="var-rep" value="${variation.reps || '10'}">
+        </div>
     `;
     varElement.appendChild(setsElement);
-    // extraElement.className = 'm-var-extra';
-    // extraElement.innerHTML = ``;
-    // varElement.appendChild(extraElement);
+    // NOTAS DE LA VARIANTE
+    notesElement.className = 'm-var-notes';
+    notesElement.innerHTML = `
+        <div class="m-var-info">
+            <div class="label">Notas</div>
+            <input class="var-notes" type="text" value="${variation.notes || ''}">
+        </div>
+    `;
+    varElement.appendChild(notesElement);
 
     ELEMENTS.var.appendChild(varElement);
 }
@@ -672,7 +684,8 @@ function saveVariations(exName) {
             name: variationElem.querySelector('.var-name').value || 'Otra variante',
             amount: variationElem.querySelector('.var-amount').value,
             series: variationElem.querySelector('.var-ser').value,
-            reps: variationElem.querySelector('.var-rep').value
+            reps: variationElem.querySelector('.var-rep').value,
+            notes: variationElem.querySelector('.var-note').value
         });
     });
 

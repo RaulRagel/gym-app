@@ -69,14 +69,16 @@
       "name": "Barra en jaula",
       "amount": "5, 10, 12.5",
       "series": "3",
-      "reps": "10"
+      "reps": "10",
+      "notes": "Peso por cada lado"
     },
     {
       "main": "Bench press",
       "name": "Mancuernas en banco",
       "amount": "",
       "series": "3",
-      "reps": "10"
+      "reps": "10",
+      "notes": "Peso por mancuerna"
     }
   ],
   "Bicep curl": [
