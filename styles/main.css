@@ -141,6 +141,12 @@ body {
     bottom: 10vh;
     left: 50%;
     transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     background: linear-gradient(90deg, rgb(192 170 214) 0%, rgb(188 212 228) 100%);
     padding: 15px;
     border-radius: 50%;
@@ -349,6 +355,14 @@ body {
     font-size: 2rem;
 }
 
+#close-modal .close {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 2rem;
+}
+
 .readonly input {
     all: unset;
     width: 50vw;
@@ -400,7 +414,7 @@ body {
 }
 
 .mobile-edit-modal {
-    margin: 15vw auto;
+    margin: 8vh auto;
 }
 
 .modal .btn-container {
@@ -572,15 +586,16 @@ body {
     border-radius: 8px;
     position: relative;
     width: 100%;
-    gap: 1rem;
+    gap: 2rem;
     flex-direction: column;
-
-    /* Experimental colors */
     color: #38385f;
+    border: 2px solid;
+
     /* Tema 1 */
     /* background: linear-gradient(270deg, rgb(227 211 155) 0%, rgb(175 214 207) 100%); */
     /* Tema 2 */
-    background: linear-gradient(90deg, rgb(192 170 214) 0%, rgb(188 212 228) 100%);
+    /* background: linear-gradient(90deg, rgb(192 170 214) 0%, rgb(188 212 228) 100%); */
+    background-color: white;;
 }
 
 .m-var > div { /* sub contenedores de las variantes */
@@ -591,7 +606,7 @@ body {
 
 .m-var .var-name,.m-var .var-amount { /* el nombre de la variante debe ocupar todo lo que pueda */
     width: 100%;
-    font-weight: 500;
+    font-weight: normal;
 }
 .m-var .remove-btn {
     line-height: 35px;
@@ -607,14 +622,27 @@ body {
     border: 1px solid #38385f;
 }
 
-.m-var label { /* sobreescribe las label de modal-ex */
+.m-var div {
     color: #b2304f;
     font-size: .9rem;
-    line-height: 35px;
+    /* line-height: 35px; */
     font-weight: normal;
-
-    /* Experimental colors */
     color: #38385f;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.m-var-info {
+    position: relative;
+    flex: 1;
+}
+
+.m-var-info .label {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-weight: bold;
 }
 
 .btn.new-var {
@@ -623,13 +651,14 @@ body {
     padding: 0.5rem;
     color: #7f7f7f;
     width: fit-content;
-    margin: 0.5rem 0;
-
-    color: #38385f;
+    margin: 0.3rem auto;
+    border: 2px solid;
+    background-color: #38385f;
+    color: white;
     /* Tema 1 */
     /* background: linear-gradient(270deg, rgb(227 211 155) 0%, rgb(175 214 207) 100%); */
     /* Tema 2 */
-    background: linear-gradient(90deg, rgb(192 170 214) 0%, rgb(188 212 228) 100%);
+    /* background: linear-gradient(90deg, rgb(192 170 214) 0%, rgb(188 212 228) 100%); */
 }
 
 /* Estilos para dispositivos móviles */
@@ -654,7 +683,7 @@ body {
 
     .modal .btn-container .btn {
         padding: .5rem;
-        font-size: .8rem;
+        font-size: 1rem;
     }
 }
 
