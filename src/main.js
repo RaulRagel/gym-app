@@ -192,10 +192,13 @@ function newDayElement() {
     btnElement.classList.add('btn', 'main-btn');
     btnElement.innerHTML = 'Agregar día ✚';
     btnElement.onclick = () => {
-        var dayLength = keys(days).length + 1;
-        days['day' + dayLength] = {
-            title: 'Día ' + dayLength,
-            name: 'day' + dayLength,
+        var nextDay = keys(days).length + 1;
+        while(days['day' + nextDay]) {
+            nextDay++;
+        }
+        days['day' + nextDay] = {
+            title: 'Día ' + nextDay,
+            name: 'day' + nextDay,
             description: '',
             exercises: []
         };
